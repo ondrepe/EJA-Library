@@ -6,6 +6,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
 
 
 \title{Soukromá knihovna\\
@@ -30,15 +32,15 @@ FEL ČVUT v Praze}
 \vspace{10mm}
 \smallskip
 
-\indent \par Tento oddíl dokumentu popisuje seznam funkčních požadavků na
-navrhovaný systém pro malou osobní knihovnu. Uvedené popisy požadavků nejsou v této verzi
-dokumentu definitivní a slouží pouze jako nástin pro budoucí popis požadavků. Detaily jednotlivých požadavků
-bude v budoucnu doplněny podle potřeby. Vytvořené UML modely případů užití (USE
-CASE) jsou přiložené na dalších stránkách dokumentu.
+\indent \par Tento oddíl dokumentu popisuje stručne chování požadované od
+systému a obsahuje též seznam funkčních požadavků na navrhovaný systém pro malou
+osobní knihovnu. Uvedené popisy požadavků nejsou v této verzi dokumentu definitivní a slouží pouze jako nástin pro budoucí popis požadavků. Detaily jednotlivých požadavků
+bude v budoucnu doplněny podle potřeby. Jednotlivé požadyvky jsou doplněny UML
+modely pro USE CASE (případy užití). Detailní scénáře jednotlivých případů užití
+zatím nebyly konzultovány.
 
 
-%\newpage
-\vspace{10mm}
+\newpage
 
 \section{Celkový popis systému}
 \indent \par Systém pro malou knihovnu bude používán v domácím prostředí pro
@@ -62,15 +64,18 @@ lhůtě) odeslat čtenáři e-mailem upomínku, že zapoměl vrátit knihu. Mech
 spouštění a odesílání bude specifikován později, v této fázi projektu nejsme
 schopni určit přesné technické řešení.
 
+\newpage
 
 \section{Požadavky na systém}
 \subsection{Evidence čtenářů}
+
 Systém bude administrátorovi umožňovat správu čtenářů. U čtenáře evidujeme jeho
 jméno, příjmení a kontaktní e-mail.
 U kontaktního e-mailu by bylo záhodno aby byla udržována aktuální adresa. Systém
 by měl umožňovat zasílání upomínek na nevrácené knihy přímo čtenářům. Pokud bude
 e-mailová adresa na čtenáře neaktuální, pochopitelně si upomínku nepřečte.
 
+\includegraphics[width=350pt]{img/evidencectenaru.png}
 \subsubsection{Přidat čtenáře}
 Administrátor bude moci přidat do systému čtenáře.
 
@@ -81,11 +86,12 @@ titulům a historii jeho výpůjček.
 \subsubsection{Upravit informace o čtenářovi}
 Administrátor může změnit informace o čtenářovi.
 
-
+\newpage
 \subsection{Evidence svazků}
 Systém bude administrátorovi umožňovat správu a půjčování svazků. U svazků
 evidujeme titul, jeho je svazek výtiskem.
 
+\includegraphics[width=350pt]{img/evidencesvazku.png}
 \subsubsection{Přidat nový svazek}
 Administrátor může přidat do systému nový svazek. Buďto k vybranému titulu, nebo
 se odpovídající titul vytvoří.
@@ -104,10 +110,13 @@ Administrátor může zaznamenat, že byl konkrétní svazek zapůjčen někter�
 \subsubsection{Vrátit svazek}
 Administrátor může zaznamenat, že byl svazek čtenářem navrácen zpět do knihovny.
 
+
 \subsection{Evidence autorů}
 Systém bude administrátorovi umožňovat evidenci autorů. U autorů budeme evidovat
-jejich jméno. Systém bude u autora též schopen zjistit 
+jejich jméno. Systém bude u autora též schopen zjistit jím napsané knihy v
+systému.
 
+\includegraphics[width=350pt]{img/evidenceautoru.png}
 \subsubsection{Přidat nového autora}
 Administrátor může přidat do systému nového autora.
 
@@ -128,6 +137,7 @@ Systém bude umožňovat správu knižních titulů. I titulu budeme evidovat jm
 originále, kategorii knihy, ISBN, číslo vydání, vydavatele, autora, počet
 stránek a stručný popis knihy.
 
+\includegraphics[width=350pt]{img/administraceknih.png}
 \subsubsection{Přidat titul}
 Administrátor může do systému přidat knižní titul.
 
@@ -154,7 +164,6 @@ Administrátor nebo čtenář může vkládat komentář k titulu.
 \subsubsection{Smazat komentář k titulu}
 Administrátor může smazat libovolný komentář k titulu.
 
-
 \subsection{Evidence kategorií}
 Systém bude umožňovat správu kategorií, které se používají pro třídění knih.
 
@@ -173,9 +182,20 @@ Administrátor může přidat vydavatele.
 \subsubsection{Smazat vydavatele}
 Administrátor může smazat vydavatele.
 
+
+
 \newpage
 
-\appendix
+\part{Datový model}
+
+\vspace{10mm}
+\smallskip
+
+\indent \par Tento oddíl dokumentu popisuje vyhotovený datový model navrhovaného
+systému. Součástí dokumentu je doménový slovník a ER model databáze.
+
+\newpage
+
 \section{Doménový slovník}
 
 Vzhledem k tomu, že datový model je v anglickém jazyce, rozhodli jsme se jako
@@ -200,6 +220,19 @@ pojmy, kterými se model zabývá.
 
 \item Commentary -- komentář
 
-
 \end{itemize}
+
+\newpage
+
+
+\section{Entity-Relationship Model}
+
+Zde je zobrazen ER model navrhovaného systému.
+
+\bigskip
+\includegraphics[width=450pt, angle=90]{img/ERM.png}
+
+\newpage
+\tableofcontents 
+
 \end{document}

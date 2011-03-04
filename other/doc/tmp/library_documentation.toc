@@ -1,0 +1,37 @@
+\select@language {czech}
+\contentsline {part}{I\hspace {1em}Software Requirements Specification}{1}{part.1}
+\contentsline {section}{\numberline {1}Celkov\IeC {\'y} popis syst\IeC {\'e}mu}{2}{section.1}
+\contentsline {section}{\numberline {2}Po\IeC {\v z}adavky na syst\IeC {\'e}m}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Evidence \IeC {\v c}ten\IeC {\'a}\IeC {\v r}\IeC {\r u}}{3}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}P\IeC {\v r}idat \IeC {\v c}ten\IeC {\'a}\IeC {\v r}e}{3}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Zobrazit informace o \IeC {\v c}ten\IeC {\'a}\IeC {\v r}ovi}{3}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Upravit informace o \IeC {\v c}ten\IeC {\'a}\IeC {\v r}ovi}{3}{subsubsection.2.1.3}
+\contentsline {subsection}{\numberline {2.2}Evidence svazk\IeC {\r u}}{4}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}P\IeC {\v r}idat nov\IeC {\'y} svazek}{4}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Prohl\IeC {\'\i }\IeC {\v z}et svazky}{4}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Upravit informace o svazku}{4}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}P\IeC {\r u}j\IeC {\v c}it svazek}{4}{subsubsection.2.2.4}
+\contentsline {subsubsection}{\numberline {2.2.5}Vr\IeC {\'a}tit svazek}{5}{subsubsection.2.2.5}
+\contentsline {subsection}{\numberline {2.3}Evidence autor\IeC {\r u}}{5}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}P\IeC {\v r}idat nov\IeC {\'e}ho autora}{5}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Prohl\IeC {\'\i }\IeC {\v z}et autory}{5}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}Prohl\IeC {\'\i }\IeC {\v z}et detail autora}{5}{subsubsection.2.3.3}
+\contentsline {subsubsection}{\numberline {2.3.4}Upravit informace o autorovi}{5}{subsubsection.2.3.4}
+\contentsline {subsubsection}{\numberline {2.3.5}Zobrazit tituly autora}{6}{subsubsection.2.3.5}
+\contentsline {subsection}{\numberline {2.4}Administrace knih}{6}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}P\IeC {\v r}idat titul}{6}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Prohl\IeC {\'\i }\IeC {\v z}et seznam titul\IeC {\r u}}{6}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}Prohl\IeC {\'\i }\IeC {\v z}et detail titulu}{6}{subsubsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.4}Upravit informace o titulu}{6}{subsubsection.2.4.4}
+\contentsline {subsubsection}{\numberline {2.4.5}Hodnotit titul}{7}{subsubsection.2.4.5}
+\contentsline {subsubsection}{\numberline {2.4.6}Vlo\IeC {\v z}it koment\IeC {\'a}\IeC {\v r} k titulu}{7}{subsubsection.2.4.6}
+\contentsline {subsubsection}{\numberline {2.4.7}Smazat koment\IeC {\'a}\IeC {\v r} k titulu}{7}{subsubsection.2.4.7}
+\contentsline {subsection}{\numberline {2.5}Evidence kategori\IeC {\'\i }}{7}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}P\IeC {\v r}idat kategorii}{7}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}Smazat kategorii}{7}{subsubsection.2.5.2}
+\contentsline {subsection}{\numberline {2.6}Evidence vydavatel\IeC {\r u}}{7}{subsection.2.6}
+\contentsline {subsubsection}{\numberline {2.6.1}P\IeC {\v r}idat vydavatele}{7}{subsubsection.2.6.1}
+\contentsline {subsubsection}{\numberline {2.6.2}Smazat vydavatele}{7}{subsubsection.2.6.2}
+\contentsline {part}{II\hspace {1em}Datov\IeC {\'y} model}{8}{part.2}
+\contentsline {section}{\numberline {3}Dom\IeC {\'e}nov\IeC {\'y} slovn\IeC {\'\i }k}{9}{section.3}
+\contentsline {section}{\numberline {4}Entity-Relationship Model}{10}{section.4}
