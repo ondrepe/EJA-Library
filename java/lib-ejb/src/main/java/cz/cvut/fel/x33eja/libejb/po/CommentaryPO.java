@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.po;
 
 import java.io.Serializable;
@@ -22,18 +27,18 @@ import javax.persistence.TemporalType;
  * @author ondrepe
  */
 @Entity
-@Table(name = "comentary")
+@Table(name = "commentary")
 @NamedQueries({
-    @NamedQuery(name = "Comentary.findAll", query = "SELECT c FROM Comentary c"),
-    @NamedQuery(name = "Comentary.findByIdComentary", query = "SELECT c FROM Comentary c WHERE c.idComentary = :idComentary"),
-    @NamedQuery(name = "Comentary.findByAuthorName", query = "SELECT c FROM Comentary c WHERE c.authorName = :authorName"),
-    @NamedQuery(name = "Comentary.findByTime", query = "SELECT c FROM Comentary c WHERE c.time = :time")})
-public class ComentaryPO implements Serializable {
+    @NamedQuery(name = "CommentaryPO.findAll", query = "SELECT c FROM CommentaryPO c"),
+    @NamedQuery(name = "CommentaryPO.findByIdCommentary", query = "SELECT c FROM CommentaryPO c WHERE c.idCommentary = :idCommentary"),
+    @NamedQuery(name = "CommentaryPO.findByAuthorName", query = "SELECT c FROM CommentaryPO c WHERE c.authorName = :authorName"),
+    @NamedQuery(name = "CommentaryPO.findByTime", query = "SELECT c FROM CommentaryPO c WHERE c.time = :time")})
+public class CommentaryPO implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "idComentary")
-    private Integer idComentary;
+    @Column(name = "idCommentary")
+    private Integer idCommentary;
     @Basic(optional = false)
     @Column(name = "authorName")
     private String authorName;
@@ -45,29 +50,29 @@ public class ComentaryPO implements Serializable {
     @Lob
     @Column(name = "text")
     private String text;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "comentary", fetch = FetchType.LAZY)
-    private List<ComentaryBookPO> comentarybookList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commentaryPO", fetch = FetchType.LAZY)
+    private List<CommentaryBookPO> commentaryBookPOList;
 
-    public ComentaryPO() {
+    public CommentaryPO() {
     }
 
-    public ComentaryPO(Integer idComentary) {
-        this.idComentary = idComentary;
+    public CommentaryPO(Integer idCommentary) {
+        this.idCommentary = idCommentary;
     }
 
-    public ComentaryPO(Integer idComentary, String authorName, Date time, String text) {
-        this.idComentary = idComentary;
+    public CommentaryPO(Integer idCommentary, String authorName, Date time, String text) {
+        this.idCommentary = idCommentary;
         this.authorName = authorName;
         this.time = time;
         this.text = text;
     }
 
-    public Integer getIdComentary() {
-        return idComentary;
+    public Integer getIdCommentary() {
+        return idCommentary;
     }
 
-    public void setIdComentary(Integer idComentary) {
-        this.idComentary = idComentary;
+    public void setIdCommentary(Integer idCommentary) {
+        this.idCommentary = idCommentary;
     }
 
     public String getAuthorName() {
@@ -94,29 +99,29 @@ public class ComentaryPO implements Serializable {
         this.text = text;
     }
 
-    public List<ComentaryBookPO> getComentarybookList() {
-        return comentarybookList;
+    public List<CommentaryBookPO> getCommentaryBookPOList() {
+        return commentaryBookPOList;
     }
 
-    public void setComentarybookList(List<ComentaryBookPO> comentarybookList) {
-        this.comentarybookList = comentarybookList;
+    public void setCommentaryBookPOList(List<CommentaryBookPO> commentaryBookPOList) {
+        this.commentaryBookPOList = commentaryBookPOList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idComentary != null ? idComentary.hashCode() : 0);
+        hash += (idCommentary != null ? idCommentary.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ComentaryPO)) {
+        if (!(object instanceof CommentaryPO)) {
             return false;
         }
-        ComentaryPO other = (ComentaryPO) object;
-        if ((this.idComentary == null && other.idComentary != null) || (this.idComentary != null && !this.idComentary.equals(other.idComentary))) {
+        CommentaryPO other = (CommentaryPO) object;
+        if ((this.idCommentary == null && other.idCommentary != null) || (this.idCommentary != null && !this.idCommentary.equals(other.idCommentary))) {
             return false;
         }
         return true;
@@ -124,7 +129,7 @@ public class ComentaryPO implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.cvut.fel.x33eja.libejb.po.Comentary[idComentary=" + idComentary + "]";
+        return "cz.cvut.fel.x33eja.libejb.po.CommentaryPO[idCommentary=" + idCommentary + "]";
     }
 
 }

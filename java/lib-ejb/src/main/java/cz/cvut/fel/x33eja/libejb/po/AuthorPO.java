@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.po;
 
 import java.io.Serializable;
@@ -20,10 +25,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "author")
 @NamedQueries({
-    @NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a"),
-    @NamedQuery(name = "Author.findByIdAuthor", query = "SELECT a FROM Author a WHERE a.idAuthor = :idAuthor"),
-    @NamedQuery(name = "Author.findByName", query = "SELECT a FROM Author a WHERE a.name = :name"),
-    @NamedQuery(name = "Author.findBySurname", query = "SELECT a FROM Author a WHERE a.surname = :surname")})
+    @NamedQuery(name = "AuthorPO.findAll", query = "SELECT a FROM AuthorPO a"),
+    @NamedQuery(name = "AuthorPO.findByIdAuthor", query = "SELECT a FROM AuthorPO a WHERE a.idAuthor = :idAuthor"),
+    @NamedQuery(name = "AuthorPO.findByName", query = "SELECT a FROM AuthorPO a WHERE a.name = :name"),
+    @NamedQuery(name = "AuthorPO.findBySurname", query = "SELECT a FROM AuthorPO a WHERE a.surname = :surname")})
 public class AuthorPO implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -36,8 +41,8 @@ public class AuthorPO implements Serializable {
     @Basic(optional = false)
     @Column(name = "surname")
     private String surname;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.LAZY)
-    private List<AuthorBookPO> authorbookList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "authorPO", fetch = FetchType.LAZY)
+    private List<AuthorBookPO> authorBookPOList;
 
     public AuthorPO() {
     }
@@ -76,12 +81,12 @@ public class AuthorPO implements Serializable {
         this.surname = surname;
     }
 
-    public List<AuthorBookPO> getAuthorbookList() {
-        return authorbookList;
+    public List<AuthorBookPO> getAuthorBookPOList() {
+        return authorBookPOList;
     }
 
-    public void setAuthorbookList(List<AuthorBookPO> authorbookList) {
-        this.authorbookList = authorbookList;
+    public void setAuthorBookPOList(List<AuthorBookPO> authorBookPOList) {
+        this.authorBookPOList = authorBookPOList;
     }
 
     @Override
@@ -106,7 +111,7 @@ public class AuthorPO implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.cvut.fel.x33eja.libejb.po.Author[idAuthor=" + idAuthor + "]";
+        return "cz.cvut.fel.x33eja.libejb.po.AuthorPO[idAuthor=" + idAuthor + "]";
     }
 
 }

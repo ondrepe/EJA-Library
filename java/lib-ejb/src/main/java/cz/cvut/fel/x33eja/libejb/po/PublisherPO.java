@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.po;
 
 import java.io.Serializable;
@@ -20,9 +25,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "publisher")
 @NamedQueries({
-    @NamedQuery(name = "Publisher.findAll", query = "SELECT p FROM Publisher p"),
-    @NamedQuery(name = "Publisher.findByIdPublisher", query = "SELECT p FROM Publisher p WHERE p.idPublisher = :idPublisher"),
-    @NamedQuery(name = "Publisher.findByName", query = "SELECT p FROM Publisher p WHERE p.name = :name")})
+    @NamedQuery(name = "PublisherPO.findAll", query = "SELECT p FROM PublisherPO p"),
+    @NamedQuery(name = "PublisherPO.findByIdPublisher", query = "SELECT p FROM PublisherPO p WHERE p.idPublisher = :idPublisher"),
+    @NamedQuery(name = "PublisherPO.findByName", query = "SELECT p FROM PublisherPO p WHERE p.name = :name")})
 public class PublisherPO implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -32,8 +37,8 @@ public class PublisherPO implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher", fetch = FetchType.LAZY)
-    private List<BookTitlePO> booktitleList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "publisherPO", fetch = FetchType.LAZY)
+    private List<BookTitlePO> bookTitlePOList;
 
     public PublisherPO() {
     }
@@ -63,12 +68,12 @@ public class PublisherPO implements Serializable {
         this.name = name;
     }
 
-    public List<BookTitlePO> getBooktitleList() {
-        return booktitleList;
+    public List<BookTitlePO> getBookTitlePOList() {
+        return bookTitlePOList;
     }
 
-    public void setBooktitleList(List<BookTitlePO> booktitleList) {
-        this.booktitleList = booktitleList;
+    public void setBookTitlePOList(List<BookTitlePO> bookTitlePOList) {
+        this.bookTitlePOList = bookTitlePOList;
     }
 
     @Override
@@ -93,7 +98,7 @@ public class PublisherPO implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.cvut.fel.x33eja.libejb.po.Publisher[idPublisher=" + idPublisher + "]";
+        return "cz.cvut.fel.x33eja.libejb.po.PublisherPO[idPublisher=" + idPublisher + "]";
     }
 
 }

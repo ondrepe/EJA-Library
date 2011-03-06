@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.po;
 
 import java.io.Serializable;
@@ -19,8 +24,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "categorybook")
 @NamedQueries({
-    @NamedQuery(name = "Categorybook.findAll", query = "SELECT c FROM Categorybook c"),
-    @NamedQuery(name = "Categorybook.findByIdCategoryBook", query = "SELECT c FROM Categorybook c WHERE c.idCategoryBook = :idCategoryBook")})
+    @NamedQuery(name = "CategoryBookPO.findAll", query = "SELECT c FROM CategoryBookPO c"),
+    @NamedQuery(name = "CategoryBookPO.findByIdCategoryBook", query = "SELECT c FROM CategoryBookPO c WHERE c.idCategoryBook = :idCategoryBook")})
 public class CategoryBookPO implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,10 +34,10 @@ public class CategoryBookPO implements Serializable {
     private Integer idCategoryBook;
     @JoinColumn(name = "idCategory", referencedColumnName = "idCategory")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private CategoryPO category;
+    private CategoryPO categoryPO;
     @JoinColumn(name = "isbn", referencedColumnName = "isbn")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private BookTitlePO booktitle;
+    private BookTitlePO bookTitlePO;
 
     public CategoryBookPO() {
     }
@@ -49,20 +54,20 @@ public class CategoryBookPO implements Serializable {
         this.idCategoryBook = idCategoryBook;
     }
 
-    public CategoryPO getCategory() {
-        return category;
+    public CategoryPO getCategoryPO() {
+        return categoryPO;
     }
 
-    public void setCategory(CategoryPO category) {
-        this.category = category;
+    public void setCategoryPO(CategoryPO categoryPO) {
+        this.categoryPO = categoryPO;
     }
 
-    public BookTitlePO getBooktitle() {
-        return booktitle;
+    public BookTitlePO getBookTitlePO() {
+        return bookTitlePO;
     }
 
-    public void setBooktitle(BookTitlePO booktitle) {
-        this.booktitle = booktitle;
+    public void setBookTitlePO(BookTitlePO bookTitlePO) {
+        this.bookTitlePO = bookTitlePO;
     }
 
     @Override
@@ -87,7 +92,7 @@ public class CategoryBookPO implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.cvut.fel.x33eja.libejb.po.Categorybook[idCategoryBook=" + idCategoryBook + "]";
+        return "cz.cvut.fel.x33eja.libejb.po.CategoryBookPO[idCategoryBook=" + idCategoryBook + "]";
     }
 
 }

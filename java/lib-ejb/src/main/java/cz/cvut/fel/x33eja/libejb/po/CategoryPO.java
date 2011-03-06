@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.po;
 
 import java.io.Serializable;
@@ -20,9 +25,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "category")
 @NamedQueries({
-    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
-    @NamedQuery(name = "Category.findByIdCategory", query = "SELECT c FROM Category c WHERE c.idCategory = :idCategory"),
-    @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")})
+    @NamedQuery(name = "CategoryPO.findAll", query = "SELECT c FROM CategoryPO c"),
+    @NamedQuery(name = "CategoryPO.findByIdCategory", query = "SELECT c FROM CategoryPO c WHERE c.idCategory = :idCategory"),
+    @NamedQuery(name = "CategoryPO.findByName", query = "SELECT c FROM CategoryPO c WHERE c.name = :name")})
 public class CategoryPO implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -32,8 +37,8 @@ public class CategoryPO implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.LAZY)
-    private List<CategoryBookPO> categorybookList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryPO", fetch = FetchType.LAZY)
+    private List<CategoryBookPO> categoryBookPOList;
 
     public CategoryPO() {
     }
@@ -63,12 +68,12 @@ public class CategoryPO implements Serializable {
         this.name = name;
     }
 
-    public List<CategoryBookPO> getCategorybookList() {
-        return categorybookList;
+    public List<CategoryBookPO> getCategoryBookPOList() {
+        return categoryBookPOList;
     }
 
-    public void setCategorybookList(List<CategoryBookPO> categorybookList) {
-        this.categorybookList = categorybookList;
+    public void setCategoryBookPOList(List<CategoryBookPO> categoryBookPOList) {
+        this.categoryBookPOList = categoryBookPOList;
     }
 
     @Override
@@ -93,7 +98,7 @@ public class CategoryPO implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.cvut.fel.x33eja.libejb.po.Category[idCategory=" + idCategory + "]";
+        return "cz.cvut.fel.x33eja.libejb.po.CategoryPO[idCategory=" + idCategory + "]";
     }
 
 }

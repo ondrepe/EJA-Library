@@ -2,63 +2,45 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-DROP SCHEMA IF EXISTS `Library` ;
 CREATE SCHEMA IF NOT EXISTS `Library` DEFAULT CHARACTER SET utf8 COLLATE utf8_czech_ci ;
-USE `Library` ;
 
--- -----------------------------------------------------
--- Table `Library`.`Reader`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Reader` ;
+USE `Library`;
 
 CREATE  TABLE IF NOT EXISTS `Library`.`Reader` (
-  `idReader` INT NOT NULL ,
+  `idReader` INT(11) NOT NULL ,
   `name` VARCHAR(50) NOT NULL ,
   `surname` VARCHAR(250) NOT NULL ,
   `email` VARCHAR(250) NOT NULL ,
   PRIMARY KEY (`idReader`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Library`.`Author`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Author` ;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
 CREATE  TABLE IF NOT EXISTS `Library`.`Author` (
-  `idAuthor` INT NOT NULL ,
+  `idAuthor` INT(11) NOT NULL ,
   `name` VARCHAR(50) NOT NULL ,
   `surname` VARCHAR(250) NOT NULL ,
   PRIMARY KEY (`idAuthor`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Library`.`Publisher`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Publisher` ;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
 CREATE  TABLE IF NOT EXISTS `Library`.`Publisher` (
-  `idPublisher` INT NOT NULL ,
+  `idPublisher` INT(11) NOT NULL ,
   `name` VARCHAR(250) NOT NULL ,
   PRIMARY KEY (`idPublisher`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Library`.`BookTitle`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`BookTitle` ;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
 CREATE  TABLE IF NOT EXISTS `Library`.`BookTitle` (
   `isbn` VARCHAR(100) NOT NULL ,
   `name` VARCHAR(2000) NOT NULL ,
-  `idPublisher` INT NOT NULL ,
-  `year` YEAR NULL ,
-  `pagesCount` INT NULL ,
-  `issueNumber` VARCHAR(50) NULL ,
-  `about` TEXT NULL ,
-  `score` INT NULL ,
+  `idPublisher` INT(11) NOT NULL ,
+  `year` YEAR NULL DEFAULT NULL ,
+  `pagesCount` INT(11) NULL DEFAULT NULL ,
+  `issueNumber` VARCHAR(50) NULL DEFAULT NULL ,
+  `about` TEXT NULL DEFAULT NULL ,
   PRIMARY KEY (`isbn`) ,
   INDEX `fk_BookTitle_Publisher` (`idPublisher` ASC) ,
   CONSTRAINT `fk_BookTitle_Publisher`
@@ -67,30 +49,21 @@ CREATE  TABLE IF NOT EXISTS `Library`.`BookTitle` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-COMMENT = 'Spojovací tabulka, která určuje do jakých kategorii patří kníha';
-
-
--- -----------------------------------------------------
--- Table `Library`.`Category`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Category` ;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
 CREATE  TABLE IF NOT EXISTS `Library`.`Category` (
-  `idCategory` INT NOT NULL ,
+  `idCategory` INT(11) NOT NULL ,
   `name` VARCHAR(250) NOT NULL ,
   PRIMARY KEY (`idCategory`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Library`.`CategoryBook`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`CategoryBook` ;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
 CREATE  TABLE IF NOT EXISTS `Library`.`CategoryBook` (
-  `idCategoryBook` INT NOT NULL ,
+  `idCategoryBook` INT(11) NOT NULL ,
   `isbn` VARCHAR(100) NOT NULL ,
-  `idCategory` INT NOT NULL ,
+  `idCategory` INT(11) NOT NULL ,
   PRIMARY KEY (`idCategoryBook`) ,
   INDEX `fk_BookInCategory_BookTitle1` (`isbn` ASC) ,
   INDEX `fk_BookInCategory_Category1` (`idCategory` ASC) ,
@@ -104,17 +77,13 @@ CREATE  TABLE IF NOT EXISTS `Library`.`CategoryBook` (
     REFERENCES `Library`.`Category` (`idCategory` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Library`.`AuthorBook`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`AuthorBook` ;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
 CREATE  TABLE IF NOT EXISTS `Library`.`AuthorBook` (
-  `idAuthorBook` INT NOT NULL ,
-  `idAuthor` INT NOT NULL ,
+  `idAuthorBook` INT(11) NOT NULL ,
+  `idAuthor` INT(11) NOT NULL ,
   `isbn` VARCHAR(100) NOT NULL ,
   PRIMARY KEY (`idAuthorBook`) ,
   INDEX `fk_AuthorBook_Author1` (`idAuthor` ASC) ,
@@ -130,105 +99,101 @@ CREATE  TABLE IF NOT EXISTS `Library`.`AuthorBook` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-COMMENT = 'Spojovací tabulka, která určuje kdo napsal jakou knihu';
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
-
--- -----------------------------------------------------
--- Table `Library`.`Comentary`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Comentary` ;
-
-CREATE  TABLE IF NOT EXISTS `Library`.`Comentary` (
-  `idComentary` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `Library`.`Commentary` (
+  `idCommentary` INT(11) NOT NULL ,
   `authorName` VARCHAR(50) NOT NULL ,
   `time` DATETIME NOT NULL ,
   `text` TEXT NOT NULL ,
-  PRIMARY KEY (`idComentary`) )
-ENGINE = InnoDB;
+  PRIMARY KEY (`idCommentary`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
-
--- -----------------------------------------------------
--- Table `Library`.`ComentaryBook`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`ComentaryBook` ;
-
-CREATE  TABLE IF NOT EXISTS `Library`.`ComentaryBook` (
-  `idComentaryBook` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `Library`.`CommentaryBook` (
+  `idCommentaryBook` INT(11) NOT NULL ,
   `isbn` VARCHAR(100) NOT NULL ,
-  `idComentary` INT NOT NULL ,
-  PRIMARY KEY (`idComentaryBook`) ,
+  `idCommentary` INT(11) NOT NULL ,
+  PRIMARY KEY (`idCommentaryBook`) ,
   INDEX `fk_ComentaryBook_BookTitle1` (`isbn` ASC) ,
-  INDEX `fk_ComentaryBook_Comentary1` (`idComentary` ASC) ,
+  INDEX `fk_ComentaryBook_Comentary1` (`idCommentary` ASC) ,
   CONSTRAINT `fk_ComentaryBook_BookTitle1`
     FOREIGN KEY (`isbn` )
     REFERENCES `Library`.`BookTitle` (`isbn` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ComentaryBook_Comentary1`
-    FOREIGN KEY (`idComentary` )
-    REFERENCES `Library`.`Comentary` (`idComentary` )
+    FOREIGN KEY (`idCommentary` )
+    REFERENCES `Library`.`Commentary` (`idCommentary` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
-
--- -----------------------------------------------------
--- Table `Library`.`Book`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Book` ;
-
-CREATE  TABLE IF NOT EXISTS `Library`.`Book` (
-  `idBook` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `Library`.`LibraryUnit` (
+  `idLibraryUnit` INT(11) NOT NULL ,
   `isbn` VARCHAR(100) NOT NULL ,
-  PRIMARY KEY (`idBook`) ,
+  PRIMARY KEY (`idLibraryUnit`) ,
   INDEX `fk_Book_BookTitle1` (`isbn` ASC) ,
   CONSTRAINT `fk_Book_BookTitle1`
     FOREIGN KEY (`isbn` )
     REFERENCES `Library`.`BookTitle` (`isbn` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
-
--- -----------------------------------------------------
--- Table `Library`.`Borrowing`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Borrowing` ;
-
-CREATE  TABLE IF NOT EXISTS `Library`.`Borrowing` (
-  `idBorrowing` INT NOT NULL ,
-  `Book_idBook` INT NOT NULL ,
-  `Reader_idReader` INT NOT NULL ,
-  `From` DATETIME NOT NULL ,
-  `To` DATETIME NOT NULL ,
-  PRIMARY KEY (`idBorrowing`) ,
-  INDEX `fk_Borrowing_Book1` (`Book_idBook` ASC) ,
-  INDEX `fk_Borrowing_Reader1` (`Reader_idReader` ASC) ,
+CREATE  TABLE IF NOT EXISTS `Library`.`ChargeOut` (
+  `idChargeOut` INT(11) NOT NULL ,
+  `idLibraryUnit` INT(11) NOT NULL ,
+  `idReader` INT(11) NOT NULL ,
+  `fromDate` DATETIME NOT NULL ,
+  `toDate` DATETIME NOT NULL ,
+  PRIMARY KEY (`idChargeOut`) ,
+  INDEX `fk_Borrowing_Book1` (`idLibraryUnit` ASC) ,
+  INDEX `fk_Borrowing_Reader1` (`idReader` ASC) ,
   CONSTRAINT `fk_Borrowing_Book1`
-    FOREIGN KEY (`Book_idBook` )
-    REFERENCES `Library`.`Book` (`idBook` )
+    FOREIGN KEY (`idLibraryUnit` )
+    REFERENCES `Library`.`LibraryUnit` (`idLibraryUnit` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Borrowing_Reader1`
-    FOREIGN KEY (`Reader_idReader` )
+    FOREIGN KEY (`idReader` )
     REFERENCES `Library`.`Reader` (`idReader` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Library`.`Authorization`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Authorization` ;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
 CREATE  TABLE IF NOT EXISTS `Library`.`Authorization` (
   `login` VARCHAR(45) NOT NULL ,
   `password` VARCHAR(100) NOT NULL ,
   PRIMARY KEY (`login`) ,
   UNIQUE INDEX `login_UNIQUE` (`login` ASC) )
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
+CREATE  TABLE IF NOT EXISTS `Library`.`Score` (
+  `idScore` INT(11) NOT NULL ,
+  `isbn` VARCHAR(100) NOT NULL ,
+  `value` INT(11) NOT NULL ,
+  `data` VARCHAR(100) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idScore`) ,
+  INDEX `fk_Score_BookTitle1` (`isbn` ASC) ,
+  CONSTRAINT `fk_Score_BookTitle1`
+    FOREIGN KEY (`isbn` )
+    REFERENCES `Library`.`BookTitle` (`isbn` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_czech_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

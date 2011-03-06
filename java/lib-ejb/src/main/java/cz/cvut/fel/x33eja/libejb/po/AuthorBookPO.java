@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.po;
 
 import java.io.Serializable;
@@ -19,8 +24,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "authorbook")
 @NamedQueries({
-    @NamedQuery(name = "Authorbook.findAll", query = "SELECT a FROM Authorbook a"),
-    @NamedQuery(name = "Authorbook.findByIdAuthorBook", query = "SELECT a FROM Authorbook a WHERE a.idAuthorBook = :idAuthorBook")})
+    @NamedQuery(name = "AuthorBookPO.findAll", query = "SELECT a FROM AuthorBookPO a"),
+    @NamedQuery(name = "AuthorBookPO.findByIdAuthorBook", query = "SELECT a FROM AuthorBookPO a WHERE a.idAuthorBook = :idAuthorBook")})
 public class AuthorBookPO implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,10 +34,10 @@ public class AuthorBookPO implements Serializable {
     private Integer idAuthorBook;
     @JoinColumn(name = "isbn", referencedColumnName = "isbn")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private BookTitlePO booktitle;
+    private BookTitlePO bookTitlePO;
     @JoinColumn(name = "idAuthor", referencedColumnName = "idAuthor")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private AuthorPO author;
+    private AuthorPO authorPO;
 
     public AuthorBookPO() {
     }
@@ -49,20 +54,20 @@ public class AuthorBookPO implements Serializable {
         this.idAuthorBook = idAuthorBook;
     }
 
-    public BookTitlePO getBooktitle() {
-        return booktitle;
+    public BookTitlePO getBookTitlePO() {
+        return bookTitlePO;
     }
 
-    public void setBooktitle(BookTitlePO booktitle) {
-        this.booktitle = booktitle;
+    public void setBookTitlePO(BookTitlePO bookTitlePO) {
+        this.bookTitlePO = bookTitlePO;
     }
 
-    public AuthorPO getAuthor() {
-        return author;
+    public AuthorPO getAuthorPO() {
+        return authorPO;
     }
 
-    public void setAuthor(AuthorPO author) {
-        this.author = author;
+    public void setAuthorPO(AuthorPO authorPO) {
+        this.authorPO = authorPO;
     }
 
     @Override
@@ -87,7 +92,7 @@ public class AuthorBookPO implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.cvut.fel.x33eja.libejb.po.Authorbook[idAuthorBook=" + idAuthorBook + "]";
+        return "cz.cvut.fel.x33eja.libejb.po.AuthorBookPO[idAuthorBook=" + idAuthorBook + "]";
     }
 
 }

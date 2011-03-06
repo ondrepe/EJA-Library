@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.po;
 
 import java.io.Serializable;
@@ -20,11 +25,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "reader")
 @NamedQueries({
-    @NamedQuery(name = "Reader.findAll", query = "SELECT r FROM Reader r"),
-    @NamedQuery(name = "Reader.findByIdReader", query = "SELECT r FROM Reader r WHERE r.idReader = :idReader"),
-    @NamedQuery(name = "Reader.findByName", query = "SELECT r FROM Reader r WHERE r.name = :name"),
-    @NamedQuery(name = "Reader.findBySurname", query = "SELECT r FROM Reader r WHERE r.surname = :surname"),
-    @NamedQuery(name = "Reader.findByEmail", query = "SELECT r FROM Reader r WHERE r.email = :email")})
+    @NamedQuery(name = "ReaderPO.findAll", query = "SELECT r FROM ReaderPO r"),
+    @NamedQuery(name = "ReaderPO.findByIdReader", query = "SELECT r FROM ReaderPO r WHERE r.idReader = :idReader"),
+    @NamedQuery(name = "ReaderPO.findByName", query = "SELECT r FROM ReaderPO r WHERE r.name = :name"),
+    @NamedQuery(name = "ReaderPO.findBySurname", query = "SELECT r FROM ReaderPO r WHERE r.surname = :surname"),
+    @NamedQuery(name = "ReaderPO.findByEmail", query = "SELECT r FROM ReaderPO r WHERE r.email = :email")})
 public class ReaderPO implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,8 +45,8 @@ public class ReaderPO implements Serializable {
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reader", fetch = FetchType.LAZY)
-    private List<BorrowingPO> borrowingList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "readerPO", fetch = FetchType.LAZY)
+    private List<ChargeOutPO> chargeOutPOList;
 
     public ReaderPO() {
     }
@@ -89,12 +94,12 @@ public class ReaderPO implements Serializable {
         this.email = email;
     }
 
-    public List<BorrowingPO> getBorrowingList() {
-        return borrowingList;
+    public List<ChargeOutPO> getChargeOutPOList() {
+        return chargeOutPOList;
     }
 
-    public void setBorrowingList(List<BorrowingPO> borrowingList) {
-        this.borrowingList = borrowingList;
+    public void setChargeOutPOList(List<ChargeOutPO> chargeOutPOList) {
+        this.chargeOutPOList = chargeOutPOList;
     }
 
     @Override
@@ -119,7 +124,7 @@ public class ReaderPO implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.cvut.fel.x33eja.libejb.po.Reader[idReader=" + idReader + "]";
+        return "cz.cvut.fel.x33eja.libejb.po.ReaderPO[idReader=" + idReader + "]";
     }
 
 }
