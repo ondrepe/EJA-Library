@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="lib-ejb" transaction-type="JTA">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+  <persistence-unit name="cbPU" transaction-type="JTA">
+    <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+    <jta-data-source>jdbc/lib-ejb</jta-data-source>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/library"/>
-      <property name="javax.persistence.jdbc.password" value="a1s2d3f4g5"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="libraryman"/>
+      <property name="openjpa.TransactionMode" value="managed"/>
+      <property name="openjpa.ConnectionFactoryMode" value="managed"/>
+      <property name="openjpa.NontransactionalWrite" value="false"/>
+      <property name="openjpa.NontransactionalRead" value="false"/>
+      <property name="openjpa.jdbc.DBDictionary" value="mysql"/>
     </properties>
   </persistence-unit>
 </persistence>
