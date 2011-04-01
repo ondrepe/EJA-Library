@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+        <artifactId>library-ejb</artifactId>
+        <groupId>cz.cvut.fel.x33eja</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+  <groupId>cz.cvut.fel.x33eja</groupId>
+  <artifactId>library-ejb-ear</artifactId>
+  <packaging>ear</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Library EJB ear</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ear-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+            <version>6</version>
+        </configuration>
+      </plugin>
+    </plugins>
+    <finalName>library-ejb-ear</finalName>
+  </build>
+    <dependencies>
+        <dependency>
+            <groupId>cz.cvut.fel.x33eja</groupId>
+            <artifactId>library-ejb-ejb</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+    </dependencies>
+</project>
