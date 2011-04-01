@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -27,6 +28,7 @@ public class ReadersAdministration implements ReadersAdministrationRemote {
     private ReaderDao dao;
 
     @Override
+    @Transactional
     public String addReader(Reader reader) {
         dao.insert(reader);
         return "OK";

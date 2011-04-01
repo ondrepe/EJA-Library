@@ -34,9 +34,13 @@ public class ReaderDao extends CommonDao<ReaderPO, Reader> {
 
     @Override
     public boolean insert(Reader object) {
-        ReaderPO reader = (ReaderPO) translator.fromDoToPo(object);
-        em.persist(reader);
-        return true;
+        try {
+            ReaderPO reader = (ReaderPO) translator.fromDoToPo(object);
+            em.persist(reader);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
     }
 
     @Override

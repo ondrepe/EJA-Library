@@ -54,7 +54,7 @@
        
         <dependency>
             <groupId>cz.cvut.fel.x33eja</groupId>
-            <artifactId>lib-do</artifactId>
+            <artifactId>library-ejb-do</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

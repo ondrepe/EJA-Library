@@ -15,6 +15,7 @@
     <class>cz.cvut.fel.x33eja.libejb.db.po.PublisherPO</class>
     <class>cz.cvut.fel.x33eja.libejb.db.po.ReaderPO</class>
     <class>cz.cvut.fel.x33eja.libejb.db.po.ScorePO</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="openjpa.TransactionMode" value="managed"/>
       <property name="openjpa.ConnectionFactoryMode" value="managed"/>
