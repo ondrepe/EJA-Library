@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.db.po;
 
 import java.io.Serializable;
@@ -16,7 +21,7 @@ import javax.persistence.Table;
  * @author ondrepe
  */
 @Entity
-@Table(name = "CategoryBook")
+@Table(name = "categorybook")
 @NamedQueries({
     @NamedQuery(name = "CategoryBookPO.findAll", query = "SELECT c FROM CategoryBookPO c"),
     @NamedQuery(name = "CategoryBookPO.findByIdCategoryBook", query = "SELECT c FROM CategoryBookPO c WHERE c.idCategoryBook = :idCategoryBook")})
@@ -26,12 +31,12 @@ public class CategoryBookPO implements Serializable {
     @Basic(optional = false)
     @Column(name = "idCategoryBook")
     private Integer idCategoryBook;
+    @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")
+    @ManyToOne(optional = false)
+    private BookTitlePO bookTitlePO;
     @JoinColumn(name = "idCategory", referencedColumnName = "idCategory")
     @ManyToOne(optional = false)
     private CategoryPO categoryPO;
-    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
-    @ManyToOne(optional = false)
-    private BookTitlePO bookTitlePO;
 
     public CategoryBookPO() {
     }
@@ -48,20 +53,20 @@ public class CategoryBookPO implements Serializable {
         this.idCategoryBook = idCategoryBook;
     }
 
-    public CategoryPO getCategoryPO() {
-        return categoryPO;
-    }
-
-    public void setCategoryPO(CategoryPO categoryPO) {
-        this.categoryPO = categoryPO;
-    }
-
     public BookTitlePO getBookTitlePO() {
         return bookTitlePO;
     }
 
     public void setBookTitlePO(BookTitlePO bookTitlePO) {
         this.bookTitlePO = bookTitlePO;
+    }
+
+    public CategoryPO getCategoryPO() {
+        return categoryPO;
+    }
+
+    public void setCategoryPO(CategoryPO categoryPO) {
+        this.categoryPO = categoryPO;
     }
 
     @Override

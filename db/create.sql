@@ -42,6 +42,7 @@ ENGINE = InnoDB;
 -- Table `Library`.`BookTitle`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Library`.`BookTitle` (
+  `idBookTitle` INT NOT NULL ,
   `isbn` VARCHAR(100) NOT NULL ,
   `name` VARCHAR(2000) NOT NULL ,
   `idPublisher` INT NOT NULL ,
@@ -49,8 +50,9 @@ CREATE  TABLE IF NOT EXISTS `Library`.`BookTitle` (
   `pagesCount` INT NULL ,
   `issueNumber` VARCHAR(50) NULL ,
   `about` TEXT NULL ,
-  PRIMARY KEY (`isbn`) ,
   INDEX `fk_BookTitle_Publisher` (`idPublisher` ASC) ,
+  UNIQUE INDEX `isbn_UNIQUE` (`isbn` ASC) ,
+  PRIMARY KEY (`idBookTitle`) ,
   CONSTRAINT `fk_BookTitle_Publisher`
     FOREIGN KEY (`idPublisher` )
     REFERENCES `Library`.`Publisher` (`idPublisher` )
@@ -74,19 +76,19 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Library`.`CategoryBook` (
   `idCategoryBook` INT NOT NULL ,
-  `isbn` VARCHAR(100) NOT NULL ,
   `idCategory` INT NOT NULL ,
+  `idBookTitle` INT NOT NULL ,
   PRIMARY KEY (`idCategoryBook`) ,
-  INDEX `fk_BookInCategory_BookTitle1` (`isbn` ASC) ,
   INDEX `fk_BookInCategory_Category1` (`idCategory` ASC) ,
-  CONSTRAINT `fk_BookInCategory_BookTitle1`
-    FOREIGN KEY (`isbn` )
-    REFERENCES `Library`.`BookTitle` (`isbn` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_CategoryBook_BookTitle1` (`idBookTitle` ASC) ,
   CONSTRAINT `fk_BookInCategory_Category1`
     FOREIGN KEY (`idCategory` )
     REFERENCES `Library`.`Category` (`idCategory` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CategoryBook_BookTitle1`
+    FOREIGN KEY (`idBookTitle` )
+    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -98,18 +100,18 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `Library`.`AuthorBook` (
   `idAuthorBook` INT NOT NULL ,
   `idAuthor` INT NOT NULL ,
-  `isbn` VARCHAR(100) NOT NULL ,
+  `idBookTitle` INT NOT NULL ,
   PRIMARY KEY (`idAuthorBook`) ,
   INDEX `fk_AuthorBook_Author1` (`idAuthor` ASC) ,
-  INDEX `fk_AuthorBook_BookTitle1` (`isbn` ASC) ,
+  INDEX `fk_AuthorBook_BookTitle1` (`idBookTitle` ASC) ,
   CONSTRAINT `fk_AuthorBook_Author1`
     FOREIGN KEY (`idAuthor` )
     REFERENCES `Library`.`Author` (`idAuthor` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_AuthorBook_BookTitle1`
-    FOREIGN KEY (`isbn` )
-    REFERENCES `Library`.`BookTitle` (`isbn` )
+    FOREIGN KEY (`idBookTitle` )
+    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -120,15 +122,15 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Library`.`Commentary` (
   `idCommentary` INT NOT NULL ,
-  `isbn` VARCHAR(100) NOT NULL ,
+  `idBookTitle` INT NOT NULL ,
   `authorName` VARCHAR(50) NOT NULL ,
   `time` DATETIME NOT NULL ,
   `text` TEXT NOT NULL ,
   PRIMARY KEY (`idCommentary`) ,
-  INDEX `fk_Commentary_BookTitle1` (`isbn` ASC) ,
+  INDEX `fk_Commentary_BookTitle1` (`idBookTitle` ASC) ,
   CONSTRAINT `fk_Commentary_BookTitle1`
-    FOREIGN KEY (`isbn` )
-    REFERENCES `Library`.`BookTitle` (`isbn` )
+    FOREIGN KEY (`idBookTitle` )
+    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -139,12 +141,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Library`.`LibraryUnit` (
   `idLibraryUnit` INT NOT NULL ,
-  `isbn` VARCHAR(100) NOT NULL ,
+  `idBookTitle` INT NOT NULL ,
   PRIMARY KEY (`idLibraryUnit`) ,
-  INDEX `fk_Book_BookTitle1` (`isbn` ASC) ,
-  CONSTRAINT `fk_Book_BookTitle1`
-    FOREIGN KEY (`isbn` )
-    REFERENCES `Library`.`BookTitle` (`isbn` )
+  INDEX `fk_LibraryUnit_BookTitle1` (`idBookTitle` ASC) ,
+  CONSTRAINT `fk_LibraryUnit_BookTitle1`
+    FOREIGN KEY (`idBookTitle` )
+    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -191,14 +193,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Library`.`Score` (
   `idScore` INT NOT NULL ,
-  `isbn` VARCHAR(100) NOT NULL ,
+  `idBookTitle` INT NOT NULL ,
   `value` INT NOT NULL ,
   `data` VARCHAR(100) NULL ,
   PRIMARY KEY (`idScore`) ,
-  INDEX `fk_Score_BookTitle1` (`isbn` ASC) ,
+  INDEX `fk_Score_BookTitle1` (`idBookTitle` ASC) ,
   CONSTRAINT `fk_Score_BookTitle1`
-    FOREIGN KEY (`isbn` )
-    REFERENCES `Library`.`BookTitle` (`isbn` )
+    FOREIGN KEY (`idBookTitle` )
+    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

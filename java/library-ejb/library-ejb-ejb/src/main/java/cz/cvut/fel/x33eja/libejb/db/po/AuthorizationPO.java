@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.db.po;
 
 import java.io.Serializable;
@@ -14,7 +19,7 @@ import javax.persistence.Table;
  * @author ondrepe
  */
 @Entity
-@Table(name = "Authorization")
+@Table(name = "authorization")
 @NamedQueries({
     @NamedQuery(name = "AuthorizationPO.findAll", query = "SELECT a FROM AuthorizationPO a"),
     @NamedQuery(name = "AuthorizationPO.findByLogin", query = "SELECT a FROM AuthorizationPO a WHERE a.login = :login"),

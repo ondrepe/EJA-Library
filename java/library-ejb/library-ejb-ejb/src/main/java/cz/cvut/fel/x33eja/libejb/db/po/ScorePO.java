@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.db.po;
 
 import java.io.Serializable;
@@ -16,7 +21,7 @@ import javax.persistence.Table;
  * @author ondrepe
  */
 @Entity
-@Table(name = "Score")
+@Table(name = "score")
 @NamedQueries({
     @NamedQuery(name = "ScorePO.findAll", query = "SELECT s FROM ScorePO s"),
     @NamedQuery(name = "ScorePO.findByIdScore", query = "SELECT s FROM ScorePO s WHERE s.idScore = :idScore"),
@@ -33,7 +38,7 @@ public class ScorePO implements Serializable {
     private int value;
     @Column(name = "data")
     private String data;
-    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
+    @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")
     @ManyToOne(optional = false)
     private BookTitlePO bookTitlePO;
 

@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.db.po;
 
 import java.io.Serializable;
@@ -17,7 +22,7 @@ import javax.persistence.Table;
  * @author ondrepe
  */
 @Entity
-@Table(name = "Publisher")
+@Table(name = "publisher")
 @NamedQueries({
     @NamedQuery(name = "PublisherPO.findAll", query = "SELECT p FROM PublisherPO p"),
     @NamedQuery(name = "PublisherPO.findByIdPublisher", query = "SELECT p FROM PublisherPO p WHERE p.idPublisher = :idPublisher"),

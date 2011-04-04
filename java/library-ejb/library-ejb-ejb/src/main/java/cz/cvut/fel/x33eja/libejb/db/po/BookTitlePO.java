@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.db.po;
 
 import java.io.Serializable;
@@ -23,9 +28,10 @@ import javax.persistence.TemporalType;
  * @author ondrepe
  */
 @Entity
-@Table(name = "BookTitle")
+@Table(name = "booktitle")
 @NamedQueries({
     @NamedQuery(name = "BookTitlePO.findAll", query = "SELECT b FROM BookTitlePO b"),
+    @NamedQuery(name = "BookTitlePO.findByIdBookTitle", query = "SELECT b FROM BookTitlePO b WHERE b.idBookTitle = :idBookTitle"),
     @NamedQuery(name = "BookTitlePO.findByIsbn", query = "SELECT b FROM BookTitlePO b WHERE b.isbn = :isbn"),
     @NamedQuery(name = "BookTitlePO.findByName", query = "SELECT b FROM BookTitlePO b WHERE b.name = :name"),
     @NamedQuery(name = "BookTitlePO.findByYear", query = "SELECT b FROM BookTitlePO b WHERE b.year = :year"),
@@ -34,6 +40,9 @@ import javax.persistence.TemporalType;
 public class BookTitlePO implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @Basic(optional = false)
+    @Column(name = "idBookTitle")
+    private Integer idBookTitle;
     @Basic(optional = false)
     @Column(name = "isbn")
     private String isbn;
@@ -51,29 +60,38 @@ public class BookTitlePO implements Serializable {
     @Column(name = "about")
     private String about;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
+    private List<CategoryBookPO> categoryBookPOList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
     private List<LibraryUnitPO> libraryUnitPOList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
+    private List<CommentaryPO> commentaryPOList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
+    private List<ScorePO> scorePOList;
     @JoinColumn(name = "idPublisher", referencedColumnName = "idPublisher")
     @ManyToOne(optional = false)
     private PublisherPO publisherPO;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
     private List<AuthorBookPO> authorBookPOList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
-    private List<CommentaryPO> commentaryPOList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
-    private List<CategoryBookPO> categoryBookPOList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
-    private List<ScorePO> scorePOList;
 
     public BookTitlePO() {
     }
 
-    public BookTitlePO(String isbn) {
-        this.isbn = isbn;
+    public BookTitlePO(Integer idBookTitle) {
+        this.idBookTitle = idBookTitle;
     }
 
-    public BookTitlePO(String isbn, String name) {
+    public BookTitlePO(Integer idBookTitle, String isbn, String name) {
+        this.idBookTitle = idBookTitle;
         this.isbn = isbn;
         this.name = name;
+    }
+
+    public Integer getIdBookTitle() {
+        return idBookTitle;
+    }
+
+    public void setIdBookTitle(Integer idBookTitle) {
+        this.idBookTitle = idBookTitle;
     }
 
     public String getIsbn() {
@@ -124,12 +142,36 @@ public class BookTitlePO implements Serializable {
         this.about = about;
     }
 
+    public List<CategoryBookPO> getCategoryBookPOList() {
+        return categoryBookPOList;
+    }
+
+    public void setCategoryBookPOList(List<CategoryBookPO> categoryBookPOList) {
+        this.categoryBookPOList = categoryBookPOList;
+    }
+
     public List<LibraryUnitPO> getLibraryUnitPOList() {
         return libraryUnitPOList;
     }
 
     public void setLibraryUnitPOList(List<LibraryUnitPO> libraryUnitPOList) {
         this.libraryUnitPOList = libraryUnitPOList;
+    }
+
+    public List<CommentaryPO> getCommentaryPOList() {
+        return commentaryPOList;
+    }
+
+    public void setCommentaryPOList(List<CommentaryPO> commentaryPOList) {
+        this.commentaryPOList = commentaryPOList;
+    }
+
+    public List<ScorePO> getScorePOList() {
+        return scorePOList;
+    }
+
+    public void setScorePOList(List<ScorePO> scorePOList) {
+        this.scorePOList = scorePOList;
     }
 
     public PublisherPO getPublisherPO() {
@@ -148,34 +190,10 @@ public class BookTitlePO implements Serializable {
         this.authorBookPOList = authorBookPOList;
     }
 
-    public List<CommentaryPO> getCommentaryPOList() {
-        return commentaryPOList;
-    }
-
-    public void setCommentaryPOList(List<CommentaryPO> commentaryPOList) {
-        this.commentaryPOList = commentaryPOList;
-    }
-
-    public List<CategoryBookPO> getCategoryBookPOList() {
-        return categoryBookPOList;
-    }
-
-    public void setCategoryBookPOList(List<CategoryBookPO> categoryBookPOList) {
-        this.categoryBookPOList = categoryBookPOList;
-    }
-
-    public List<ScorePO> getScorePOList() {
-        return scorePOList;
-    }
-
-    public void setScorePOList(List<ScorePO> scorePOList) {
-        this.scorePOList = scorePOList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (isbn != null ? isbn.hashCode() : 0);
+        hash += (idBookTitle != null ? idBookTitle.hashCode() : 0);
         return hash;
     }
 
@@ -186,7 +204,7 @@ public class BookTitlePO implements Serializable {
             return false;
         }
         BookTitlePO other = (BookTitlePO) object;
-        if ((this.isbn == null && other.isbn != null) || (this.isbn != null && !this.isbn.equals(other.isbn))) {
+        if ((this.idBookTitle == null && other.idBookTitle != null) || (this.idBookTitle != null && !this.idBookTitle.equals(other.idBookTitle))) {
             return false;
         }
         return true;
@@ -194,7 +212,7 @@ public class BookTitlePO implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.cvut.fel.x33eja.libejb.db.po.BookTitlePO[isbn=" + isbn + "]";
+        return "cz.cvut.fel.x33eja.libejb.db.po.BookTitlePO[idBookTitle=" + idBookTitle + "]";
     }
 
 }

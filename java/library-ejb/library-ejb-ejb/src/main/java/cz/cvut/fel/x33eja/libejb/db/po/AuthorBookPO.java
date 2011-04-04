@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package cz.cvut.fel.x33eja.libejb.db.po;
 
 import java.io.Serializable;
@@ -16,7 +21,7 @@ import javax.persistence.Table;
  * @author ondrepe
  */
 @Entity
-@Table(name = "AuthorBook")
+@Table(name = "authorbook")
 @NamedQueries({
     @NamedQuery(name = "AuthorBookPO.findAll", query = "SELECT a FROM AuthorBookPO a"),
     @NamedQuery(name = "AuthorBookPO.findByIdAuthorBook", query = "SELECT a FROM AuthorBookPO a WHERE a.idAuthorBook = :idAuthorBook")})
@@ -26,7 +31,7 @@ public class AuthorBookPO implements Serializable {
     @Basic(optional = false)
     @Column(name = "idAuthorBook")
     private Integer idAuthorBook;
-    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
+    @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")
     @ManyToOne(optional = false)
     private BookTitlePO bookTitlePO;
     @JoinColumn(name = "idAuthor", referencedColumnName = "idAuthor")
