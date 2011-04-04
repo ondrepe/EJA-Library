@@ -16,7 +16,8 @@ import javax.ejb.Remote;
 @Remote
 public interface ReadersAdministrationRemote {
 
-    public String addReader(Reader reader);
-    public List<Reader> filterReaders(String filterData);
-    public String updateReader(Reader reader);
+    public List<Reader> filterReaders(Reader filterData);
+    public void setReader(Reader reader);
+    public boolean existReader(Reader reader);
+    public void deleteReader(Integer idReader);
 }

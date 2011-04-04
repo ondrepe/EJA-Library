@@ -12,10 +12,6 @@ import javax.persistence.Query;
  */
 public class ReaderDao extends CommonDao<ReaderPO, Reader> {
 
-    public ReaderDao() {
-        String as = "as";
-    }
-
     @Override
     public List<Reader> findAll() {
         Query query = em.createNamedQuery("ReaderPO.findAll");
@@ -24,33 +20,34 @@ public class ReaderDao extends CommonDao<ReaderPO, Reader> {
 
     @Override
     public List<Reader> find(Reader object) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+        if(object.getIdReader() == null) {
 
-    @Override
-    public Reader get(Reader object) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+        } else {
 
-    @Override
-    public boolean insert(Reader object) {
-        try {
-            ReaderPO reader = (ReaderPO) translator.fromDoToPo(object);
-            em.persist(reader);
-            return true;
-        } catch(Exception e) {
-            return false;
         }
-    }
-
-    @Override
-    public boolean update(Reader object) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public boolean delete(Reader object) {
+    public Reader get(Integer id) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void insert(Reader object) {
+        ReaderPO reader = (ReaderPO) translator.fromDoToPo(object);
+        em.persist(reader);
+    }
+
+    @Override
+    public void update(Reader object) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void delete(Integer id) {
+        ReaderPO reader = em.find(ReaderPO.class, id);
+        em.remove(reader);
     }
 
     @Override

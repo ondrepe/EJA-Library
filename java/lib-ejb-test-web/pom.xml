@@ -5,7 +5,7 @@
     <artifactId>lib-ejb-test-web</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>lib-ejb-test-web Java EE 6 Webapp</name>
+    <name>Library EJB Test WebApp</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>

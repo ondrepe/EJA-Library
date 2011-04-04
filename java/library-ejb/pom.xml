@@ -5,7 +5,7 @@
   <artifactId>library-ejb</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>library-ejb Maven Enterprise Application</name>
+  <name>Library EJB</name>
   <url>http://maven.apache.org</url>
   <modules>
     <module>library-ejb-do</module>

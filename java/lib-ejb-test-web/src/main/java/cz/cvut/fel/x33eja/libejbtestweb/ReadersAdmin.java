@@ -30,22 +30,29 @@ public class ReadersAdmin {
     public List<TestMethod> getTestMethods() {
         ArrayList<TestMethod> list = new ArrayList<TestMethod>();
         list.add(new TestMethod("init", getResult(ra != null)));
-        list.add(new TestMethod("addReader", addReader()));
-        list.add(new TestMethod("filterReaders", filterReaders()));
+        //list.add(new TestMethod("addReader", addReader()));
+        list.add(new TestMethod("filterReaders_IS", getResult(filterReaders())));
+        list.add(new TestMethod("deleteReader", deleteReader()));
+        list.add(new TestMethod("filterReaders_NOT", getResult(!filterReaders())));
         return list;
     }
 
-    private String filterReaders() {
+    private boolean filterReaders() {
         boolean result = false;
-        List<Reader> list = ra.filterReaders("");
+        List<Reader> list = ra.filterReaders(null);
         if(list.size() > 0)
             result = true;
-        return getResult(result);
+        return result;
     }
 
     private String addReader() {
         Reader r = new Reader(1, "Karel", "Nemecek", "karel@gmail.com");
-        ra.addReader(r);
+        ra.setReader(r);
+        return "OK";
+    }
+
+    private String deleteReader() {
+        ra.deleteReader(1);
         return "OK";
     }
 
