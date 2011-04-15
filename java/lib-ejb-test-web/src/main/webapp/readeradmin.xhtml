@@ -5,17 +5,56 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="content">
-        <h:dataTable var="met" value="#{readersAdmin.testMethods}">
-            <h:column>
-                <f:facet name="header">name</f:facet>
-                #{met.title}
-            </h:column>
-            <h:column>
-                <f:facet name="header">status</f:facet>
-                #{met.status}
-            </h:column>
-        </h:dataTable>
-    </ui:define>
+  <ui:define name="content">
+    <h:dataTable var="reader" value="#{readersAdmin.readers}">
+      <h:column>
+        <f:facet name="header">id</f:facet>
+        #{reader.idReader}
+      </h:column>
+      <h:column>
+        <f:facet name="header">name</f:facet>
+        #{reader.name}
+      </h:column>
+      <h:column>
+        <f:facet name="header">surname</f:facet>
+        #{reader.surname}
+      </h:column>
+      <h:column>
+        <f:facet name="header">e-mail</f:facet>
+        #{reader.email}
+      </h:column>
+      <h:column>
+        <f:facet name="header">rezervovano</f:facet>
+        #{reader.reservedChargeOutsCount}
+      </h:column>
+      <h:column>
+        <f:facet name="header">vypujceno</f:facet>
+        #{reader.activeChargeOutsCount}
+      </h:column>
+      <h:column>
+        <f:facet name="header">vraceno</f:facet>
+        #{reader.returnedChargeOutsCount}
+      </h:column>
+    </h:dataTable>
+
+    <h:form>
+      <h:panelGrid columns="3">
+        Name: <h:inputText id="name" value="#{readersAdmin.name}" />
+        <h:message for="name" />
+        Surname: <h:inputText id="surname" value="#{readersAdmin.surname}" />
+        <h:message for="surname" />
+        Email: <h:inputText id="email" value="#{readersAdmin.email}" />
+        <h:message for="email" />
+        <h:commandButton value="add" action="#{readersAdmin.add}" />
+      </h:panelGrid>
+    </h:form>
+
+    <h:form>
+      <h:panelGrid columns="3">
+        Id Reader: <h:inputText id="id" value="#{readersAdmin.id}" />
+        <h:commandButton value="delete" action="#{readersAdmin.delete}" />
+      </h:panelGrid>
+    </h:form>
+  </ui:define>
 
 </ui:composition>

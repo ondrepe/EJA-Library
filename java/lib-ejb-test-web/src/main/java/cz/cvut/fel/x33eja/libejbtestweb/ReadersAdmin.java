@@ -1,13 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.fel.x33eja.libejbtestweb;
 
 import cz.cvut.fel.x33eja.libdo.domain.Reader;
-import cz.cvut.fel.x33eja.libdo.session.ReadersAdministrationRemote;
-import java.util.ArrayList;
+import cz.cvut.fel.x33eja.libdo.session.IReaderBean;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -21,45 +15,68 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class ReadersAdmin {
 
-    @EJB
-    private ReadersAdministrationRemote ra;
-    /** Creates a new instance of ReadersAdmin */
-    public ReadersAdmin() {
-    }
+  @EJB(name = "ReaderBean")
+  private IReaderBean ra;
+  
+  private String name;
+  private String surname;
+  private String email;
+  private Integer id;
 
-    public List<TestMethod> getTestMethods() {
-        ArrayList<TestMethod> list = new ArrayList<TestMethod>();
-        list.add(new TestMethod("init", getResult(ra != null)));
-        //list.add(new TestMethod("addReader", addReader()));
-        list.add(new TestMethod("filterReaders_IS", getResult(filterReaders())));
-        list.add(new TestMethod("deleteReader", deleteReader()));
-        list.add(new TestMethod("filterReaders_NOT", getResult(!filterReaders())));
-        return list;
-    }
+  public ReadersAdmin() {
+  }
 
-    private boolean filterReaders() {
-        boolean result = false;
-        List<Reader> list = ra.filterReaders(null);
-        if(list.size() > 0)
-            result = true;
-        return result;
-    }
+  public List<Reader> getReaders() {
+    return ra.getAllReaders();
+  }
 
-    private String addReader() {
-        Reader r = new Reader(1, "Karel", "Nemecek", "karel@gmail.com");
-        ra.setReader(r);
-        return "OK";
-    }
+  public void add() {
+    Reader r = new Reader(null, name, surname, email);
+    ra.save(r);
+  }
 
-    private String deleteReader() {
-        ra.deleteReader(1);
-        return "OK";
-    }
+  public void delete() {
+    ra.remove(id);
+  }
 
-    private String getResult(boolean result) {
-        if(result)
-            return "OK";
-        return "X";
-    }
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public IReaderBean getRa() {
+    return ra;
+  }
+
+  public void setRa(IReaderBean ra) {
+    this.ra = ra;
+  }
+
+  public String getSurname() {
+    return surname;
+  }
+
+  public void setSurname(String surname) {
+    this.surname = surname;
+  }
 
 }

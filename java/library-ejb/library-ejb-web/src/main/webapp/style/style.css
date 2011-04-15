@@ -1,0 +1,19 @@
+root { 
+  display: block;
+}
+
+.page {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.menu {
+  width: 20%;
+  float: left;
+}
+
+.content {
+  width: 80%;
+  float: right;
+}

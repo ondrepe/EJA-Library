@@ -5,20 +5,25 @@
        xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" xmlns:aop="http://www.springframework.org/schema/aop">
 
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+  <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
+  <jee:jndi-lookup id="entityManagerFactory" jndi-name="persistence/libPU" />
 
-    <tx:jta-transaction-manager />
+  <bean id="jtaTransaction" class="org.springframework.transaction.jta.JtaTransactionManager" />
 
-    <jee:jndi-lookup id="entityManagerFactory" jndi-name="persistence/libPU"/>
+  <bean class="cz.cvut.fel.x33eja.libejb.modules.reader.ReaderCommandManager">
+    <property name="translator" ref="readerTranslator" />
+  </bean>
 
-    <bean class="cz.cvut.fel.x33eja.libejb.db.dao.impl.ReaderDao">
-        <property name="translator" ref="readerTranslator" />
-    </bean>
+  <bean id="readerTranslator" class="cz.cvut.fel.x33eja.libejb.translator.impl.ReaderTranslator" />
 
-    <bean id="readerTranslator" class="cz.cvut.fel.x33eja.libejb.translator.impl.ReaderTranslator" />
+  <bean id="txAspect" class="cz.cvut.fel.x33eja.libejb.aspect.TransactionAspect">
+    <property name="txManager" ref="jtaTransaction" />
+  </bean>
+
+  <aop:aspectj-autoproxy proxy-target-class="true" />
 
 </beans>

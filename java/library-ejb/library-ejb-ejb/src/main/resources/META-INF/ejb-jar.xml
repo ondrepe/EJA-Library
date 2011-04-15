@@ -4,30 +4,26 @@
          version = "3.1"
          xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation = "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd">
-    <enterprise-beans>
-        <session>
-            <ejb-name>ReadersAdministration</ejb-name>
-            <ejb-class>cz.cvut.fel.x33eja.libejb.session.reader.ReadersAdministration</ejb-class>
-            <!--<env-entry>
-                <env-entry-name>ejb/ReadersAdministration</env-entry-name>
-                <env-entry-type>java.lang.String</env-entry-type>
-                <env-entry-value>lib-ejb-context.xml</env-entry-value>
-            </env-entry>-->
-            <persistence-unit-ref>
-                <persistence-unit-ref-name>persistence/libPU</persistence-unit-ref-name>
-            </persistence-unit-ref>
-        </session>
-    </enterprise-beans>
-  <!--<interceptors>
-    <interceptor>
-      <interceptor-class>org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor</interceptor-class>
-    </interceptor>
-  </interceptors>
-  <assembly-descriptor>
-    <interceptor-binding>
-      <ejb-name>*</ejb-name>
-      <interceptor-class>org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor</interceptor-class>
-    </interceptor-binding>
-  </assembly-descriptor> -->
-
+  <enterprise-beans>
+    <session>
+      <ejb-name>ReaderBean</ejb-name>
+      <mapped-name>ReaderBean</mapped-name>
+      <!--<ejb-local-ref>
+        <ejb-ref-name>ReaderBean</ejb-ref-name>
+        <local>cz.cvut.fel.x33eja.libdo.session.IReaderBean</local>
+        <mapped-name>ReaderBean</mapped-name>
+        <injection-target>
+          <injection-target-class>cz.cvut.fel.x33eja.libejb.session.reader.ReaderBean</injection-target-class>
+          <injection-target-name>ReaderBean</injection-target-name>
+        </injection-target>
+      </ejb-local-ref> -->
+      <ejb-class>cz.cvut.fel.x33eja.libejb.session.ReaderBean</ejb-class>
+      <ejb-ref>
+        <ejb-ref-name>ReaderBean</ejb-ref-name>
+      </ejb-ref>
+      <persistence-unit-ref>
+        <persistence-unit-ref-name>persistence/libPU</persistence-unit-ref-name>
+      </persistence-unit-ref>
+    </session>
+  </enterprise-beans>
 </ejb-jar>

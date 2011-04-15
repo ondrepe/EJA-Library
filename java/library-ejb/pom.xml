@@ -11,5 +11,6 @@
     <module>library-ejb-do</module>
     <module>library-ejb-ejb</module>
     <module>library-ejb-ear</module>
+    <module>library-ejb-web</module>
   </modules>
 </project>
