@@ -28,7 +28,5 @@ public interface IBookTitleBean {
 
   void remove(int id);
 
-  int getTotalScoreForBook(int id); //IDEA skore bychom mozna mohli vytahnout do entity BookTitle
-
   void scoreBook(BookTitle bt, int score);
 }

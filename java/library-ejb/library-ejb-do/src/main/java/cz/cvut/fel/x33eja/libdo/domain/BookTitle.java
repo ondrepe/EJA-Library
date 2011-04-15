@@ -16,8 +16,15 @@ public class BookTitle implements Serializable {
   private Integer pages;
   private String issue;
   private String about;
-  
-  //IDEA skore ?
+  private Integer avgScore;
+
+  public Integer getAvgScore() {
+    return avgScore;
+  }
+
+  public void setAvgScore(Integer score) {
+    this.avgScore = score;
+  }
 
   public String getAbout() {
     return about;
