@@ -23,8 +23,10 @@ public interface IBookTitleBean {
   List<BookTitle> getBookTitlesByPublisher(Publisher publisher);
 
   List<BookTitle> getBookTitlesByCategory(Category category);
+  
+  //IDEA pokud budeme mit rezervace, meli bychom je zde byt schopni vyhledat podle titulu
 
-  void save(BookTitle reader);
+  void save(BookTitle bt);
 
   void remove(int id);
 
