@@ -54,7 +54,7 @@ public class BookTitleBean implements IBookTitleBean {
   }
 
   @Override
-  public void scoreBook(int i) {
+  public void scoreBook(BookTitle bt, int i) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
   

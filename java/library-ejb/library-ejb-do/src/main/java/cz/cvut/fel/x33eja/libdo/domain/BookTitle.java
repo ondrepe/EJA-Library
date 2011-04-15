@@ -16,6 +16,8 @@ public class BookTitle implements Serializable {
   private Integer pages;
   private String issue;
   private String about;
+  
+  //IDEA skore ?
 
   public String getAbout() {
     return about;
