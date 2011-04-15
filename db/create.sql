@@ -9,9 +9,9 @@ USE `Library` ;
 -- -----------------------------------------------------
 -- Table `Library`.`Reader`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Reader` ;
+DROP TABLE IF EXISTS `Library`.`reader` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`Reader` (
+CREATE  TABLE IF NOT EXISTS `Library`.`reader` (
   `idReader` INT NOT NULL ,
   `name` VARCHAR(50) NOT NULL ,
   `surname` VARCHAR(250) NOT NULL ,
@@ -23,9 +23,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`Author`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Author` ;
+DROP TABLE IF EXISTS `Library`.`author` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`Author` (
+CREATE  TABLE IF NOT EXISTS `Library`.`author` (
   `idAuthor` INT NOT NULL ,
   `name` VARCHAR(50) NOT NULL ,
   `surname` VARCHAR(250) NOT NULL ,
@@ -36,9 +36,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`Publisher`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Publisher` ;
+DROP TABLE IF EXISTS `Library`.`publisher` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`Publisher` (
+CREATE  TABLE IF NOT EXISTS `Library`.`publisher` (
   `idPublisher` INT NOT NULL ,
   `name` VARCHAR(250) NOT NULL ,
   PRIMARY KEY (`idPublisher`) )
@@ -48,9 +48,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`BookTitle`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`BookTitle` ;
+DROP TABLE IF EXISTS `Library`.`booktitle` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`BookTitle` (
+CREATE  TABLE IF NOT EXISTS `Library`.`booktitle` (
   `idBookTitle` INT NOT NULL ,
   `isbn` VARCHAR(100) NOT NULL ,
   `name` VARCHAR(2000) NOT NULL ,
@@ -64,7 +64,7 @@ CREATE  TABLE IF NOT EXISTS `Library`.`BookTitle` (
   PRIMARY KEY (`idBookTitle`) ,
   CONSTRAINT `fk_BookTitle_Publisher`
     FOREIGN KEY (`idPublisher` )
-    REFERENCES `Library`.`Publisher` (`idPublisher` )
+    REFERENCES `Library`.`publisher` (`idPublisher` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -73,9 +73,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`Category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Category` ;
+DROP TABLE IF EXISTS `Library`.`category` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`Category` (
+CREATE  TABLE IF NOT EXISTS `Library`.`category` (
   `idCategory` INT NOT NULL ,
   `name` VARCHAR(250) NOT NULL ,
   PRIMARY KEY (`idCategory`) )
@@ -85,9 +85,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`CategoryBook`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`CategoryBook` ;
+DROP TABLE IF EXISTS `Library`.`categorybook` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`CategoryBook` (
+CREATE  TABLE IF NOT EXISTS `Library`.`categorybook` (
   `idCategoryBook` INT NOT NULL ,
   `idCategory` INT NOT NULL ,
   `idBookTitle` INT NOT NULL ,
@@ -96,12 +96,12 @@ CREATE  TABLE IF NOT EXISTS `Library`.`CategoryBook` (
   INDEX `fk_CategoryBook_BookTitle1` (`idBookTitle` ASC) ,
   CONSTRAINT `fk_BookInCategory_Category1`
     FOREIGN KEY (`idCategory` )
-    REFERENCES `Library`.`Category` (`idCategory` )
+    REFERENCES `Library`.`category` (`idCategory` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_CategoryBook_BookTitle1`
     FOREIGN KEY (`idBookTitle` )
-    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
+    REFERENCES `Library`.`booktitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -110,9 +110,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`AuthorBook`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`AuthorBook` ;
+DROP TABLE IF EXISTS `Library`.`authorbook` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`AuthorBook` (
+CREATE  TABLE IF NOT EXISTS `Library`.`authorbook` (
   `idAuthorBook` INT NOT NULL ,
   `idAuthor` INT NOT NULL ,
   `idBookTitle` INT NOT NULL ,
@@ -126,7 +126,7 @@ CREATE  TABLE IF NOT EXISTS `Library`.`AuthorBook` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_AuthorBook_BookTitle1`
     FOREIGN KEY (`idBookTitle` )
-    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
+    REFERENCES `Library`.`booktitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -135,9 +135,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`Commentary`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Commentary` ;
+DROP TABLE IF EXISTS `Library`.`commentary` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`Commentary` (
+CREATE  TABLE IF NOT EXISTS `Library`.`commentary` (
   `idCommentary` INT NOT NULL ,
   `idBookTitle` INT NOT NULL ,
   `authorName` VARCHAR(50) NOT NULL ,
@@ -147,7 +147,7 @@ CREATE  TABLE IF NOT EXISTS `Library`.`Commentary` (
   INDEX `fk_Commentary_BookTitle1` (`idBookTitle` ASC) ,
   CONSTRAINT `fk_Commentary_BookTitle1`
     FOREIGN KEY (`idBookTitle` )
-    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
+    REFERENCES `Library`.`booktitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -156,16 +156,16 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`LibraryUnit`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`LibraryUnit` ;
+DROP TABLE IF EXISTS `Library`.`libraryunit` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`LibraryUnit` (
+CREATE  TABLE IF NOT EXISTS `Library`.`libraryunit` (
   `idLibraryUnit` INT NOT NULL ,
   `idBookTitle` INT NOT NULL ,
   PRIMARY KEY (`idLibraryUnit`) ,
   INDEX `fk_LibraryUnit_BookTitle1` (`idBookTitle` ASC) ,
   CONSTRAINT `fk_LibraryUnit_BookTitle1`
     FOREIGN KEY (`idBookTitle` )
-    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
+    REFERENCES `Library`.`booktitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -174,9 +174,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`ChargeOutStatus`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`ChargeOutStatus` ;
+DROP TABLE IF EXISTS `Library`.`chargeoutstatus` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`ChargeOutStatus` (
+CREATE  TABLE IF NOT EXISTS `Library`.`chargeoutstatus` (
   `idChargeOutStatus` INT NOT NULL ,
   `name` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`idChargeOutStatus`) )
@@ -186,9 +186,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`ChargeOut`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`ChargeOut` ;
+DROP TABLE IF EXISTS `Library`.`chargeout` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`ChargeOut` (
+CREATE  TABLE IF NOT EXISTS `Library`.`chargeout` (
   `idChargeOut` INT NOT NULL ,
   `idLibraryUnit` INT NOT NULL ,
   `idReader` INT NOT NULL ,
@@ -201,17 +201,17 @@ CREATE  TABLE IF NOT EXISTS `Library`.`ChargeOut` (
   INDEX `fk_ChargeOut_ChargeOutStatus1` (`status` ASC) ,
   CONSTRAINT `fk_Borrowing_Book1`
     FOREIGN KEY (`idLibraryUnit` )
-    REFERENCES `Library`.`LibraryUnit` (`idLibraryUnit` )
+    REFERENCES `Library`.`libraryunit` (`idLibraryUnit` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Borrowing_Reader1`
     FOREIGN KEY (`idReader` )
-    REFERENCES `Library`.`Reader` (`idReader` )
+    REFERENCES `Library`.`reader` (`idReader` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ChargeOut_ChargeOutStatus1`
     FOREIGN KEY (`status` )
-    REFERENCES `Library`.`ChargeOutStatus` (`idChargeOutStatus` )
+    REFERENCES `Library`.`chargeoutstatus` (`idChargeOutStatus` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -220,9 +220,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`Authorization`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Authorization` ;
+DROP TABLE IF EXISTS `Library`.`authorization` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`Authorization` (
+CREATE  TABLE IF NOT EXISTS `Library`.`authorization` (
   `login` VARCHAR(45) NOT NULL ,
   `password` VARCHAR(100) NOT NULL ,
   `idReader` INT NULL ,
@@ -231,7 +231,7 @@ CREATE  TABLE IF NOT EXISTS `Library`.`Authorization` (
   INDEX `fk_Authorization_Reader1` (`idReader` ASC) ,
   CONSTRAINT `fk_Authorization_Reader1`
     FOREIGN KEY (`idReader` )
-    REFERENCES `Library`.`Reader` (`idReader` )
+    REFERENCES `Library`.`reader` (`idReader` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -240,9 +240,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`Score`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Score` ;
+DROP TABLE IF EXISTS `Library`.`score` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`Score` (
+CREATE  TABLE IF NOT EXISTS `Library`.`score` (
   `idScore` INT NOT NULL ,
   `idBookTitle` INT NOT NULL ,
   `value` INT NOT NULL ,
@@ -251,7 +251,7 @@ CREATE  TABLE IF NOT EXISTS `Library`.`Score` (
   INDEX `fk_Score_BookTitle1` (`idBookTitle` ASC) ,
   CONSTRAINT `fk_Score_BookTitle1`
     FOREIGN KEY (`idBookTitle` )
-    REFERENCES `Library`.`BookTitle` (`idBookTitle` )
+    REFERENCES `Library`.`booktitle` (`idBookTitle` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -260,9 +260,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`Parameter`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Parameter` ;
+DROP TABLE IF EXISTS `Library`.`parameter` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`Parameter` (
+CREATE  TABLE IF NOT EXISTS `Library`.`parameter` (
   `idParameter` INT NOT NULL ,
   `paramGroup` VARCHAR(45) NOT NULL ,
   `name` VARCHAR(45) NOT NULL ,
@@ -275,9 +275,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Library`.`Sequence`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Library`.`Sequence` ;
+DROP TABLE IF EXISTS `Library`.`sequence` ;
 
-CREATE  TABLE IF NOT EXISTS `Library`.`Sequence` (
+CREATE  TABLE IF NOT EXISTS `Library`.`sequence` (
   `seq_name` VARCHAR(20) NOT NULL ,
   `seq_num` INT NOT NULL ,
   PRIMARY KEY (`seq_name`) )
