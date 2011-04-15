@@ -18,7 +18,7 @@ public interface ICommentaryBean {
     
     List<Commentary> getCommentariesByBook(BookTitle bt);
 
-    void save(Commentary reader);
+    void save(Commentary commentary);
 
     void remove(int id);
     

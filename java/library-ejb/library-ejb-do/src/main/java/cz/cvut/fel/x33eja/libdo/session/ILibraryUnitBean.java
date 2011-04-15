@@ -1,5 +1,6 @@
 package cz.cvut.fel.x33eja.libdo.session;
 
+import cz.cvut.fel.x33eja.libdo.domain.BookTitle;
 import cz.cvut.fel.x33eja.libdo.domain.ChargeOut;
 import cz.cvut.fel.x33eja.libdo.domain.LibraryUnit;
 import java.util.List;
@@ -15,7 +16,9 @@ public interface ILibraryUnitBean {
   LibraryUnit getLibraryUnit(int id);
 
   List<LibraryUnit> getAllLibraryUnits();
-
+  
+  List<LibraryUnit> getLibraryUnitsByBook(BookTitle bt);
+  
   void save(LibraryUnit unit);
 
   void remove(int id);

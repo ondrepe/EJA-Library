@@ -11,7 +11,7 @@ import javax.ejb.Local;
 @Local
 public interface IPublisherBean {
 
-    Publisher getAuthor(int id);
+    Publisher getPublisher(int id);
 
     List<Publisher> getAllPublishers();
 
