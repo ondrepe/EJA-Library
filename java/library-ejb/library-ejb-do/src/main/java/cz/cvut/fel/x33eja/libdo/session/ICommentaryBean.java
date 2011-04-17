@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.libdo.session;
 
-import cz.cvut.fel.x33eja.libdo.domain.BookTitle;
 import cz.cvut.fel.x33eja.libdo.domain.Commentary;
 import java.util.List;
 import javax.ejb.Local;
@@ -12,14 +11,13 @@ import javax.ejb.Local;
 @Local
 public interface ICommentaryBean {
 
-    Commentary getCommentary(int id);
+  Commentary getCommentary(int id);
 
-    List<Commentary> getAllCommentaries();
-    
-    List<Commentary> getCommentariesByBook(BookTitle bt);
+  List<Commentary> getAllCommentaries();
 
-    void save(Commentary commentary);
+  List<Commentary> getCommentariesByBook(int idBook);
 
-    void remove(int id);
-    
+  void save(Commentary commentary);
+
+  void remove(int id);
 }

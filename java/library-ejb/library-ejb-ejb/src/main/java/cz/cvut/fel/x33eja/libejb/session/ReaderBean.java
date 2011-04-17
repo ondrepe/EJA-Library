@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.libejb.session;
 
-import cz.cvut.fel.x33eja.libdo.domain.ChargeOut;
 import cz.cvut.fel.x33eja.libdo.domain.ChargeOutStatus;
 import cz.cvut.fel.x33eja.libdo.domain.Reader;
 import cz.cvut.fel.x33eja.libdo.domain.ReaderDetail;

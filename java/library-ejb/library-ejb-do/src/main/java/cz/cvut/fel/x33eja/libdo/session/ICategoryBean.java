@@ -15,7 +15,7 @@ public interface ICategoryBean {
 
     List<Category> getAllCategories();
 
-    void save(Category reader);
+    void save(Category category);
 
     void remove(int id);
 }

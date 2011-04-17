@@ -18,11 +18,11 @@ public interface IBookTitleBean {
 
   List<BookTitle> getAllBookTitles();
 
-  List<BookTitle> getBookTitlesByAuthor(Author author);
+  List<BookTitle> getBookTitlesByAuthor(int idAuthor);
 
-  List<BookTitle> getBookTitlesByPublisher(Publisher publisher);
+  List<BookTitle> getBookTitlesByPublisher(int idPublisher);
 
-  List<BookTitle> getBookTitlesByCategory(Category category);
+  List<BookTitle> getBookTitlesByCategory(int idCategory);
   
   //IDEA pokud budeme mit rezervace, meli bychom je zde byt schopni vyhledat podle titulu
 
@@ -30,5 +30,5 @@ public interface IBookTitleBean {
 
   void remove(int id);
 
-  void scoreBook(BookTitle bt, int score);
+  void scoreBook(int idBook, int score);
 }

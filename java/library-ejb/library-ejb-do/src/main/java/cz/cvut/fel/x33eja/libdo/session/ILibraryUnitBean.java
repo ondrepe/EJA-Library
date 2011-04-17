@@ -13,25 +13,27 @@ import javax.ejb.Local;
 @Local
 public interface ILibraryUnitBean {
 
+  /* LIBRARY UNITS */
   LibraryUnit getLibraryUnit(int id);
 
   List<LibraryUnit> getAllLibraryUnits();
-  
-  List<LibraryUnit> getLibraryUnitsByBook(BookTitle bt);
-  
-  void save(LibraryUnit unit);
 
-  void remove(int id);
+  List<LibraryUnit> getLibraryUnitsByBook(int idBook);
 
-  void saveChargeOut(ChargeOut chargeOut);
+  void saveUnit(LibraryUnit unit);
 
-  ChargeOut getChargeOutById(int id);
+  void removeUnit(int id);
+
+  /* CHARGE OUTS */
+  ChargeOut getChargeOut(int id);
 
   List<ChargeOut> getAllChargeOuts();
 
-  ChargeOut getActiveChargeOutByUnit(LibraryUnit unit);
+  ChargeOut getActiveChargeOutByUnit(int idUnit); //active chargeout of unit can be one at a time at maximum
 
-  List<ChargeOut> getChargeOutsByUnit(LibraryUnit unit);
+  List<ChargeOut> getChargeOutsByUnit(int idUnit);
+  
+  void saveChargeOut(ChargeOut chargeOut);
 
-  boolean isAvailable(LibraryUnit unit);
+  boolean isAvailable(int idUnit);
 }

@@ -15,7 +15,7 @@ public interface IPublisherBean {
 
     List<Publisher> getAllPublishers();
 
-    void save(Publisher reader);
+    void save(Publisher publisher);
 
     void remove(int id);
 }

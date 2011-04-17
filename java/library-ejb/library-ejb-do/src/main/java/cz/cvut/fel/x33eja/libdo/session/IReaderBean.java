@@ -20,9 +20,9 @@ public interface IReaderBean {
 
   void remove(int id);
 
-  ReaderDetail getChargeOutsByReader(int id);
+  ReaderDetail getChargeOutsByReader(int id); //v reader detail je zafiltrovany List<ChargeOut> 
 
-  ReaderDetail getActiveChargeOutsByReader(int id);
+  ReaderDetail getActiveChargeOutsByReader(int id); //v reader detail je zafiltrovany List<ChargeOut> 
   
-  ReaderDetail getReservedChargeOutsByReader(int id);
+  ReaderDetail getReservedChargeOutsByReader(int id); //v reader detail je zafiltrovany List<ChargeOut> 
 }
