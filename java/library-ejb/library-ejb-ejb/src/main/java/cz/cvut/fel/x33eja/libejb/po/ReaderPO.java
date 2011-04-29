@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name = "ReaderPO.findByName", query = "SELECT r FROM ReaderPO r WHERE r.name = :name"),
   @NamedQuery(name = "ReaderPO.findBySurname", query = "SELECT r FROM ReaderPO r WHERE r.surname = :surname"),
   @NamedQuery(name = "ReaderPO.findByEmail", query = "SELECT r FROM ReaderPO r WHERE r.email = :email")})
-public class ReaderPO implements Serializable {
+public class ReaderPO extends AbstractPOObject {
 
   @OneToMany(mappedBy = "idReader")
   private List<AuthorizationPO> authorizationPOList;

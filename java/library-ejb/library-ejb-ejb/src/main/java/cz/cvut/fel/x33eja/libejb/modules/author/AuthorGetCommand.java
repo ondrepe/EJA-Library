@@ -1,16 +1,16 @@
 package cz.cvut.fel.x33eja.libejb.modules.author;
 
-import cz.cvut.fel.x33eja.libejb.modules.Command;
-import cz.cvut.fel.x33eja.libejb.modules.CommandManager;
+import cz.cvut.fel.x33eja.libejb.command.GetCommand;
+import cz.cvut.fel.x33eja.libejb.po.AuthorPO;
 
 /**
  *
  * @author ondrepe
  */
-public class AuthorGetCommand implements Command {
+public class AuthorGetCommand extends GetCommand<AuthorPO> {
 
   @Override
-  public Object execute(CommandManager manager, Object... data) {
+  public AuthorPO execute(int id) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
   

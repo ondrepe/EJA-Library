@@ -1,20 +1,22 @@
 package cz.cvut.fel.x33eja.libejb.modules.reader;
 
-import cz.cvut.fel.x33eja.libejb.modules.Command;
-import cz.cvut.fel.x33eja.libejb.modules.CommandManager;
+import cz.cvut.fel.x33eja.libejb.command.SetCommand;
 import cz.cvut.fel.x33eja.libejb.po.ReaderPO;
 
 /**
  *
  * @author ondrepe
  */
-public class ReaderSetCommand implements Command {
+public class ReaderSetCommand extends SetCommand<ReaderPO> {
 
   @Override
-  public Object execute(CommandManager manager, Object... data) {
-    ReaderPO po = (ReaderPO) manager.getTranslator().fromDoToPo(data[0]);
-    manager.getEm().persist(po);
-    return null;
+  public void execute(ReaderPO reader) {
+    SetCommand command;
+    if(reader.getIdReader() == null || !new ReaderExistCommand().execute(reader.getIdReader()))
+      command = new ReaderCreateCommand();
+    else
+      command = new ReaderUpdateCommand();
+    command.execute(reader);           
   }
 
 }

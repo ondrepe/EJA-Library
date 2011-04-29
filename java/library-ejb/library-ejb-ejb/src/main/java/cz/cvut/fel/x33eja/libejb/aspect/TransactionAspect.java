@@ -5,14 +5,10 @@
 package cz.cvut.fel.x33eja.libejb.aspect;
 
 import cz.cvut.fel.x33eja.libejb.modules.CommandManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
 import javax.transaction.TransactionManager;
-import javax.transaction.UserTransaction;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Around;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
 /**
@@ -24,13 +20,13 @@ public class TransactionAspect {
 
   private JtaTransactionManager txManager;
 
-  @Around(value = "@annotation(org.springframework.transaction.annotation.Transactional) && target(bean)", argNames = "bean")
+  @Around(value = "@annotation(cz.cvut.fel.x33eja.libejb.annotation.Transactional) && target(bean)", argNames = "bean")
   public Object transactions(ProceedingJoinPoint pjp, CommandManager bean) throws Throwable {
     Object result = null;
     TransactionManager tx = txManager.getTransactionManager();
     tx.begin();
     try {
-      bean.getEm().clear();
+//      bean.getEm().clear();
       result = pjp.proceed();
       tx.commit();
     } catch (Throwable e) {

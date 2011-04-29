@@ -7,7 +7,7 @@ import cz.cvut.fel.x33eja.libejb.modules.CommandEnum;
  * @author ondrepe
  */
 public enum AuthorCommandEnum implements CommandEnum {
-  DETAIL,
+  LIST,
   GET,
   SET,
   DELETE

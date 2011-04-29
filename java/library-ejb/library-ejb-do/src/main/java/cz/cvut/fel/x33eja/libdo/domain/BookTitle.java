@@ -1,12 +1,10 @@
 package cz.cvut.fel.x33eja.libdo.domain;
 
-import java.io.Serializable;
-
 /**
  *
  * @author ondrepe
  */
-public class BookTitle implements Serializable {
+public class BookTitle extends AbstractIFaceObject {
     
   private Integer id; 
   private String publisher;

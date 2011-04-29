@@ -1,12 +1,10 @@
 package cz.cvut.fel.x33eja.libdo.domain;
 
-import java.io.Serializable;
-
 /**
  *
  * @author ondrepe
  */
-public class Reader implements Serializable {
+public class Reader extends AbstractIFaceObject {
 
   private Integer idReader;
   private String name;

@@ -4,8 +4,7 @@ import cz.cvut.fel.x33eja.libdo.domain.BookTitle;
 import cz.cvut.fel.x33eja.libdo.domain.ChargeOut;
 import cz.cvut.fel.x33eja.libdo.domain.ChargeOutStatus;
 import cz.cvut.fel.x33eja.libdo.domain.ReaderDetail;
-import cz.cvut.fel.x33eja.libejb.modules.Command;
-import cz.cvut.fel.x33eja.libejb.modules.CommandManager;
+import cz.cvut.fel.x33eja.libejb.command.DetailCommand;
 import cz.cvut.fel.x33eja.libejb.po.BookTitlePO;
 import cz.cvut.fel.x33eja.libejb.po.ChargeOutPO;
 import cz.cvut.fel.x33eja.libejb.po.ReaderPO;
@@ -18,26 +17,29 @@ import javax.persistence.Query;
  *
  * @author ondrepe
  */
-public class ReaderDetailCommand implements Command {
+public class ReaderDetailCommand extends DetailCommand<ReaderDetail> {
 
   @Override
-  public Object execute(CommandManager manager, Object... data) {
+  public ReaderDetail execute(int id, Object... data) {
 
-    int id = (Integer) data[0];
-    ReaderPO rPo = manager.getEm().find(ReaderPO.class, id);
+    ReaderPO rPo = em.find(ReaderPO.class, id);
     String sql = null;
 
-    if (data.length != 2) {
+    if (data.length != 1) {
       sql = "ChargeOutPO.findByIdReader";
-    } else if (ChargeOutStatus.ACTIVE.equals(data[1])) {
+    } else if (ChargeOutStatus.ACTIVE.equals(data[0])) {
       sql = "ChargeOutPO.findActiveByIdReader";
-    } else if (ChargeOutStatus.RESERVED.equals(data[1])) {
+    } else if (ChargeOutStatus.RESERVED.equals(data[0])) {
       sql = "ChargeOutPO.findReservedByIdReader";
     }
-    Query query = manager.getEm().createNamedQuery(sql).setParameter("idReader", id);
+    Query query = em.createNamedQuery(sql).setParameter("idReader", id);
     List<ChargeOutPO> listPo = query.getResultList();
+          
+    return translateData(rPo, listPo);
+  }
+  
+  private ReaderDetail translateData(ReaderPO rPo, List<ChargeOutPO> listPo) {
     
-    // prevedeni na ReaderDetail
     ReaderDetail detail = new ReaderDetail();
     detail.setIdReader(rPo.getIdReader());
     detail.setName(rPo.getName());

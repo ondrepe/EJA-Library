@@ -1,16 +1,21 @@
 package cz.cvut.fel.x33eja.libejb.session;
 
-import cz.cvut.fel.x33eja.libdo.domain.Author;
 import cz.cvut.fel.x33eja.libdo.domain.BookTitle;
-import cz.cvut.fel.x33eja.libdo.domain.Category;
-import cz.cvut.fel.x33eja.libdo.domain.Publisher;
 import cz.cvut.fel.x33eja.libdo.session.IBookTitleBean;
 import java.util.List;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.interceptor.Interceptors;
+import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
 /**
  *
  * @author ondrepe
  */
+@Stateless(mappedName="BookTitle")
+@Interceptors(SpringBeanAutowiringInterceptor.class)
+@TransactionManagement(TransactionManagementType.BEAN)
 public class BookTitleBean implements IBookTitleBean {
 
   @Override
@@ -20,21 +25,6 @@ public class BookTitleBean implements IBookTitleBean {
 
   @Override
   public List<BookTitle> getAllBookTitles() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public List<BookTitle> getBookTitlesByAuthor(Author author) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public List<BookTitle> getBookTitlesByPublisher(Publisher pblshr) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public List<BookTitle> getBookTitlesByCategory(Category ctgr) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
@@ -49,8 +39,22 @@ public class BookTitleBean implements IBookTitleBean {
   }
 
   @Override
-  public void scoreBook(BookTitle bt, int i) {
+  public List<BookTitle> getBookTitlesByAuthor(int i) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
-  
+
+  @Override
+  public List<BookTitle> getBookTitlesByPublisher(int i) {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+  @Override
+  public List<BookTitle> getBookTitlesByCategory(int i) {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+  @Override
+  public void scoreBook(int i, int i1) {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
 }

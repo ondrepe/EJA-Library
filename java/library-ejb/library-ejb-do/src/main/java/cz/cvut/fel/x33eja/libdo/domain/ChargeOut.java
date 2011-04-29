@@ -1,13 +1,12 @@
 package cz.cvut.fel.x33eja.libdo.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author ondrepe
  */
-public class ChargeOut implements Serializable {
+public class ChargeOut extends AbstractIFaceObject {
     
   private Integer id;
   private BookTitle book;

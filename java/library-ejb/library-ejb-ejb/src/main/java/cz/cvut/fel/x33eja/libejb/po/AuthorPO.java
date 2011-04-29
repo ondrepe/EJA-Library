@@ -26,7 +26,7 @@ import javax.persistence.TableGenerator;
   @NamedQuery(name = "AuthorPO.findByIdAuthor", query = "SELECT a FROM AuthorPO a WHERE a.idAuthor = :idAuthor"),
   //@NamedQuery(name = "AuthorPO.findByName", query = "SELECT a FROM AuthorPO a WHERE a.name = :name"),
   @NamedQuery(name = "AuthorPO.findBySurname", query = "SELECT a FROM AuthorPO a WHERE a.surname = :surname")})
-public class AuthorPO implements Serializable {
+public class AuthorPO extends AbstractPOObject {
 
   private static final long serialVersionUID = 1L;
   @Id

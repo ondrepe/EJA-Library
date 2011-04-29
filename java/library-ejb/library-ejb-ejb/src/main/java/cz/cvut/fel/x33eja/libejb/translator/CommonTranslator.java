@@ -1,5 +1,7 @@
 package cz.cvut.fel.x33eja.libejb.translator;
 
+import cz.cvut.fel.x33eja.libdo.domain.AbstractIFaceObject;
+import cz.cvut.fel.x33eja.libejb.po.AbstractPOObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  *
  * @author ondrepe
  */
-public abstract class CommonTranslator<PO, DO> implements ITranslator<PO, DO> {
+public abstract class CommonTranslator<PO extends AbstractPOObject, DO extends AbstractIFaceObject> implements ITranslator<PO, DO> {
 
     public List<DO> fromPoListToDoList(List<PO> from) {
         ArrayList<DO> to = new ArrayList<DO>();

@@ -5,13 +5,11 @@ import cz.cvut.fel.x33eja.libdo.domain.Reader;
 import cz.cvut.fel.x33eja.libdo.domain.ReaderDetail;
 import cz.cvut.fel.x33eja.libdo.session.IReaderBean;
 import cz.cvut.fel.x33eja.libejb.modules.reader.ReaderCommandEnum;
-import cz.cvut.fel.x33eja.libejb.modules.reader.ReaderCommandManager;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.interceptor.Interceptors;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 
 /**
@@ -21,10 +19,7 @@ import org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor;
 @Stateless(mappedName="ReaderBean")
 @Interceptors(SpringBeanAutowiringInterceptor.class)
 @TransactionManagement(TransactionManagementType.BEAN)
-public class ReaderBean implements IReaderBean {
-
-  @Autowired
-  private ReaderCommandManager manager;
+public class ReaderBean extends AbstractBean implements IReaderBean {
 
   @Override
   public Reader getReader(int i) {
@@ -33,7 +28,8 @@ public class ReaderBean implements IReaderBean {
 
   @Override
   public List<Reader> getAllReaders() {
-    return (List<Reader>) manager.doProcess(ReaderCommandEnum.LIST);
+    List<Reader> list = (List<Reader>) manager.doProcess(ReaderCommandEnum.LIST);
+    return list;
   }
 
   @Override

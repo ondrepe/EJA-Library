@@ -14,15 +14,13 @@
 
   <bean id="jtaTransaction" class="org.springframework.transaction.jta.JtaTransactionManager" />
 
-  <bean class="cz.cvut.fel.x33eja.libejb.modules.reader.ReaderCommandManager">
-    <property name="translator" ref="readerTranslator" />
-  </bean>
-
-  <bean id="readerTranslator" class="cz.cvut.fel.x33eja.libejb.translator.impl.ReaderTranslator" />
+  <bean class="cz.cvut.fel.x33eja.libejb.modules.CommandManager" />
 
   <bean id="txAspect" class="cz.cvut.fel.x33eja.libejb.aspect.TransactionAspect">
     <property name="txManager" ref="jtaTransaction" />
   </bean>
+  
+  <bean id="trAspect" class="cz.cvut.fel.x33eja.libejb.aspect.ValueTranslatorAspect" />
 
   <aop:aspectj-autoproxy proxy-target-class="true" />
 

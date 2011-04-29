@@ -1,11 +1,9 @@
 package cz.cvut.fel.x33eja.libdo.domain;
 
-import java.io.Serializable;
-
 /**
  *
  * @author ondrepe
  */
-public class Publisher implements Serializable {
+public class Publisher extends AbstractIFaceObject {
     
 }

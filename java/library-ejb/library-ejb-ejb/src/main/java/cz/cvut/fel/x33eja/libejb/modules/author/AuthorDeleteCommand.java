@@ -1,16 +1,15 @@
 package cz.cvut.fel.x33eja.libejb.modules.author;
 
-import cz.cvut.fel.x33eja.libejb.modules.Command;
-import cz.cvut.fel.x33eja.libejb.modules.CommandManager;
+import cz.cvut.fel.x33eja.libejb.command.DeleteCommand;
 
 /**
  *
  * @author ondrepe
  */
-public class AuthorDeleteCommand implements Command {
+public class AuthorDeleteCommand extends DeleteCommand {
 
   @Override
-  public Object execute(CommandManager manager, Object... data) {
+  public void execute(int id) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
   
