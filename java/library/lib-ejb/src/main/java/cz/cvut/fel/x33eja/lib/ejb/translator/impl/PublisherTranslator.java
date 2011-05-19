@@ -14,12 +14,19 @@ public class PublisherTranslator extends CommonTranslator<PublisherPO, Publisher
   public Publisher fromPoToDo(PublisherPO from) {
     Publisher publisher = new Publisher();
     
+    publisher.setIdPublisher(from.getIdPublisher());
+    publisher.setName(from.getName());
+    
     return publisher;
   }
 
   @Override
   public PublisherPO fromDoToPo(Publisher from) {
     PublisherPO publisher = new PublisherPO();
+    
+    publisher.setIdPublisher(from.getIdPublisher());
+    publisher.setName(from.getName());
+    
     return publisher;
   }
   

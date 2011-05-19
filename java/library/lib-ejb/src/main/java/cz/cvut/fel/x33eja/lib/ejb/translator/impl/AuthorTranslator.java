@@ -14,12 +14,20 @@ public class AuthorTranslator extends CommonTranslator<AuthorPO, Author> {
   public Author fromPoToDo(AuthorPO from) {
     Author author = new Author();
     
+    author.setIdAuthor(from.getIdAuthor());
+    author.setName(from.getName());
+    author.setSurname(from.getSurname());
+    
     return author;
   }
 
   @Override
   public AuthorPO fromDoToPo(Author from) {
     AuthorPO author = new AuthorPO();
+    
+    author.setIdAuthor(from.getIdAuthor());
+    author.setName(from.getName());
+    author.setSurname(from.getSurname());
     
     return author;
   }

@@ -1,13 +1,18 @@
 package cz.cvut.fel.x33eja.lib.iface.to;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author ondrepe
  */
 public class BookTitle extends CommonTO {
-    
-  private Integer id; 
-  private String publisher;
+
+  private Integer id;
+  private List<Author> authors;
+  private List<Category> categories;
+  private Publisher publisher;
   private String isbn;
   private String name;
   private Integer year;
@@ -15,6 +20,7 @@ public class BookTitle extends CommonTO {
   private String issue;
   private String about;
   private Integer avgScore;
+  private Integer count;
 
   public Integer getAvgScore() {
     return avgScore;
@@ -72,11 +78,11 @@ public class BookTitle extends CommonTO {
     this.pages = pages;
   }
 
-  public String getPublisher() {
+  public Publisher getPublisher() {
     return publisher;
   }
 
-  public void setPublisher(String publisher) {
+  public void setPublisher(Publisher publisher) {
     this.publisher = publisher;
   }
 
@@ -87,8 +93,30 @@ public class BookTitle extends CommonTO {
   public void setYear(Integer year) {
     this.year = year;
   }
-  
+
   public String getTitle() {
     return name + (year != null ? " (" + year + ")" : "");
+  }
+
+  public Integer getCount() {
+    return count;
+  }
+
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+
+  public List<Author> getAuthors() {
+    if (authors == null) {
+      authors = new ArrayList<Author>();
+    }
+    return authors;
+  }
+
+  public List<Category> getCategories() {
+    if (categories == null) {
+      categories = new ArrayList<Category>();
+    }
+    return categories;
   }
 }

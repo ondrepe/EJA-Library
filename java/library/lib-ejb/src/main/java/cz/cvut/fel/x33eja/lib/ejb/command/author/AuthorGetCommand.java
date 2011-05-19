@@ -23,7 +23,8 @@ public class AuthorGetCommand extends GetCommand<AuthorPO, Author> {
 
   @Override
   protected AuthorPO get(int id) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    AuthorPO author = em.find(AuthorPO.class, id);
+    return author;
   }
 
   @Override

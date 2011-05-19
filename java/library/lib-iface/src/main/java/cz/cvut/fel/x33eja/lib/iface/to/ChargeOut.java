@@ -46,8 +46,8 @@ public class ChargeOut extends CommonTO {
     this.status = status;
   }
   
-  public void setStatus(int status) {
-    this.status = ChargeOutStatus.fromStatus(status);
+  public void setStatus(String status) {
+    this.status = ChargeOutStatus.valueOf(status);
   }
 
   public Date getTo() {

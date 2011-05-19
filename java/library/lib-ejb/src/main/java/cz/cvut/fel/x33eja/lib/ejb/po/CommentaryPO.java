@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,41 +16,50 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
  * @author ondrepe
  */
 @Entity
+@Cache(alwaysRefresh=true)
 @Table(name = "commentary")
 @NamedQueries({
   @NamedQuery(name = "CommentaryPO.findAll", query = "SELECT c FROM CommentaryPO c"),
   @NamedQuery(name = "CommentaryPO.findByIdCommentary", query = "SELECT c FROM CommentaryPO c WHERE c.idCommentary = :idCommentary"),
   @NamedQuery(name = "CommentaryPO.findByAuthorName", query = "SELECT c FROM CommentaryPO c WHERE c.authorName = :authorName"),
   @NamedQuery(name = "CommentaryPO.findByTime", query = "SELECT c FROM CommentaryPO c WHERE c.time = :time")})
-public class CommentaryPO implements Serializable {
-
+public class CommentaryPO extends CommonPO {
   private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(generator = "Commentary_table", strategy = GenerationType.TABLE)
-  @TableGenerator(name = "Commentary_table", table = "SEQUENCE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_NUM", pkColumnValue = "COMMENTARY_SEQ")
   @Basic(optional = false)
+  @NotNull
+  @GeneratedValue(generator = "commTableGen", strategy=GenerationType.TABLE)
+  @TableGenerator(name = "commTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "commentary", initialValue = 10000, allocationSize = 200)
   @Column(name = "idCommentary")
   private Integer idCommentary;
   @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 50)
   @Column(name = "authorName")
   private String authorName;
   @Basic(optional = false)
+  @NotNull
   @Column(name = "time")
   @Temporal(TemporalType.TIMESTAMP)
   private Date time;
   @Basic(optional = false)
+  @NotNull
   @Lob
+  @Size(min = 1, max = 65535)
   @Column(name = "text")
   private String text;
   @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")
   @ManyToOne(optional = false)
-  private BookTitlePO bookTitlePO;
+  private BookTitlePO idBookTitle;
 
   public CommentaryPO() {
   }
@@ -99,36 +107,11 @@ public class CommentaryPO implements Serializable {
     this.text = text;
   }
 
-  public BookTitlePO getBookTitlePO() {
-    return bookTitlePO;
+  public BookTitlePO getIdBookTitle() {
+    return idBookTitle;
   }
 
-  public void setBookTitlePO(BookTitlePO bookTitlePO) {
-    this.bookTitlePO = bookTitlePO;
-  }
-
-  @Override
-  public int hashCode() {
-    int hash = 0;
-    hash += (idCommentary != null ? idCommentary.hashCode() : 0);
-    return hash;
-  }
-
-  @Override
-  public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
-    if (!(object instanceof CommentaryPO)) {
-      return false;
-    }
-    CommentaryPO other = (CommentaryPO) object;
-    if ((this.idCommentary == null && other.idCommentary != null) || (this.idCommentary != null && !this.idCommentary.equals(other.idCommentary))) {
-      return false;
-    }
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    return "cz.cvut.fel.x33eja.libejb.db.po.CommentaryPO[idCommentary=" + idCommentary + "]";
+  public void setIdBookTitle(BookTitlePO idBookTitle) {
+    this.idBookTitle = idBookTitle;
   }
 }

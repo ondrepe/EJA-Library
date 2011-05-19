@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -12,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,12 +20,16 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
  * @author ondrepe
  */
 @Entity
+@Cache(alwaysRefresh=true)
 @Table(name = "booktitle")
 @NamedQueries({
   @NamedQuery(name = "BookTitlePO.findAll", query = "SELECT b FROM BookTitlePO b"),
@@ -35,44 +39,50 @@ import javax.persistence.TemporalType;
   @NamedQuery(name = "BookTitlePO.findByYear", query = "SELECT b FROM BookTitlePO b WHERE b.year = :year"),
   @NamedQuery(name = "BookTitlePO.findByPagesCount", query = "SELECT b FROM BookTitlePO b WHERE b.pagesCount = :pagesCount"),
   @NamedQuery(name = "BookTitlePO.findByIssueNumber", query = "SELECT b FROM BookTitlePO b WHERE b.issueNumber = :issueNumber")})
-public class BookTitlePO implements Serializable {
-
-  @Column(name = "year")
-  @Temporal(TemporalType.DATE)
-  private Date year;
+public class BookTitlePO extends CommonPO {
   private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(generator = "BookTitle_table", strategy = GenerationType.TABLE)
-  @TableGenerator(name = "BookTitle_table", table = "SEQUENCE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_NUM", pkColumnValue = "BOOKTITLE_SEQ")
   @Basic(optional = false)
+  @NotNull
+  @GeneratedValue(generator = "bookTableGen", strategy=GenerationType.TABLE)
+  @TableGenerator(name = "bookTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "booktitle", initialValue = 10000, allocationSize = 200)
   @Column(name = "idBookTitle")
   private Integer idBookTitle;
   @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 100)
   @Column(name = "isbn")
   private String isbn;
   @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 2000)
   @Column(name = "name")
   private String name;
+  @Column(name = "year")
+  @Temporal(TemporalType.DATE)
+  private Date year;
   @Column(name = "pagesCount")
   private Integer pagesCount;
+  @Size(max = 50)
   @Column(name = "issueNumber")
   private String issueNumber;
   @Lob
+  @Size(max = 65535)
   @Column(name = "about")
   private String about;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
-  private List<CategoryBookPO> categoryBookPOList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
-  private List<LibraryUnitPO> libraryUnitPOList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
-  private List<CommentaryPO> commentaryPOList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
+  @ManyToMany(mappedBy = "bookTitlePOList")
+  private List<CategoryPO> categoryPOList;
+  @ManyToMany(mappedBy = "bookTitlePOList")
+  private List<AuthorPO> authorPOList;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBookTitle")
   private List<ScorePO> scorePOList;
   @JoinColumn(name = "idPublisher", referencedColumnName = "idPublisher")
   @ManyToOne(optional = false)
-  private PublisherPO publisherPO;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitlePO")
-  private List<AuthorBookPO> authorBookPOList;
+  private PublisherPO idPublisher;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBookTitle")
+  private List<LibraryUnitPO> libraryUnitPOList;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBookTitle")
+  private List<CommentaryPO> commentaryPOList;
 
   public BookTitlePO() {
   }
@@ -111,6 +121,14 @@ public class BookTitlePO implements Serializable {
     this.name = name;
   }
 
+  public Date getYear() {
+    return year;
+  }
+
+  public void setYear(Date year) {
+    this.year = year;
+  }
+
   public Integer getPagesCount() {
     return pagesCount;
   }
@@ -135,12 +153,36 @@ public class BookTitlePO implements Serializable {
     this.about = about;
   }
 
-  public List<CategoryBookPO> getCategoryBookPOList() {
-    return categoryBookPOList;
+  public List<CategoryPO> getCategoryPOList() {
+    return categoryPOList;
   }
 
-  public void setCategoryBookPOList(List<CategoryBookPO> categoryBookPOList) {
-    this.categoryBookPOList = categoryBookPOList;
+  public void setCategoryPOList(List<CategoryPO> categoryPOList) {
+    this.categoryPOList = categoryPOList;
+  }
+
+  public List<AuthorPO> getAuthorPOList() {
+    return authorPOList;
+  }
+
+  public void setAuthorPOList(List<AuthorPO> authorPOList) {
+    this.authorPOList = authorPOList;
+  }
+
+  public List<ScorePO> getScorePOList() {
+    return scorePOList;
+  }
+
+  public void setScorePOList(List<ScorePO> scorePOList) {
+    this.scorePOList = scorePOList;
+  }
+
+  public PublisherPO getIdPublisher() {
+    return idPublisher;
+  }
+
+  public void setIdPublisher(PublisherPO idPublisher) {
+    this.idPublisher = idPublisher;
   }
 
   public List<LibraryUnitPO> getLibraryUnitPOList() {
@@ -157,62 +199,5 @@ public class BookTitlePO implements Serializable {
 
   public void setCommentaryPOList(List<CommentaryPO> commentaryPOList) {
     this.commentaryPOList = commentaryPOList;
-  }
-
-  public List<ScorePO> getScorePOList() {
-    return scorePOList;
-  }
-
-  public void setScorePOList(List<ScorePO> scorePOList) {
-    this.scorePOList = scorePOList;
-  }
-
-  public PublisherPO getPublisherPO() {
-    return publisherPO;
-  }
-
-  public void setPublisherPO(PublisherPO publisherPO) {
-    this.publisherPO = publisherPO;
-  }
-
-  public List<AuthorBookPO> getAuthorBookPOList() {
-    return authorBookPOList;
-  }
-
-  public void setAuthorBookPOList(List<AuthorBookPO> authorBookPOList) {
-    this.authorBookPOList = authorBookPOList;
-  }
-
-  @Override
-  public int hashCode() {
-    int hash = 0;
-    hash += (idBookTitle != null ? idBookTitle.hashCode() : 0);
-    return hash;
-  }
-
-  @Override
-  public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
-    if (!(object instanceof BookTitlePO)) {
-      return false;
-    }
-    BookTitlePO other = (BookTitlePO) object;
-    if ((this.idBookTitle == null && other.idBookTitle != null) || (this.idBookTitle != null && !this.idBookTitle.equals(other.idBookTitle))) {
-      return false;
-    }
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    return "cz.cvut.fel.x33eja.libejb.db.po.BookTitlePO[idBookTitle=" + idBookTitle + "]";
-  }
-
-  public Date getYear() {
-    return year;
-  }
-
-  public void setYear(Date year) {
-    this.year = year;
   }
 }

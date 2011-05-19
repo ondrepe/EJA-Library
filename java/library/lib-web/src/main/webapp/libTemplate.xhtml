@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+  <h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+    <title>Library</title>
+  </h:head>
+
+  <h:body>       
+    <div id="top" class="top">
+      <ui:insert name="top">
+        <h:form>
+          
+        </h:form>
+      </ui:insert>
+    </div>
+    <div>
+      <div id="left">
+        <ui:insert name="left">
+          <ul>
+            <c:if test="#{infoBean.admin}">
+              <li><h:link outcome="readerAdmin.xhtml">Administrace ctenaru</h:link></li>
+              <li><h:link outcome="authorAdmin.xhtml">Administrace autoru</h:link></li>
+              <li><h:link outcome="bookTitleAdmin.xhtml">Administrace kniznich titulu</h:link></li>
+              <li><h:link outcome="categoryAdmin.xhtml">Administrace kategorii</h:link></li>
+              <li><h:link outcome="publisherAdmin.xhtml">Administrace vydavatelstvi</h:link></li>
+              <!--<li><h:link outcome="customerV.xhtml">View All Customers</h:link></li>
+              <li><h:link outcome="accountV.xhtml">View All Accounts</h:link></li>
+              <li><h:link outcome="accountA.xhtml">Add Account</h:link></li>
+              <li><h:link outcome="transactionV.xhtml">View All Transactions</h:link></li>-->
+            </c:if>
+            <c:if test="#{infoBean.reader}">
+              <!--<li><h:link outcome="accountV.xhtml">View Accounts</h:link></li>
+              <li><h:link outcome="transactionA.xhtml">Transfer Money</h:link></li>
+              <li><h:link outcome="statement.xhtml">Send Statement</h:link></li>
+              <li><h:link outcome="javafx/ib-web-calc.html">Convert Money</h:link></li>-->
+            </c:if>
+          </ul>
+        </ui:insert>
+      </div>
+      <div id="content" class="left_content">
+        <ui:insert name="content">Content</ui:insert>
+      </div>
+    </div>
+  </h:body>
+
+</html>

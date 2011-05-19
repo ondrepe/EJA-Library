@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,35 +12,41 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
  * @author ondrepe
  */
 @Entity
+@Cache(alwaysRefresh=true)
 @Table(name = "score")
 @NamedQueries({
   @NamedQuery(name = "ScorePO.findAll", query = "SELECT s FROM ScorePO s"),
-  //@NamedQuery(name = "ScorePO.findByIdScore", query = "SELECT s FROM ScorePO s WHERE s.idScore = :idScore"),
+  @NamedQuery(name = "ScorePO.findByIdScore", query = "SELECT s FROM ScorePO s WHERE s.idScore = :idScore"),
   @NamedQuery(name = "ScorePO.findByValue", query = "SELECT s FROM ScorePO s WHERE s.value = :value"),
   @NamedQuery(name = "ScorePO.findByData", query = "SELECT s FROM ScorePO s WHERE s.data = :data")})
-public class ScorePO implements Serializable {
-
+public class ScorePO extends CommonPO {
   private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(generator = "Score_table", strategy = GenerationType.TABLE)
-  @TableGenerator(name = "Score_table", table = "SEQUENCE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_NUM", pkColumnValue = "SCORE_SEQ")
   @Basic(optional = false)
+  @NotNull
+  @GeneratedValue(generator = "scoreTableGen", strategy=GenerationType.TABLE)
+  @TableGenerator(name = "scoreTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "score", initialValue = 10000, allocationSize = 200)
   @Column(name = "idScore")
   private Integer idScore;
   @Basic(optional = false)
+  @NotNull
   @Column(name = "value")
   private int value;
+  @Size(max = 100)
   @Column(name = "data")
   private String data;
   @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")
   @ManyToOne(optional = false)
-  private BookTitlePO bookTitlePO;
+  private BookTitlePO idBookTitle;
 
   public ScorePO() {
   }
@@ -79,36 +84,12 @@ public class ScorePO implements Serializable {
     this.data = data;
   }
 
-  public BookTitlePO getBookTitlePO() {
-    return bookTitlePO;
+  public BookTitlePO getIdBookTitle() {
+    return idBookTitle;
   }
 
-  public void setBookTitlePO(BookTitlePO bookTitlePO) {
-    this.bookTitlePO = bookTitlePO;
+  public void setIdBookTitle(BookTitlePO idBookTitle) {
+    this.idBookTitle = idBookTitle;
   }
-
-  @Override
-  public int hashCode() {
-    int hash = 0;
-    hash += (idScore != null ? idScore.hashCode() : 0);
-    return hash;
-  }
-
-  @Override
-  public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
-    if (!(object instanceof ScorePO)) {
-      return false;
-    }
-    ScorePO other = (ScorePO) object;
-    if ((this.idScore == null && other.idScore != null) || (this.idScore != null && !this.idScore.equals(other.idScore))) {
-      return false;
-    }
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    return "cz.cvut.fel.x33eja.libejb.db.po.ScorePO[idScore=" + idScore + "]";
-  }
+  
 }

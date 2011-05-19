@@ -7,6 +7,7 @@ import cz.cvut.fel.x33eja.lib.iface.to.Author;
 import java.util.List;
 import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,7 +25,8 @@ public class AuthorListCommand extends ListCommand<AuthorPO, Author> {
 
   @Override
   protected List<AuthorPO> list() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    Query query = em.createNamedQuery("AuthorPO.findAll");
+    return query.getResultList();
   }
 
   @Override

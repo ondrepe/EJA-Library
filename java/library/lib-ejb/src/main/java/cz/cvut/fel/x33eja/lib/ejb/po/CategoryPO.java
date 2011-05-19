@@ -1,44 +1,53 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
  * @author ondrepe
  */
 @Entity
+@Cache(alwaysRefresh=true)
 @Table(name = "category")
 @NamedQueries({
   @NamedQuery(name = "CategoryPO.findAll", query = "SELECT c FROM CategoryPO c"),
   @NamedQuery(name = "CategoryPO.findByIdCategory", query = "SELECT c FROM CategoryPO c WHERE c.idCategory = :idCategory"),
   @NamedQuery(name = "CategoryPO.findByName", query = "SELECT c FROM CategoryPO c WHERE c.name = :name")})
-public class CategoryPO implements Serializable {
-
+public class CategoryPO extends CommonPO {
   private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(generator = "Category_table", strategy = GenerationType.TABLE)
-  @TableGenerator(name = "Category_table", table = "SEQUENCE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_NUM", pkColumnValue = "CATEGORY_SEQ")
   @Basic(optional = false)
+  @NotNull
+  @GeneratedValue(generator = "catTableGen", strategy=GenerationType.TABLE)
+  @TableGenerator(name = "catTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "category", initialValue = 10000, allocationSize = 200)
   @Column(name = "idCategory")
   private Integer idCategory;
   @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 250)
   @Column(name = "name")
   private String name;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryPO")
-  private List<CategoryBookPO> categoryBookPOList;
+  @JoinTable(name = "categorybook", joinColumns = {
+    @JoinColumn(name = "idCategory", referencedColumnName = "idCategory")}, inverseJoinColumns = {
+    @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")})
+  @ManyToMany
+  private List<BookTitlePO> bookTitlePOList;
 
   public CategoryPO() {
   }
@@ -68,12 +77,12 @@ public class CategoryPO implements Serializable {
     this.name = name;
   }
 
-  public List<CategoryBookPO> getCategoryBookPOList() {
-    return categoryBookPOList;
+  public List<BookTitlePO> getBookTitlePOList() {
+    return bookTitlePOList;
   }
 
-  public void setCategoryBookPOList(List<CategoryBookPO> categoryBookPOList) {
-    this.categoryBookPOList = categoryBookPOList;
+  public void setBookTitlePOList(List<BookTitlePO> bookTitlePOList) {
+    this.bookTitlePOList = bookTitlePOList;
   }
 
   @Override
@@ -98,6 +107,7 @@ public class CategoryPO implements Serializable {
 
   @Override
   public String toString() {
-    return "cz.cvut.fel.x33eja.libejb.db.po.CategoryPO[idCategory=" + idCategory + "]";
+    return "cz.cvut.fel.x33eja.lib.ejb.po.CategoryPO[ idCategory=" + idCategory + " ]";
   }
+  
 }

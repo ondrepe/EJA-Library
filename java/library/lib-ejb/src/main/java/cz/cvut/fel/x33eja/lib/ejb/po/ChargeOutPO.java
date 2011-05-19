@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,25 +16,31 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
  * @author ondrepe
  */
 @Entity
+@Cache(alwaysRefresh=true)
 @Table(name = "chargeout")
 @NamedQueries({
   @NamedQuery(name = "ChargeOutPO.findAll", query = "SELECT c FROM ChargeOutPO c"),
-  
-  @NamedQuery(name = "ChargeOutPO.findByIdReader", query = "SELECT c FROM ChargeOutPO c WHERE c.readerPO.idReader = :idReader"),
-  @NamedQuery(name = "ChargeOutPO.findActiveByIdReader", query = "SELECT c FROM ChargeOutPO c WHERE c.readerPO.idReader = :idReader AND c.status.idChargeOutStatus = 2"),
-  @NamedQuery(name = "ChargeOutPO.findReservedByIdReader", query = "SELECT c FROM ChargeOutPO c WHERE c.readerPO.idReader = :idReader AND c.status.idChargeOutStatus = 1"),
-  
+  @NamedQuery(name = "ChargeOutPO.findAll", query = "SELECT c FROM ChargeOutPO c"),
+  @NamedQuery(name = "ChargeOutPO.findReservedByIdReader", query = "SELECT c FROM ChargeOutPO c"),
   @NamedQuery(name = "ChargeOutPO.findByIdChargeOut", query = "SELECT c FROM ChargeOutPO c WHERE c.idChargeOut = :idChargeOut"),
   @NamedQuery(name = "ChargeOutPO.findByFromDate", query = "SELECT c FROM ChargeOutPO c WHERE c.fromDate = :fromDate"),
   @NamedQuery(name = "ChargeOutPO.findByToDate", query = "SELECT c FROM ChargeOutPO c WHERE c.toDate = :toDate")})
-public class ChargeOutPO implements Serializable {
-
+public class ChargeOutPO extends CommonPO {
+  private static final long serialVersionUID = 1L;
+  @Id
+  @Basic(optional = false)
+  @NotNull
+  @GeneratedValue(generator = "chargeoutTableGen", strategy=GenerationType.TABLE)
+  @TableGenerator(name = "chargeoutTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "chargeout", initialValue = 10000, allocationSize = 200)
+  @Column(name = "idChargeOut")
+  private Integer idChargeOut;
   @Basic(optional = false)
   @NotNull
   @Column(name = "fromDate")
@@ -46,22 +51,15 @@ public class ChargeOutPO implements Serializable {
   @Column(name = "toDate")
   @Temporal(TemporalType.TIMESTAMP)
   private Date toDate;
-  @JoinColumn(name = "status", referencedColumnName = "idChargeOutStatus")
+  @JoinColumn(name = "status", referencedColumnName = "name")
   @ManyToOne(optional = false)
   private ChargeOutStatusPO status;
-  private static final long serialVersionUID = 1L;
-  @Id
-  @GeneratedValue(generator = "ChargeOut_table", strategy = GenerationType.TABLE)
-  @TableGenerator(name = "ChargeOut_table", table = "SEQUENCE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_NUM", pkColumnValue = "CHARGEOUT_SEQ")
-  @Basic(optional = false)
-  @Column(name = "idChargeOut")
-  private Integer idChargeOut;
   @JoinColumn(name = "idReader", referencedColumnName = "idReader")
   @ManyToOne(optional = false)
-  private ReaderPO readerPO;
+  private ReaderPO idReader;
   @JoinColumn(name = "idLibraryUnit", referencedColumnName = "idLibraryUnit")
   @ManyToOne(optional = false)
-  private LibraryUnitPO libraryUnitPO;
+  private LibraryUnitPO idLibraryUnit;
 
   public ChargeOutPO() {
   }
@@ -82,47 +80,6 @@ public class ChargeOutPO implements Serializable {
 
   public void setIdChargeOut(Integer idChargeOut) {
     this.idChargeOut = idChargeOut;
-  }
-
-  public ReaderPO getReaderPO() {
-    return readerPO;
-  }
-
-  public void setReaderPO(ReaderPO readerPO) {
-    this.readerPO = readerPO;
-  }
-
-  public LibraryUnitPO getLibraryUnitPO() {
-    return libraryUnitPO;
-  }
-
-  public void setLibraryUnitPO(LibraryUnitPO libraryUnitPO) {
-    this.libraryUnitPO = libraryUnitPO;
-  }
-
-  @Override
-  public int hashCode() {
-    int hash = 0;
-    hash += (idChargeOut != null ? idChargeOut.hashCode() : 0);
-    return hash;
-  }
-
-  @Override
-  public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
-    if (!(object instanceof ChargeOutPO)) {
-      return false;
-    }
-    ChargeOutPO other = (ChargeOutPO) object;
-    if ((this.idChargeOut == null && other.idChargeOut != null) || (this.idChargeOut != null && !this.idChargeOut.equals(other.idChargeOut))) {
-      return false;
-    }
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    return "cz.cvut.fel.x33eja.libejb.db.po.ChargeOutPO[idChargeOut=" + idChargeOut + "]";
   }
 
   public Date getFromDate() {
@@ -147,5 +104,21 @@ public class ChargeOutPO implements Serializable {
 
   public void setStatus(ChargeOutStatusPO status) {
     this.status = status;
+  }
+
+  public ReaderPO getIdReader() {
+    return idReader;
+  }
+
+  public void setIdReader(ReaderPO idReader) {
+    this.idReader = idReader;
+  }
+
+  public LibraryUnitPO getIdLibraryUnit() {
+    return idLibraryUnit;
+  }
+
+  public void setIdLibraryUnit(LibraryUnitPO idLibraryUnit) {
+    this.idLibraryUnit = idLibraryUnit;
   }
 }

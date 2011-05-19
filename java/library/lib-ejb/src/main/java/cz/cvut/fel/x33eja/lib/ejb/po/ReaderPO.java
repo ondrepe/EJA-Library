@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -14,44 +13,52 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
  * @author ondrepe
  */
 @Entity
+@Cache(alwaysRefresh=true)
 @Table(name = "reader")
 @NamedQueries({
   @NamedQuery(name = "ReaderPO.findAll", query = "SELECT r FROM ReaderPO r"),
-  
-  @NamedQuery(name = "ReaderPO.getChargeOutsByIdReader", query = "SELECT r FROM ReaderPO r WHERE r.idReader = :idReader"),
-  
+  @NamedQuery(name = "ReaderPO.findByIdReader", query = "SELECT r FROM ReaderPO r WHERE r.idReader = :idReader"),
   @NamedQuery(name = "ReaderPO.findByName", query = "SELECT r FROM ReaderPO r WHERE r.name = :name"),
   @NamedQuery(name = "ReaderPO.findBySurname", query = "SELECT r FROM ReaderPO r WHERE r.surname = :surname"),
   @NamedQuery(name = "ReaderPO.findByEmail", query = "SELECT r FROM ReaderPO r WHERE r.email = :email")})
 public class ReaderPO extends CommonPO {
-
-  @OneToMany(mappedBy = "idReader")
-  private List<AuthorizationPO> authorizationPOList;
   private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(generator = "Reader_table", strategy = GenerationType.TABLE)
-  @TableGenerator(name = "Reader_table", table = "SEQUENCE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_NUM", pkColumnValue = "READER_SEQ")
   @Basic(optional = false)
+  @NotNull
+  @GeneratedValue(generator = "readerTableGen", strategy=GenerationType.TABLE)
+  @TableGenerator(name = "readerTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "reader", initialValue = 10000, allocationSize = 200)
   @Column(name = "idReader")
   private Integer idReader;
   @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 50)
   @Column(name = "name")
   private String name;
   @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 250)
   @Column(name = "surname")
   private String surname;
+  // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
   @Basic(optional = false)
+  @NotNull
+  @Size(min = 1, max = 250)
   @Column(name = "email")
   private String email;
-  @OneToMany(cascade = CascadeType.DETACH, mappedBy = "readerPO")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReader")
   private List<ChargeOutPO> chargeOutPOList;
+  @OneToMany(mappedBy = "idReader")
+  private List<AutentizationPO> autentizationPOList;
 
   public ReaderPO() {
   }
@@ -107,37 +114,12 @@ public class ReaderPO extends CommonPO {
     this.chargeOutPOList = chargeOutPOList;
   }
 
-  @Override
-  public int hashCode() {
-    int hash = 0;
-    hash += (idReader != null ? idReader.hashCode() : 0);
-    return hash;
+  public List<AutentizationPO> getAutentizationPOList() {
+    return autentizationPOList;
   }
 
-  @Override
-  public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
-    if (!(object instanceof ReaderPO)) {
-      return false;
-    }
-    ReaderPO other = (ReaderPO) object;
-    if ((this.idReader == null && other.idReader != null) || (this.idReader != null && !this.idReader.equals(other.idReader))) {
-      return false;
-    }
-    return true;
+  public void setAutentizationPOList(List<AutentizationPO> autentizationPOList) {
+    this.autentizationPOList = autentizationPOList;
   }
-
-  @Override
-  public String toString() {
-    return "cz.cvut.fel.x33eja.libejb.db.po.ReaderPO[idReader=" + idReader + "]";
-  }
-
-  @XmlTransient
-  public List<AuthorizationPO> getAuthorizationPOList() {
-    return authorizationPOList;
-  }
-
-  public void setAuthorizationPOList(List<AuthorizationPO> authorizationPOList) {
-    this.authorizationPOList = authorizationPOList;
-  }
+  
 }

@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,36 +12,36 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import org.eclipse.persistence.annotations.Cache;
 
 /**
  *
  * @author ondrepe
  */
 @Entity
+@Cache(alwaysRefresh=true)
 @Table(name = "parameter")
-@XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "ParameterPO.findAll", query = "SELECT p FROM ParameterPO p"),
   @NamedQuery(name = "ParameterPO.findByIdParameter", query = "SELECT p FROM ParameterPO p WHERE p.idParameter = :idParameter"),
-  @NamedQuery(name = "ParameterPO.findByParamGroup", query = "SELECT p FROM ParameterPO p WHERE p.paramGroup = :paramGroup"),
+  @NamedQuery(name = "ParameterPO.findByGroup", query = "SELECT p FROM ParameterPO p WHERE p.paramgroup = :paramgroup"),
   @NamedQuery(name = "ParameterPO.findByName", query = "SELECT p FROM ParameterPO p WHERE p.name = :name"),
   @NamedQuery(name = "ParameterPO.findByDatatype", query = "SELECT p FROM ParameterPO p WHERE p.datatype = :datatype"),
   @NamedQuery(name = "ParameterPO.findByAbout", query = "SELECT p FROM ParameterPO p WHERE p.about = :about")})
-public class ParameterPO implements Serializable {
+public class ParameterPO extends CommonPO {
   private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(generator = "Parameter_table", strategy = GenerationType.TABLE)
-  @TableGenerator(name = "Parameter_table", table = "SEQUENCE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_NUM", pkColumnValue = "PARAMETER_SEQ")
   @Basic(optional = false)
   @NotNull
+  @GeneratedValue(generator = "paramTableGen", strategy=GenerationType.TABLE)
+  @TableGenerator(name = "paramTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "parameter", initialValue = 10000, allocationSize = 200)
   @Column(name = "idParameter")
   private Integer idParameter;
   @Basic(optional = false)
   @NotNull
   @Size(min = 1, max = 45)
-  @Column(name = "paramGroup")
-  private String paramGroup;
+  @Column(name = "paramgroup")
+  private String paramgroup;
   @Basic(optional = false)
   @NotNull
   @Size(min = 1, max = 45)
@@ -64,9 +63,9 @@ public class ParameterPO implements Serializable {
     this.idParameter = idParameter;
   }
 
-  public ParameterPO(Integer idParameter, String paramGroup, String name, String datatype) {
+  public ParameterPO(Integer idParameter, String paramgroup, String name, String datatype) {
     this.idParameter = idParameter;
-    this.paramGroup = paramGroup;
+    this.paramgroup = paramgroup;
     this.name = name;
     this.datatype = datatype;
   }
@@ -79,12 +78,12 @@ public class ParameterPO implements Serializable {
     this.idParameter = idParameter;
   }
 
-  public String getParamGroup() {
-    return paramGroup;
+  public String getParamgroup() {
+    return paramgroup;
   }
 
-  public void setParamGroup(String paramGroup) {
-    this.paramGroup = paramGroup;
+  public void setParamgroup(String paramgroup) {
+    this.paramgroup = paramgroup;
   }
 
   public String getName() {
@@ -110,30 +109,4 @@ public class ParameterPO implements Serializable {
   public void setAbout(String about) {
     this.about = about;
   }
-
-  @Override
-  public int hashCode() {
-    int hash = 0;
-    hash += (idParameter != null ? idParameter.hashCode() : 0);
-    return hash;
-  }
-
-  @Override
-  public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
-    if (!(object instanceof ParameterPO)) {
-      return false;
-    }
-    ParameterPO other = (ParameterPO) object;
-    if ((this.idParameter == null && other.idParameter != null) || (this.idParameter != null && !this.idParameter.equals(other.idParameter))) {
-      return false;
-    }
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    return "cz.cvut.fel.x33eja.libejb.po.ParameterPO[ idParameter=" + idParameter + " ]";
-  }
-  
 }

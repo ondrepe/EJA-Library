@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./libTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  <ui:define name="content">
+    
+    <div>
+      <h:dataTable var="publisher" value="#{publisherList.list}">
+        <h:column>
+          <f:facet name="header">Id</f:facet>
+          #{publisher.idPublisher}
+        </h:column>
+        <h:column>
+          <f:facet name="header">Jmeno</f:facet>
+          #{publisher.name}
+        </h:column>
+      </h:dataTable>
+    </div>
+
+    <div>
+      <h:form>
+        <h:panelGrid columns="3">
+          Jmeno: <h:inputText id="name" value="#{publisherAdd.item.name}" validator="#{readerNameValidator.validate}" />
+          <h:message for="name" />
+          <h:commandButton value="Pridat" action="#{publisherAdd.add}" />
+        </h:panelGrid>
+      </h:form>
+    </div>
+
+  </ui:define>
+
+</ui:composition>

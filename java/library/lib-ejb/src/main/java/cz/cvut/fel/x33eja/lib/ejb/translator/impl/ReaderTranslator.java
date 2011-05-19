@@ -21,7 +21,7 @@ public class ReaderTranslator extends CommonTranslator<ReaderPO, Reader> {
     to.setEmail(from.getEmail());
 
     for (ChargeOutPO coPO : from.getChargeOutPOList()) {
-      int status = coPO.getStatus().getIdChargeOutStatus();
+      ChargeOutStatus status = ChargeOutStatus.valueOf(coPO.getStatus().getName());
       if (ChargeOutStatus.ACTIVE.equals(status)) {
         to.setActiveChargeOutsCount(to.getActiveChargeOutsCount() + 1);
       } else if (ChargeOutStatus.RESERVED.equals(status)) {
