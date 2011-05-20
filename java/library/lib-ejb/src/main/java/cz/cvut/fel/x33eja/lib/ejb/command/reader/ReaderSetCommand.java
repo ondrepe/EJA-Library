@@ -25,11 +25,12 @@ public class ReaderSetCommand extends SetCommand<ReaderPO, Reader> {
   @Override
   protected void set(ReaderPO object) {
     CreateUpdateCommand<ReaderPO> command;
-    if(object.getIdReader() == null || !new ReaderExistCommand(em, ctx).execute(object.getIdReader()))
+    if (object.getIdReader() == null || !new ReaderExistCommand(em, ctx).execute(object.getIdReader())) {
       command = new ReaderCreateCommand(em, ctx);
-    else
+    } else {
       command = new ReaderUpdateCommand(em, ctx);
-    command.execute(object);   
+    }
+    command.execute(object);
   }
 
   @Override
@@ -37,9 +38,12 @@ public class ReaderSetCommand extends SetCommand<ReaderPO, Reader> {
     ReaderTranslator translator = new ReaderTranslator();
     return translator.fromDoToPo(object);
   }
-  
+
   @Override
   protected boolean authorize() {
-    return true;
+    if (isAdmin()) {
+      return true;
+    }
+    return false;
   }
 }

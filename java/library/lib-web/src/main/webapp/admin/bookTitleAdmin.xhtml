@@ -10,7 +10,7 @@
   <ui:define name="content">
 
     <div>
-      <h:dataTable var="bookTitle" value="#{bookTitleList.list}">
+      <h:dataTable var="bookTitle" value="#{bookTitleAdminBean.list}">
         <h:column>
           <f:facet name="header">Id</f:facet>
           #{bookTitle.id}
@@ -57,19 +57,19 @@
     <div>
       <h:form>
         <h:panelGrid columns="3">
-          ISBN: <h:inputText id="isbn" value="#{bookTitleAdd.item.isbn}" validator="#{readerNameValidator.validate}" />
+          ISBN: <h:inputText id="isbn" value="#{bookTitleAdminBean.item.isbn}" validator="#{readerNameValidator.validate}" />
           <h:message for="isbn" />
-          Nazev: <h:inputText id="name" value="#{bookTitleAdd.item.name}" validator="#{readerSurameValidator.validate}" />
+          Nazev: <h:inputText id="name" value="#{bookTitleAdminBean.item.name}" validator="#{readerSurameValidator.validate}" />
           <h:message for="name" />
-          Vydani: <h:inputText id="issue" value="#{bookTitleAdd.item.issue}" validator="#{readerEmailValidator.validate}" />
+          Vydani: <h:inputText id="issue" value="#{bookTitleAdminBean.item.issue}" validator="#{readerEmailValidator.validate}" />
           <h:message for="issue" />
-          Rok: <h:inputText id="year" value="#{bookTitleAdd.item.year}" validator="#{readerEmailValidator.validate}" />
+          Rok: <h:inputText id="year" value="#{bookTitleAdminBean.item.year}" validator="#{readerEmailValidator.validate}" />
           <h:message for="year" />
-          Pocet stran: <h:inputText id="pages" value="#{bookTitleAdd.item.pages}" validator="#{readerEmailValidator.validate}" />
+          Pocet stran: <h:inputText id="pages" value="#{bookTitleAdminBean.item.pages}" validator="#{readerEmailValidator.validate}" />
           <h:message for="pages" />
-          O knize: <h:inputText id="about" value="#{bookTitleAdd.item.about}" validator="#{readerEmailValidator.validate}" />
+          O knize: <h:inputText id="about" value="#{bookTitleAdminBean.item.about}" validator="#{readerEmailValidator.validate}" />
           <h:message for="about" />
-          <h:commandButton value="Pridat" action="#{bookTitleAdd.add}" />
+          <h:commandButton value="Pridat" action="#{bookTitleAdminBean.add}" />
         </h:panelGrid>
       </h:form>
     </div>

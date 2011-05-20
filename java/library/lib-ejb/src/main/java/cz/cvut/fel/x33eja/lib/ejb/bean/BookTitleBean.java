@@ -11,6 +11,8 @@ import cz.cvut.fel.x33eja.lib.iface.ejb.IBookTitleBean;
 import cz.cvut.fel.x33eja.lib.iface.to.BookTitle;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -25,6 +27,7 @@ import javax.persistence.PersistenceContext;
  * @author ondrepe
  */
 @Stateless
+@DeclareRoles({"ADMIN", "READER", "ANONYM"})
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class BookTitleBean implements IBookTitleBean {
 
@@ -34,18 +37,21 @@ public class BookTitleBean implements IBookTitleBean {
   private SessionContext ctx;
   
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public BookTitle getBook(int i) {
     BookTitleGetCommand command = new BookTitleGetCommand(em, ctx);
     return command.execute(i);
   }
 
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public List<BookTitle> getAllBookTitles() {
     BookTitleListCommand command = new BookTitleListCommand(em, ctx);
     return command.execute();
   }
 
   @Override
+  @RolesAllowed({"ADMIN"})
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void save(BookTitle bt) {
     BookTitleSetCommand command = new BookTitleSetCommand(em, ctx);
@@ -53,6 +59,7 @@ public class BookTitleBean implements IBookTitleBean {
   }
 
   @Override
+  @RolesAllowed({"ADMIN"})
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void remove(int id) {
     BookTitleDeleteCommand command = new BookTitleDeleteCommand(em, ctx);
@@ -60,24 +67,28 @@ public class BookTitleBean implements IBookTitleBean {
   }
 
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public List<BookTitle> getBookTitlesByAuthor(int i) {
     BookTitleListByIdCommand command = new BookTitleListByIdCommand(em, ctx, BookTitleListByIdCommandEnum.AUTHOR);
     return command.execute(i);
   }
 
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public List<BookTitle> getBookTitlesByPublisher(int i) {
     BookTitleListByIdCommand command = new BookTitleListByIdCommand(em, ctx, BookTitleListByIdCommandEnum.PUBLISHER);
     return command.execute(i);
   }
 
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public List<BookTitle> getBookTitlesByCategory(int i) {
     BookTitleListByIdCommand command = new BookTitleListByIdCommand(em, ctx, BookTitleListByIdCommandEnum.CATEGORY);
     return command.execute(i);
   }
 
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void scoreBook(int idBook, int score) {
     BookTitleScoreCommand command = new BookTitleScoreCommand(em, ctx);

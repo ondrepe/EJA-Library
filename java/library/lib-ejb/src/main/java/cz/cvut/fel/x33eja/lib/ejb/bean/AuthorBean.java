@@ -8,6 +8,8 @@ import cz.cvut.fel.x33eja.lib.iface.ejb.IAuthorBean;
 import cz.cvut.fel.x33eja.lib.iface.to.Author;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -22,6 +24,7 @@ import javax.persistence.PersistenceContext;
  * @author ondrepe
  */
 @Stateless
+@DeclareRoles({"ADMIN", "READER", "ANONYM"})
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class AuthorBean implements IAuthorBean {
   
@@ -31,18 +34,21 @@ public class AuthorBean implements IAuthorBean {
   private SessionContext ctx;
   
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public Author getAuthor(int i) {
     AuthorGetCommand command = new AuthorGetCommand(em, ctx);
     return command.execute(i);
   }
 
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public List<Author> getAllAuthors() {
     AuthorListCommand command = new AuthorListCommand(em, ctx);
     return command.execute();
   }
 
   @Override
+  @RolesAllowed({"ADMIN"})
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void save(Author author) {
     AuthorSetCommand command = new AuthorSetCommand(em, ctx);
@@ -50,6 +56,7 @@ public class AuthorBean implements IAuthorBean {
   }
 
   @Override
+  @RolesAllowed({"ADMIN"})
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void remove(int id) {
     AuthorDeleteCommand command = new AuthorDeleteCommand(em, ctx);

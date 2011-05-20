@@ -37,6 +37,6 @@ public class ReaderListCommand extends ListCommand<ReaderPO, Reader> {
 
   @Override
   protected boolean authorize() {
-    return true;
+    return isAdmin();
   }
 }

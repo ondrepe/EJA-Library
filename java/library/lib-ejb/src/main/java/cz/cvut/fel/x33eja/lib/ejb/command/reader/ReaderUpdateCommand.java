@@ -18,11 +18,13 @@ public class ReaderUpdateCommand extends CreateUpdateCommand<ReaderPO> {
   public ReaderUpdateCommand(EntityManager em, SessionContext ctx) {
     super(em, ctx);
   }
-  
+
   @Override
   public void execute(ReaderPO reader) {
-    ReaderPO readerPO = em.merge(reader);
+    ReaderPO readerPO = em.find(ReaderPO.class, reader.getIdReader());
+    readerPO.setName(reader.getName());
+    readerPO.setSurname(reader.getSurname());
+    readerPO.setEmail(reader.getEmail());
     em.persist(readerPO);
   }
-  
 }

@@ -1,4 +1,4 @@
-package cz.cvut.fel.x33eja.lib.web.bean.reader.validator;
+package cz.cvut.fel.x33eja.lib.web.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;

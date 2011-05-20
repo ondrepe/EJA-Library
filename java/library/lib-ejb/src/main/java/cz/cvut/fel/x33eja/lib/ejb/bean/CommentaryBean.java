@@ -1,9 +1,16 @@
 package cz.cvut.fel.x33eja.lib.ejb.bean;
 
+import cz.cvut.fel.x33eja.lib.ejb.command.commentary.CommentaryDeleteCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.commentary.CommentaryGetCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.commentary.CommentaryListByIdCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.commentary.CommentaryListCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.commentary.CommentarySetCommand;
 import cz.cvut.fel.x33eja.lib.iface.ejb.ICommentaryBean;
 import cz.cvut.fel.x33eja.lib.iface.to.Commentary;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -18,6 +25,7 @@ import javax.persistence.PersistenceContext;
  * @author ondrepe
  */
 @Stateless
+@DeclareRoles({"ADMIN", "READER", "ANONYM"})
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class CommentaryBean implements ICommentaryBean {
 
@@ -27,29 +35,40 @@ public class CommentaryBean implements ICommentaryBean {
   private SessionContext ctx;
   
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public Commentary getCommentary(int i) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    CommentaryGetCommand command = new CommentaryGetCommand(em, ctx);
+    return command.execute(i);
   }
 
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public List<Commentary> getAllCommentaries() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    CommentaryListCommand command = new CommentaryListCommand(em, ctx);
+    return command.execute();
   }
 
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   public List<Commentary> getCommentariesByBook(int i) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    CommentaryListByIdCommand command = new CommentaryListByIdCommand(em, ctx);
+    return command.execute(i);
   }
 
   @Override
+  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void save(Commentary cmntr) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    CommentarySetCommand command = new CommentarySetCommand(em, ctx);
+    command.execute(cmntr);
   }
 
   @Override
+  @RolesAllowed({"ADMIN"})
+  @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void remove(int i) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    CommentaryDeleteCommand command = new CommentaryDeleteCommand(em, ctx);
+    command.execute(i);
   }
   
 }

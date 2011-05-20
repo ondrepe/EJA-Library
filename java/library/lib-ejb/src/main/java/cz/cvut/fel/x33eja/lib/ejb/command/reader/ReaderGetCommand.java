@@ -23,7 +23,11 @@ public class ReaderGetCommand extends GetCommand<ReaderPO, Reader> {
 
   @Override
   protected ReaderPO get(int id) {
-    return em.find(ReaderPO.class, id);
+    if (isAdmin()) {
+      return em.find(ReaderPO.class, id);
+    } else {
+      return getReader();
+    }
   }
 
   @Override
@@ -34,6 +38,9 @@ public class ReaderGetCommand extends GetCommand<ReaderPO, Reader> {
 
   @Override
   protected boolean authorize() {
-    return true;
+    if (isAdmin() || isReader()) {
+      return true;
+    }
+    return false;
   }
 }

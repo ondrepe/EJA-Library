@@ -27,6 +27,6 @@ public class ReaderDeleteCommand extends DeleteCommand {
 
   @Override
   protected boolean authorize() {
-    return true;
+    return isAdmin();
   }
 }

@@ -5,13 +5,11 @@ import cz.cvut.fel.x33eja.lib.ejb.po.BookTitlePO;
 import cz.cvut.fel.x33eja.lib.ejb.po.ChargeOutPO;
 import cz.cvut.fel.x33eja.lib.ejb.po.ReaderPO;
 import cz.cvut.fel.x33eja.lib.ejb.translator.impl.BookTitleTranslator;
-import cz.cvut.fel.x33eja.lib.ejb.translator.impl.PublisherTranslator;
 import cz.cvut.fel.x33eja.lib.iface.to.BookTitle;
 import cz.cvut.fel.x33eja.lib.iface.to.ChargeOut;
 import cz.cvut.fel.x33eja.lib.iface.to.ChargeOutStatus;
 import cz.cvut.fel.x33eja.lib.iface.to.ReaderDetail;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
@@ -44,10 +42,15 @@ public class ReaderDetailCommand extends DetailCommand<ReaderDetail> {
 
   @Override
   protected ReaderDetail detail(int id) {
-    ReaderPO rPo = em.find(ReaderPO.class, id);
+    ReaderPO rPo = null;
+    if (isReader()) {
+      rPo = getReader();
+    } else {
+      rPo = em.find(ReaderPO.class, id);
+    }
     List<ChargeOutPO> listPo = rPo.getChargeOutPOList();
     List<ChargeOutPO> resultList = new ArrayList<ChargeOutPO>();
-    
+
     if (status != null) {
       for (ChargeOutPO chargeOut : listPo) {
         ChargeOutStatus st = ChargeOutStatus.valueOf(chargeOut.getStatus().getName());
@@ -80,7 +83,7 @@ public class ReaderDetailCommand extends DetailCommand<ReaderDetail> {
       BookTitlePO bPo = cPo.getIdLibraryUnit().getIdBookTitle();
       BookTitleTranslator bookTitleTranslator = new BookTitleTranslator();
       BookTitle bt = bookTitleTranslator.fromPoToDo(bPo);
-      
+
       co.setBook(bt);
       list.add(co);
     }
@@ -91,6 +94,9 @@ public class ReaderDetailCommand extends DetailCommand<ReaderDetail> {
 
   @Override
   protected boolean authorize() {
-    return true;
+    if (isAdmin() || isReader()) {
+      return true;
+    }
+    return false;
   }
 }

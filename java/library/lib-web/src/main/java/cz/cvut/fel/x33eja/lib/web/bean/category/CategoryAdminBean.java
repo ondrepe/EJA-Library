@@ -2,7 +2,8 @@ package cz.cvut.fel.x33eja.lib.web.bean.category;
 
 import cz.cvut.fel.x33eja.lib.iface.ejb.ICategoryBean;
 import cz.cvut.fel.x33eja.lib.iface.to.Category;
-import cz.cvut.fel.x33eja.lib.web.bean.CommonAddBean;
+import cz.cvut.fel.x33eja.lib.web.bean.CommonAdminBean;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -13,7 +14,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class CategoryAdd extends CommonAddBean<Category> {
+public class CategoryAdminBean extends CommonAdminBean<Category> {
 
   @EJB
   private ICategoryBean categoryBean;
@@ -26,6 +27,11 @@ public class CategoryAdd extends CommonAddBean<Category> {
   @Override
   protected Category initItem() {
     return new Category();
+  }
+
+  @Override
+  protected List<Category> load() {
+    return categoryBean.getAllCategories();
   }
   
 }

@@ -9,14 +9,18 @@
   <ui:define name="content">
     
     <div>
-      <h:dataTable var="publisher" value="#{publisherList.list}">
+      <h:dataTable var="author" value="#{authorAdminBean.list}">
         <h:column>
           <f:facet name="header">Id</f:facet>
-          #{publisher.idPublisher}
+          #{author.idAuthor}
         </h:column>
         <h:column>
           <f:facet name="header">Jmeno</f:facet>
-          #{publisher.name}
+          #{author.name}
+        </h:column>
+        <h:column>
+          <f:facet name="header">Prijmeni</f:facet>
+          #{author.surname}
         </h:column>
       </h:dataTable>
     </div>
@@ -24,9 +28,11 @@
     <div>
       <h:form>
         <h:panelGrid columns="3">
-          Jmeno: <h:inputText id="name" value="#{publisherAdd.item.name}" validator="#{readerNameValidator.validate}" />
+          Jmeno: <h:inputText id="name" value="#{authorAdminBean.item.name}" validator="#{readerNameValidator.validate}" />
           <h:message for="name" />
-          <h:commandButton value="Pridat" action="#{publisherAdd.add}" />
+          Prijmeni: <h:inputText id="surname" value="#{authorAdminBean.item.surname}" validator="#{readerSurameValidator.validate}" />
+          <h:message for="surname" />
+          <h:commandButton value="Pridat" action="#{authorAdminBean.add}" />
         </h:panelGrid>
       </h:form>
     </div>

@@ -9,7 +9,7 @@
   <ui:define name="content">
 
     <div>
-      <h:dataTable var="reader" value="#{readerList.list}">
+      <h:dataTable var="reader" value="#{readerAdminBean.list}">
         <h:column>
           <f:facet name="header">Id</f:facet>
           #{reader.idReader}
@@ -44,13 +44,13 @@
     <div>
       <h:form>
         <h:panelGrid columns="3">
-          Jmeno: <h:inputText id="name" value="#{readerAdd.item.name}" validator="#{readerNameValidator.validate}" />
+          Jmeno: <h:inputText id="name" value="#{readerAdminBean.item.name}" validator="#{readerNameValidator.validate}" />
           <h:message for="name" />
-          Prijmeni: <h:inputText id="surname" value="#{readerAdd.item.surname}" validator="#{readerSurameValidator.validate}" />
+          Prijmeni: <h:inputText id="surname" value="#{readerAdminBean.item.surname}" validator="#{readerSurameValidator.validate}" />
           <h:message for="surname" />
-          Email: <h:inputText id="email" value="#{readerAdd.item.email}" validator="#{readerEmailValidator.validate}" />
+          Email: <h:inputText id="email" value="#{readerAdminBean.item.email}" validator="#{readerEmailValidator.validate}" />
           <h:message for="email" />
-          <h:commandButton value="Pridat" action="#{readerAdd.add}" />
+          <h:commandButton value="Pridat" action="#{readerAdminBean.add}" />
         </h:panelGrid>
       </h:form>
     </div>

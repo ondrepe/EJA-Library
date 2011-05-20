@@ -2,7 +2,8 @@ package cz.cvut.fel.x33eja.lib.web.bean.booktitle;
 
 import cz.cvut.fel.x33eja.lib.iface.ejb.IBookTitleBean;
 import cz.cvut.fel.x33eja.lib.iface.to.BookTitle;
-import cz.cvut.fel.x33eja.lib.web.bean.CommonAddBean;
+import cz.cvut.fel.x33eja.lib.web.bean.CommonAdminBean;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -13,7 +14,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class BookTitleAdd extends CommonAddBean<BookTitle> {
+public class BookTitleAdminBean extends CommonAdminBean<BookTitle> {
 
   @EJB
   private IBookTitleBean bookTitleBean;
@@ -26,6 +27,11 @@ public class BookTitleAdd extends CommonAddBean<BookTitle> {
   @Override
   protected BookTitle initItem() {
     return new BookTitle();
+  }
+
+  @Override
+  protected List<BookTitle> load() {
+    return bookTitleBean.getAllBookTitles();
   }
   
 }

@@ -17,7 +17,7 @@
     <div id="top" class="top">
       <ui:insert name="top">
         <h:form>
-          <h:link rendered="#{infoBean.anonym}" outcome="/loginForm.html">login</h:link>
+          <h:commandLink rendered="#{infoBean.anonym}" target="/loginForm.html">login</h:commandLink>
           <h:outputText rendered="#{infoBean.reader}">#{infoBean.loggedReader.name} #{infoBean.loggedReader.surname}</h:outputText>
           <h:commandLink rendered="#{infoBean.logged}" action="#{infoBean.logout}">logout</h:commandLink>
         </h:form>

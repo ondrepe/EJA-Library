@@ -9,14 +9,14 @@
   <ui:define name="content">
     
     <div>
-      <h:dataTable var="category" value="#{categoryList.list}">
+      <h:dataTable var="publisher" value="#{publisherAdminBean.list}">
         <h:column>
           <f:facet name="header">Id</f:facet>
-          #{category.idCategory}
+          #{publisher.idPublisher}
         </h:column>
         <h:column>
           <f:facet name="header">Jmeno</f:facet>
-          #{category.name}
+          #{publisher.name}
         </h:column>
       </h:dataTable>
     </div>
@@ -24,9 +24,9 @@
     <div>
       <h:form>
         <h:panelGrid columns="3">
-          Jmeno: <h:inputText id="name" value="#{categoryAdd.item.name}" validator="#{readerNameValidator.validate}" />
+          Jmeno: <h:inputText id="name" value="#{publisherAdminBean.item.name}" validator="#{readerNameValidator.validate}" />
           <h:message for="name" />
-          <h:commandButton value="Pridat" action="#{categoryAdd.add}" />
+          <h:commandButton value="Pridat" action="#{publisherAdminBean.add}" />
         </h:panelGrid>
       </h:form>
     </div>

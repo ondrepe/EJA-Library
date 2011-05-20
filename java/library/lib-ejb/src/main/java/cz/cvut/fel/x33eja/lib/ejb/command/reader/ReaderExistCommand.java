@@ -29,7 +29,7 @@ public class ReaderExistCommand extends ExistCommand {
 
   @Override
   protected boolean authorize() {
-    return true;
+    return isAdmin();
   }
   
 }
