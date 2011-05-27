@@ -24,6 +24,7 @@ public class LibException extends RuntimeException {
   
   public LibException(String message, Throwable cause) {
     super(message, cause);
+    this.code = LibExceptionCode.UNKNOWN;
   }
   
   public LibException(LibExceptionCode code, Throwable cause) {
