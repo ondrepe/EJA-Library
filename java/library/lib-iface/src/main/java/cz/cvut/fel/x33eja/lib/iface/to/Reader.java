@@ -79,4 +79,20 @@ public class Reader extends CommonTO {
   public void setReservedChargeOutsCount(int reservedChargeOutsCount) {
     this.reservedChargeOutsCount = reservedChargeOutsCount;
   }
+  
+  @Override
+  public boolean equals(Object obj) {
+    if(obj instanceof Reader) {
+      boolean result = ((Reader) obj).getIdReader().intValue() == this.idReader.intValue();
+      return result;
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 7;
+    hash = 89 * hash + (this.idReader != null ? this.idReader.hashCode() : 0);
+    return hash;
+  }
 }

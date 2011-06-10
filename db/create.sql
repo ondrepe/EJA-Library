@@ -55,7 +55,7 @@ CREATE  TABLE IF NOT EXISTS `library`.`booktitle` (
   `isbn` VARCHAR(100) NOT NULL ,
   `name` VARCHAR(2000) NOT NULL ,
   `idPublisher` INT NOT NULL ,
-  `year` YEAR NULL ,
+  `year` INT NULL ,
   `pagesCount` INT NULL ,
   `issueNumber` VARCHAR(50) NULL ,
   `about` TEXT NULL ,

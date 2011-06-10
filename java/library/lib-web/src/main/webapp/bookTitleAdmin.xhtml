@@ -91,15 +91,24 @@
     </div>
 
     <div>
-      <h:form rendered="#{bookTitleAdminBean.renderAdd || bookTitleAdminBean.renderUpdate || !bookTitleAdminBean.renderList}">
+      <h:form id="admin_form_add_booktitle" rendered="#{bookTitleAdminBean.renderAdd || bookTitleAdminBean.renderUpdate || !bookTitleAdminBean.renderList}">
         <h:panelGrid columns="3">
           ISBN: <h:inputText id="isbn" value="#{bookTitleAdminBean.item.isbn}" validator="#{readerNameValidator.validate}" />
           <h:message for="isbn" />
           Nazev: <h:inputText id="name" value="#{bookTitleAdminBean.item.name}" validator="#{readerSurameValidator.validate}" />
           <h:message for="name" />
-          Kategorie: <h:selectManyListbox id="code" value="#{bookTitleAdminBean.item.categories}">
+          Vydavatel: <h:selectOneMenu id="publisher" value="#{bookTitleAdminBean.item.publisher}" converter="publisherConverter">
+            <f:selectItems itemLabel="#{publisher.name}" itemValue="#{publisher}" var="publisher" value="#{bookTitleAdminBean.publishers}" />
+          </h:selectOneMenu>
+          <h:message for="publisher" />
+          Autoři: <h:selectManyListbox id="authors" value="#{bookTitleAdminBean.auths}" converter="authorConverter">
+            <f:selectItems itemLabel="#{author.name} #{author.surname}" itemValue="#{author}" var="author" value="#{bookTitleAdminBean.authors}" />
+          </h:selectManyListbox>
+          <h:message for="authors" />
+          Kategorie: <h:selectManyListbox id="cats" value="#{bookTitleAdminBean.cats}" converter="categoryConverter">
             <f:selectItems itemLabel="#{category.name}" itemValue="#{category}" var="category" value="#{bookTitleAdminBean.categories}" />
           </h:selectManyListbox>
+          <h:message for="cats" />
           Vydani: <h:inputText id="issue" value="#{bookTitleAdminBean.item.issue}" />
           <h:message for="issue" />
           Rok: <h:inputText id="year" value="#{bookTitleAdminBean.item.year}" />

@@ -33,4 +33,12 @@ public class Author extends CommonTO {
   public void setSurname(String surname) {
     this.surname = surname;
   }
+  
+  @Override
+  public boolean equals(Object obj) {
+    if(obj instanceof Author) {
+      return ((Author) obj).getIdAuthor().intValue() == this.idAuthor.intValue();
+    }
+    return false;
+  }
 }

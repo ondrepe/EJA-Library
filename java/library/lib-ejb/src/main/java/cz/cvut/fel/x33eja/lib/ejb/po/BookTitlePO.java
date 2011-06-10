@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,8 +16,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.eclipse.persistence.annotations.Cache;
 
 /**
@@ -52,8 +49,7 @@ public class BookTitlePO extends CommonPO {
   private String name;
   
   @Column(name = "year")
-  @Temporal(TemporalType.DATE)
-  private Date year;
+  private Integer year;
   
   @Column(name = "pagesCount")
   private Integer pagesCount;
@@ -121,11 +117,11 @@ public class BookTitlePO extends CommonPO {
     this.name = name;
   }
 
-  public Date getYear() {
+  public Integer getYear() {
     return year;
   }
 
-  public void setYear(Date year) {
+  public void setYear(Integer year) {
     this.year = year;
   }
 

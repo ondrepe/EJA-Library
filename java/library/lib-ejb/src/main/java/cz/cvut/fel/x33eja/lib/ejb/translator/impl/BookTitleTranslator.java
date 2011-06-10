@@ -31,9 +31,7 @@ public class BookTitleTranslator extends CommonTranslator<BookTitlePO, BookTitle
     bookTitle.getCategories().addAll(categoryTranslator.translateList(from.getCategories()));
     
     bookTitle.setPages(from.getPagesCount());
-    GregorianCalendar calendar = new GregorianCalendar();
-    calendar.setTime(from.getYear());
-    bookTitle.setYear(calendar.get(GregorianCalendar.YEAR));
+    bookTitle.setYear(from.getYear());
     bookTitle.setIssue(from.getIssueNumber());
     bookTitle.setCount(from.getLibraryUnits().size());
     bookTitle.setAvgScore(countScore(from.getScoreList()));

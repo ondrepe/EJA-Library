@@ -14,12 +14,9 @@ import cz.cvut.fel.x33eja.lib.iface.to.BookTitle;
 import cz.cvut.fel.x33eja.lib.iface.to.Category;
 import cz.cvut.fel.x33eja.lib.iface.to.Publisher;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 /**
  *
@@ -58,7 +55,8 @@ public class BookTitleSetCommand extends SetCommand<BookTitlePO, BookTitle> {
     bookTitle.setIsbn(object.getIsbn());
     bookTitle.setIssueNumber(object.getIssue());
     bookTitle.setPagesCount(object.getPages());
-    bookTitle.setYear(getYear(object.getYear()));
+    bookTitle.setYear(object.getYear());
+    bookTitle.setLibraryUnits(createLibUnits(object));
     
     return bookTitle;
   }
@@ -118,11 +116,16 @@ public class BookTitleSetCommand extends SetCommand<BookTitlePO, BookTitle> {
     }
     
     return list;
-  }
-
-  private Date getYear(Integer year) {
-    GregorianCalendar calendar = new GregorianCalendar(year, 0, 1);
-    return calendar.getTime();
-  }
+  } 
   
+  private List<LibraryUnitPO> createLibUnits(BookTitle object) {
+    List<LibraryUnitPO> units = new ArrayList<LibraryUnitPO>();
+    if(object.getId() == null) {
+      for(int i = 0; i != object.getCount(); i++ ) {
+        LibraryUnitPO unit = new LibraryUnitPO();
+        units.add(unit);
+      }
+    }
+    return units;
+  }
 }

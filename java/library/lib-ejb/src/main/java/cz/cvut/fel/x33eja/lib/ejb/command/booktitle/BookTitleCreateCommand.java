@@ -2,6 +2,8 @@ package cz.cvut.fel.x33eja.lib.ejb.command.booktitle;
 
 import cz.cvut.fel.x33eja.lib.ejb.command.CreateUpdateCommand;
 import cz.cvut.fel.x33eja.lib.ejb.po.BookTitlePO;
+import cz.cvut.fel.x33eja.lib.ejb.po.LibraryUnitPO;
+import java.util.List;
 import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
 

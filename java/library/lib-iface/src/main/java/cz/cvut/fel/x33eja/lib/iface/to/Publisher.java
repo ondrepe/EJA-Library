@@ -24,4 +24,21 @@ public class Publisher extends CommonTO {
   public void setName(String name) {
     this.name = name;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(obj instanceof Publisher) {
+      boolean result = ((Publisher) obj).getIdPublisher().intValue() == this.idPublisher.intValue();
+      return result;
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 5;
+    hash = 29 * hash + (this.idPublisher != null ? this.idPublisher.hashCode() : 0);
+    return hash;
+  }
+  
 }

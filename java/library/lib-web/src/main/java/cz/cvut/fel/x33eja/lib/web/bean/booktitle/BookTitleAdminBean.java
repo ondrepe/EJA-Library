@@ -9,6 +9,7 @@ import cz.cvut.fel.x33eja.lib.iface.to.BookTitle;
 import cz.cvut.fel.x33eja.lib.iface.to.Category;
 import cz.cvut.fel.x33eja.lib.iface.to.Publisher;
 import cz.cvut.fel.x33eja.lib.web.bean.CommonAdminBean;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -34,6 +35,8 @@ public class BookTitleAdminBean extends CommonAdminBean<BookTitle> {
   private List<Category> categories;
   private List<Publisher> publishers;
   private List<Author> authors;
+  private Category[] cats;
+  private Author[] auths;
   
   @Override
   protected void customInit() {
@@ -45,6 +48,8 @@ public class BookTitleAdminBean extends CommonAdminBean<BookTitle> {
   
   @Override
   protected void addItem(BookTitle item) {
+    item.getCategories().addAll(Arrays.asList(cats));
+    item.getAuthors().addAll(Arrays.asList(auths));
     bookTitleBean.save(item);
   }
 
@@ -73,6 +78,22 @@ public class BookTitleAdminBean extends CommonAdminBean<BookTitle> {
 
   public List<Publisher> getPublishers() {
     return publishers;
+  }
+
+  public Category[] getCats() {
+    return cats;
+  }
+
+  public void setCats(Category[] cats) {
+    this.cats = cats;
+  }
+
+  public Author[] getAuths() {
+    return auths;
+  }
+
+  public void setAuths(Author[] auths) {
+    this.auths = auths;
   }
   
 }
