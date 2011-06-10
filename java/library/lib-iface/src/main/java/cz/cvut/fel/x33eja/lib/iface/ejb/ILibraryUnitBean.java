@@ -2,6 +2,7 @@ package cz.cvut.fel.x33eja.lib.iface.ejb;
 
 import cz.cvut.fel.x33eja.lib.iface.to.ChargeOut;
 import cz.cvut.fel.x33eja.lib.iface.to.LibraryUnit;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -37,4 +38,6 @@ public interface ILibraryUnitBean {
   public void saveChargeOut(ChargeOut chargeOut);
 
   public boolean isAvailable(int idTitle);
+  
+  public boolean isAvailableBetweenDates(int idTitle, Date from, Date to);
 }

@@ -3,6 +3,8 @@ package cz.cvut.fel.x33eja.lib.web.bean.booktitle;
 import cz.cvut.fel.x33eja.lib.iface.ejb.IBookTitleBean;
 import cz.cvut.fel.x33eja.lib.iface.ejb.ILibraryUnitBean;
 import cz.cvut.fel.x33eja.lib.iface.to.BookTitle;
+import cz.cvut.fel.x33eja.lib.iface.to.ChargeOut;
+import cz.cvut.fel.x33eja.lib.iface.to.ChargeOutStatus;
 import cz.cvut.fel.x33eja.lib.web.bean.CommonListBean;
 import java.util.Date;
 import java.util.List;
@@ -55,10 +57,6 @@ public class BookTitleBean extends CommonListBean<BookTitle> {
   public boolean isAvailable() {
     return available;
   }
-  
-  public void addReservation() {
-    
-  }
 
   @Override
   public void select() {
@@ -107,8 +105,22 @@ public class BookTitleBean extends CommonListBean<BookTitle> {
   }
   
   public void checkAvailable() {
+    available = libraryUnitBean.isAvailableBetweenDates(getItem().getId(), from, to);
   }
   
+  /**
+   * posila mail s rezervaci
+   */
   public void sendReservation() {
+  
+  }
+  
+  public void addReservation() {
+    ChargeOut chargeOut = new ChargeOut();
+    chargeOut.setBook(getItem());
+    chargeOut.setFrom(from);
+    chargeOut.setTo(to);
+    chargeOut.setStatus(ChargeOutStatus.RESERVED);
+    libraryUnitBean.saveChargeOut(null);
   }
 }

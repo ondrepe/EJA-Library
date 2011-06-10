@@ -3,17 +3,22 @@ package cz.cvut.fel.x33eja.lib.ejb.bean;
 import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutActiveListCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutGetCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutListCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutSetCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitDeleteCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitGetAvailableCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitGetCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitListByIdCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitListCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitSetCommand;
+import cz.cvut.fel.x33eja.lib.ejb.po.LibraryUnitPO;
 import cz.cvut.fel.x33eja.lib.iface.ejb.ILibraryUnitBean;
 import cz.cvut.fel.x33eja.lib.iface.to.ChargeOut;
 import cz.cvut.fel.x33eja.lib.iface.to.LibraryUnit;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -111,13 +116,22 @@ public class LibraryUnitBean implements ILibraryUnitBean {
   @Override
   @RolesAllowed({"ADMIN", "READER"})
   public void saveChargeOut(ChargeOut co) {
+    ChargeOutSetCommand command = new ChargeOutSetCommand(em, ctx);
+    command.execute(co);
+  }
+
+  @Override
+  @PermitAll
+  public boolean isAvailable(int i) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
-  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
-  public boolean isAvailable(int i) {
-    throw new UnsupportedOperationException("Not supported yet.");
+  @PermitAll
+  public boolean isAvailableBetweenDates(int idTitle, Date from, Date to) {
+    LibraryUnitGetAvailableCommand command = new LibraryUnitGetAvailableCommand(em, ctx);
+    LibraryUnitPO libraryUnitPO = command.execute(idTitle, from, to);
+    return libraryUnitPO == null;
   }
   
 }
