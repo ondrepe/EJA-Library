@@ -95,32 +95,32 @@
         <h:panelGrid columns="3">
           ISBN: <h:inputText id="isbn" value="#{bookTitleAdminBean.item.isbn}" validator="isbnValidator" />
           <h:message for="isbn" />
-          Nazev: <h:inputText id="name" value="#{bookTitleAdminBean.item.name}" validator="#{readerSurameValidator.validate}" />
+          #{msgs.name} <h:inputText id="name" value="#{bookTitleAdminBean.item.name}" validator="#{readerSurameValidator.validate}" />
           <h:message for="name" />
-          Vydavatel: <h:selectOneMenu id="publisher" value="#{bookTitleAdminBean.item.publisher}" converter="publisherConverter">
+          #{msgs.publisher} <h:selectOneMenu id="publisher" value="#{bookTitleAdminBean.item.publisher}" converter="publisherConverter">
             <f:selectItems itemLabel="#{publisher.name}" itemValue="#{publisher}" var="publisher" value="#{bookTitleAdminBean.publishers}" />
           </h:selectOneMenu>
           <h:message for="publisher" />
-          Autoři: <h:selectManyListbox id="authors" value="#{bookTitleAdminBean.auths}" converter="authorConverter">
+          #{msgs.authors} <h:selectManyListbox id="authors" value="#{bookTitleAdminBean.auths}" converter="authorConverter">
             <f:selectItems itemLabel="#{author.name} #{author.surname}" itemValue="#{author}" var="author" value="#{bookTitleAdminBean.authors}" />
           </h:selectManyListbox>
           <h:message for="authors" />
-          Kategorie: <h:selectManyListbox id="cats" value="#{bookTitleAdminBean.cats}" converter="categoryConverter">
+          #{msgs.categories} <h:selectManyListbox id="cats" value="#{bookTitleAdminBean.cats}" converter="categoryConverter">
             <f:selectItems itemLabel="#{category.name}" itemValue="#{category}" var="category" value="#{bookTitleAdminBean.categories}" />
           </h:selectManyListbox>
           <h:message for="cats" />
-          Vydani: <h:inputText id="issue" value="#{bookTitleAdminBean.item.issue}" />
+          #{msgs.edition} <h:inputText id="issue" value="#{bookTitleAdminBean.item.issue}" />
           <h:message for="issue" />
-          Rok: <h:inputText id="year" value="#{bookTitleAdminBean.item.year}" />
+          #{msgs.year} <h:inputText id="year" value="#{bookTitleAdminBean.item.year}" />
           <h:message for="year" />
-          Pocet stran: <h:inputText id="pages" value="#{bookTitleAdminBean.item.pages}" />
+          #{msgs.pageCount}: <h:inputText id="pages" value="#{bookTitleAdminBean.item.pages}" />
           <h:message for="pages" />
-          O knize: <h:inputText id="about" value="#{bookTitleAdminBean.item.about}" />
+          #{msgs.aboutBook}: <h:inputText id="about" value="#{bookTitleAdminBean.item.about}" />
           <h:message for="about" />
-          Pocet jednotek: <h:inputText id="count" value="#{bookTitleAdminBean.item.count}" />
+          #{msgs.unitCount}: <h:inputText id="count" value="#{bookTitleAdminBean.item.count}" />
           <h:message for="count" />
-          <h:commandButton rendered="#{bookTitleAdminBean.renderAdd || !bookTitleAdminBean.renderList}" value="Přidat" action="#{bookTitleAdminBean.add}" />
-          <h:commandButton rendered="#{bookTitleAdminBean.renderUpdate}" value="Upravit" action="#{bookTitleAdminBean.add}" />
+          <h:commandButton rendered="#{bookTitleAdminBean.renderAdd || !bookTitleAdminBean.renderList}" value="#{msgs.add}" action="#{bookTitleAdminBean.add}" />
+          <h:commandButton rendered="#{bookTitleAdminBean.renderUpdate}" value="#{msgs.edit}" action="#{bookTitleAdminBean.add}" />
           <h:inputHidden id="idBookTitle" value="#{bookTitleAdminBean.item.id}" />
         </h:panelGrid>
       </h:form>
