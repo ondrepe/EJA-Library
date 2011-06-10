@@ -70,9 +70,9 @@
       </h:form>
       <h:form id="anonym_form_res_booktitle" rendered="#{bookTitleBean.selected and infoBean.anonym}">
         <h:panelGrid columns="3">
-          Od: <h:inputText id="from" value="#{bookTitleBean.from}" />
+          Od: <h:inputText id="from" value="#{bookTitleBean.from}" converter="dateConverter" />
           <h:message for="from" />
-          Do: <h:inputText id="to" value="#{bookTitleBean.to}" />
+          Do: <h:inputText id="to" value="#{bookTitleBean.to}" converter="dateConverter" />
           <h:message for="to" />
           Jmeno: <h:inputText disabled="#{!bookTitleBean.available}" id="name" value="#{bookTitleBean.name}" validator="#{readerNameValidator.validate}" />
           <h:message for="name" />
