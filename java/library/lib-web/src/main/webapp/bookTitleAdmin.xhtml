@@ -93,7 +93,7 @@
     <div>
       <h:form id="admin_form_add_booktitle" rendered="#{bookTitleAdminBean.renderAdd || bookTitleAdminBean.renderUpdate || !bookTitleAdminBean.renderList}">
         <h:panelGrid columns="3">
-          ISBN: <h:inputText id="isbn" value="#{bookTitleAdminBean.item.isbn}" validator="#{readerNameValidator.validate}" />
+          ISBN: <h:inputText id="isbn" value="#{bookTitleAdminBean.item.isbn}" validator="isbnValidator" />
           <h:message for="isbn" />
           Nazev: <h:inputText id="name" value="#{bookTitleAdminBean.item.name}" validator="#{readerSurameValidator.validate}" />
           <h:message for="name" />
