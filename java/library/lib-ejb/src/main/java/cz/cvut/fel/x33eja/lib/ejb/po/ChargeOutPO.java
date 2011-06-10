@@ -25,7 +25,7 @@ import org.eclipse.persistence.annotations.Cache;
 @Table(name = "chargeout")
 @NamedQueries({
   @NamedQuery(name = "ChargeOutPO.findAll", query = "SELECT c FROM ChargeOutPO c"),
-  @NamedQuery(name = "ChargeOutPO.getBetweenDates", query = "SELECT c FROM ChargeOutPO c WHERE c.libraryUnit.bookTitle.idBookTitle = :idBookTitle AND c.fromDate >= :fromDate AND c.toDate <= c.toDate"),
+  @NamedQuery(name = "ChargeOutPO.getBetweenDates", query = "SELECT c FROM ChargeOutPO c WHERE c.libraryUnit.bookTitle.idBookTitle = :idBookTitle AND c.fromDate >= :fromDate AND c.toDate <= :toDate"),
   @NamedQuery(name = "ChargeOutPO.findAllActiveByReaderAndStatus", query = "SELECT c FROM ChargeOutPO c WHERE c.status.name = :status AND c.reader.idReader = :idReader")})
 public class ChargeOutPO extends CommonPO {
   

@@ -34,7 +34,7 @@ import javax.persistence.PersistenceContext;
  * @author ondrepe
  */
 @Stateless
-@DeclareRoles({"ADMIN", "READER", "ANONYM"})
+@DeclareRoles({"ADMIN", "READER"})
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class LibraryUnitBean implements ILibraryUnitBean {
 
