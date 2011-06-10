@@ -51,14 +51,6 @@ public abstract class CommonAdminBean<T extends CommonTO> extends CommonListBean
     return renderUpdate;
   }
   
-  public HtmlDataTable getHtmlDataTable() {
-    return htmlDataTable;
-  }
-
-  public void setHtmlDataTable(HtmlDataTable htmlDataTable) {
-    this.htmlDataTable = htmlDataTable;
-  }
-  
   public void delete() {
     T obj = (T) htmlDataTable.getRowData();
     try {

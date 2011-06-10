@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./libTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+  <ui:define name="content">
+
+    <div>
+      <h:form rendered="#{bookTitleBean.renderList}">
+        <h:dataTable var="bookTitle" value="#{bookTitleBean.list}" binding="#{bookTitleBean.htmlDataTable}">
+          <h:column>
+            <f:facet name="header">ISBN</f:facet>
+            #{bookTitle.isbn}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nazev</f:facet>
+            #{bookTitle.name}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nakladatelstvi</f:facet>
+            #{bookTitle.publisher.name}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Vydani</f:facet>
+            #{bookTitle.issue}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Rok</f:facet>
+            #{bookTitle.year}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Pocet stran</f:facet>
+            #{bookTitle.pages}
+          </h:column>
+          <h:column>
+            <f:facet name="header">O knize</f:facet>
+            #{bookTitle.about}
+          </h:column>
+         rendered="#{infoBean.reader}" <h:column>
+            <f:facet name="header">Prumerne hodnoceni</f:facet>
+            #{bookTitle.avgScore}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Momentalne dostupne</f:facet>
+            #{bookTitle.count}
+          </h:column>
+          <h:column rendered="#{!infoBean.admin}">
+            <f:facet name="header">Vybrat</f:facet>
+            <h:commandLink styleClass="reader_table_select" value="rezervovat" action="#{bookTitleBean.select}" />
+          </h:column>
+        </h:dataTable>
+      </h:form>
+    </div>
+
+    <div>
+      <h:form id="reader_form_res_booktitle" rendered="#{bookTitleBean.selected and infoBean.reader}">
+        <h:panelGrid columns="3">
+          Od: <h:inputText id="from" value="#{bookTitleBean.from}" validator="#{readerNameValidator.validate}" />
+          <h:message for="from" />
+          Do: <h:inputText id="to" value="#{bookTitleBean.to}" validator="#{readerSurameValidator.validate}" />
+          <h:message for="to" />
+          <h:commandButton value="Zjistit dostupnost" action="#{bookTitleBean.checkAvailable}" />
+          <h:commandButton disabled="#{!bookTitleBean.available}" value="Reyervovat" action="#{bookTitleBean.addReservation}" />
+          <h:inputHidden id="idBookTitle" value="#{bookTitleBean.item.id}" />
+        </h:panelGrid>
+      </h:form>
+      <h:form id="anonym_form_res_booktitle" rendered="#{bookTitleBean.selected and infoBean.anonym}">
+        <h:panelGrid columns="3">
+          Od: <h:inputText id="from" value="#{bookTitleBean.from}" />
+          <h:message for="from" />
+          Do: <h:inputText id="to" value="#{bookTitleBean.to}" />
+          <h:message for="to" />
+          Jmeno: <h:inputText disabled="#{!bookTitleBean.available}" id="name" value="#{bookTitleBean.name}" validator="#{readerNameValidator.validate}" />
+          <h:message for="name" />
+          Prijmeni: <h:inputText disabled="#{!bookTitleBean.available}" id="surname" value="#{bookTitleBean.surname}" validator="#{readerSurameValidator.validate}" />
+          <h:message for="surname" />
+          Email: <h:inputText disabled="#{!bookTitleBean.available}" id="email" value="#{bookTitleBean.email}" validator="#{readerEmailValidator.validate}" />
+          <h:message for="email" />
+          <h:commandButton rendered="#{!bookTitleBean.available}" value="Zjistit dostupnost" action="#{bookTitleBean.checkAvailable}" />
+          <h:commandButton disabled="#{!bookTitleBean.available}" value="Poslat" action="#{bookTitleBean.sendReservation}" />
+          <h:inputHidden id="idBookTitle" value="#{bookTitleBean.item.id}" />
+        </h:panelGrid>
+      </h:form>
+    </div>
+
+  </ui:define>
+
+</ui:composition>

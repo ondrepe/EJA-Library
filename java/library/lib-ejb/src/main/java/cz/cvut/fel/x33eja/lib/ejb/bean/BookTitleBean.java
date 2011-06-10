@@ -12,6 +12,7 @@ import cz.cvut.fel.x33eja.lib.iface.to.BookTitle;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -37,14 +38,14 @@ public class BookTitleBean implements IBookTitleBean {
   private SessionContext ctx;
   
   @Override
-  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
+  @PermitAll
   public BookTitle getBook(int i) {
     BookTitleGetCommand command = new BookTitleGetCommand(em, ctx);
     return command.execute(i);
   }
 
   @Override
-  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
+  @PermitAll
   public List<BookTitle> getAllBookTitles() {
     BookTitleListCommand command = new BookTitleListCommand(em, ctx);
     return command.execute();
@@ -67,28 +68,28 @@ public class BookTitleBean implements IBookTitleBean {
   }
 
   @Override
-  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
+  @PermitAll
   public List<BookTitle> getBookTitlesByAuthor(int i) {
     BookTitleListByIdCommand command = new BookTitleListByIdCommand(em, ctx, BookTitleListByIdCommandEnum.AUTHOR);
     return command.execute(i);
   }
 
   @Override
-  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
+  @PermitAll
   public List<BookTitle> getBookTitlesByPublisher(int i) {
     BookTitleListByIdCommand command = new BookTitleListByIdCommand(em, ctx, BookTitleListByIdCommandEnum.PUBLISHER);
     return command.execute(i);
   }
 
   @Override
-  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
+  @PermitAll
   public List<BookTitle> getBookTitlesByCategory(int i) {
     BookTitleListByIdCommand command = new BookTitleListByIdCommand(em, ctx, BookTitleListByIdCommandEnum.CATEGORY);
     return command.execute(i);
   }
 
   @Override
-  @RolesAllowed({"ADMIN", "READER", "ANONYM"})
+  @PermitAll
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void scoreBook(int idBook, int score) {
     BookTitleScoreCommand command = new BookTitleScoreCommand(em, ctx);

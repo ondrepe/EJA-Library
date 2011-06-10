@@ -38,9 +38,9 @@
               <li><h:link outcome="accountA.xhtml">Add Account</h:link></li>
               <li><h:link outcome="transactionV.xhtml">View All Transactions</h:link></li>-->
             </c:if>
-            <c:if test="#{infoBean.reader}">
-              <!--<li><h:link outcome="accountV.xhtml">View Accounts</h:link></li>
-              <li><h:link outcome="transactionA.xhtml">Transfer Money</h:link></li>
+            <c:if test="#{infoBean.reader || infoBean.anonym}">
+              <li><h:link outcome="/bookTitle.xhtml">Administrace kniznich titulu</h:link></li>
+              <!--<li><h:link outcome="transactionA.xhtml">Transfer Money</h:link></li>
               <li><h:link outcome="statement.xhtml">Send Statement</h:link></li>
               <li><h:link outcome="javafx/ib-web-calc.html">Convert Money</h:link></li>-->
             </c:if>
