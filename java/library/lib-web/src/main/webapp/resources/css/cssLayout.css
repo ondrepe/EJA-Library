@@ -58,4 +58,6 @@
   text-decoration : underline;
 }
 
-
+div#content {
+  min-height: 10em;  
+}
