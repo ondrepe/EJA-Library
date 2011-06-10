@@ -61,7 +61,7 @@ public class BookTitlePO extends CommonPO {
   @Column(name = "about")
   private String about;
   
-  @ManyToMany(mappedBy = "bookTitles")
+  @ManyToMany(mappedBy = "bookTitles", cascade = CascadeType.ALL)
   private List<CategoryPO> categories;
   
   @ManyToMany(mappedBy = "bookTitles")

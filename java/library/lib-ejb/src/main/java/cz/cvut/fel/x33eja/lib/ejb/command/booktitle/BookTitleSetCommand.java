@@ -50,13 +50,13 @@ public class BookTitleSetCommand extends SetCommand<BookTitlePO, BookTitle> {
     bookTitle.setAbout(object.getAbout());
     bookTitle.setPublisher(getPublisher(object.getPublisher()));
     bookTitle.setAuthors(getAuthors(object.getAuthors()));
-    bookTitle.setCategories(getCategories(object.getCategories()));
+    bookTitle.setCategories(getCategories(object.getCategories(), bookTitle));
     bookTitle.setIdBookTitle(object.getId());
     bookTitle.setIsbn(object.getIsbn());
     bookTitle.setIssueNumber(object.getIssue());
     bookTitle.setPagesCount(object.getPages());
     bookTitle.setYear(object.getYear());
-    bookTitle.setLibraryUnits(createLibUnits(object));
+    bookTitle.setLibraryUnits(createLibUnits(object, bookTitle));
     
     return bookTitle;
   }
@@ -98,7 +98,7 @@ public class BookTitleSetCommand extends SetCommand<BookTitlePO, BookTitle> {
     return list;
   }
 
-  private List<CategoryPO> getCategories(List<Category> categories) {
+  private List<CategoryPO> getCategories(List<Category> categories, BookTitlePO bookTitlePO) {
     ArrayList<CategoryPO> list = new ArrayList<CategoryPO>();
     CategoryExistCommand existCommand = new CategoryExistCommand(em, ctx);
     
@@ -111,6 +111,11 @@ public class BookTitleSetCommand extends SetCommand<BookTitlePO, BookTitle> {
         categoryPO = new CategoryPO();
         categoryPO.setName(category.getName());
       }
+      List<BookTitlePO> bookTitles = categoryPO.getBookTitles();
+      if(bookTitles == null) {
+        bookTitles = new ArrayList<BookTitlePO>();
+      }
+      bookTitles.add(bookTitlePO);
       
       list.add(categoryPO);
     }
@@ -118,11 +123,12 @@ public class BookTitleSetCommand extends SetCommand<BookTitlePO, BookTitle> {
     return list;
   } 
   
-  private List<LibraryUnitPO> createLibUnits(BookTitle object) {
+  private List<LibraryUnitPO> createLibUnits(BookTitle object, BookTitlePO bookTitle) {
     List<LibraryUnitPO> units = new ArrayList<LibraryUnitPO>();
     if(object.getId() == null) {
       for(int i = 0; i != object.getCount(); i++ ) {
         LibraryUnitPO unit = new LibraryUnitPO();
+        unit.setBookTitle(bookTitle);
         units.add(unit);
       }
     }

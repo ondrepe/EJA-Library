@@ -33,6 +33,7 @@ public class BookTitleTranslator extends CommonTranslator<BookTitlePO, BookTitle
     bookTitle.setPages(from.getPagesCount());
     bookTitle.setYear(from.getYear());
     bookTitle.setIssue(from.getIssueNumber());
+    bookTitle.setAbout(from.getAbout());
     bookTitle.setCount(from.getLibraryUnits().size());
     bookTitle.setAvgScore(countScore(from.getScoreList()));
 

@@ -1,6 +1,7 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +42,7 @@ public class CategoryPO extends CommonPO {
   @JoinTable(name = "categorybook", joinColumns = {
     @JoinColumn(name = "idCategory", referencedColumnName = "idCategory")}, inverseJoinColumns = {
     @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")})
-  @ManyToMany
+  @ManyToMany(cascade= CascadeType.ALL)
   private List<BookTitlePO> bookTitles;
 
   public CategoryPO() {
