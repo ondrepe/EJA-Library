@@ -11,21 +11,21 @@
       <div>
         <h:form rendered="#{categoryAdminBean.renderList}">
           <li>
-            <h:commandLink value="Jen prohlížet" action="#{categoryAdminBean.selectView}" />
+            <h:commandLink value="#{msgs.viewOnly}" action="#{categoryAdminBean.selectView}" />
           </li>
         </h:form>
       </div>
       <div>
         <h:form>
           <li>
-            <h:commandLink value="Přidat" action="#{categoryAdminBean.selectAdd}" />
+            <h:commandLink value="#{msgs.add}" action="#{categoryAdminBean.selectAdd}" />
           </li>
         </h:form>
       </div>
       <div>
         <h:form rendered="#{categoryAdminBean.renderList}">
           <li>
-            <h:commandLink value="Upravit" action="#{categoryAdminBean.selectUpdate}" />
+            <h:commandLink value="#{msgs.edit}" action="#{categoryAdminBean.selectUpdate}" />
           </li>
         </h:form>
       </div>
@@ -42,16 +42,16 @@
             #{category.idCategory}
           </h:column>
           <h:column>
-            <f:facet name="header">Jmeno</f:facet>
+            <f:facet name="header">#{msgs.name}</f:facet>
             #{category.name}
           </h:column>
           <h:column>
-            <f:facet name="header">Smazat</f:facet>
+            <f:facet name="header">#{msgs.delete}</f:facet>
             <h:commandButton styleClass="admin_table_delete" value="X" action="#{categoryAdminBean.delete}" />
           </h:column>
           <h:column rendered="#{categoryAdminBean.renderUpdate}">
-            <f:facet name="header">Vybrat</f:facet>
-            <h:commandLink styleClass="admin_table_select" value="vybrat" action="#{categoryAdminBean.select}" />
+            <f:facet name="header">#{msgs.pick}</f:facet>
+            <h:commandLink styleClass="admin_table_select" value="#{msgs.pick}" action="#{categoryAdminBean.select}" />
           </h:column>
         </h:dataTable>
       </h:form>
@@ -61,10 +61,10 @@
       <h:form rendered="#{categoryAdminBean.renderAdd || categoryAdminBean.renderUpdate || !categoryAdminBean.renderList}">
         <h:panelGrid columns="3">
           <h:inputHidden id="idCategory" value="#{categoryAdminBean.item.idCategory}" />
-          Jméno: <h:inputText id="name" value="#{categoryAdminBean.item.name}" validator="#{readerNameValidator.validate}" />
+          #{msgs.name} <h:inputText id="name" value="#{categoryAdminBean.item.name}" validator="#{readerNameValidator.validate}" />
           <h:message for="name" />
-          <h:commandButton rendered="#{categoryAdminBean.renderAdd || !categoryAdminBean.renderList}" value="Přidat" action="#{categoryAdminBean.add}" />
-          <h:commandButton rendered="#{categoryAdminBean.renderUpdate}" value="Upravit" action="#{categoryAdminBean.add}" />
+          <h:commandButton rendered="#{categoryAdminBean.renderAdd || !categoryAdminBean.renderList}" value="#{msgs.add}" action="#{categoryAdminBean.add}" />
+          <h:commandButton rendered="#{categoryAdminBean.renderUpdate}" value="#{msgs.edit}" action="#{categoryAdminBean.add}" />
         </h:panelGrid>
       </h:form>
     </div>

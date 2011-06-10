@@ -2,16 +2,16 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="admin/publisherAdmin.xhtml" x="150" y="300" zoom="true"/>
         <Node id="index.xhtml" x="400" y="300" zoom="true"/>
-        <Node id="admin/readerAdmin.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="categoryAdmin.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="bookTitleAdmin.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="publisherAdmin.xhtml" x="150" y="600" zoom="true"/>
         <Node id="libTemplate.xhtml" x="150" y="450" zoom="true"/>
         <Node id="*" x="400" y="450" zoom="true"/>
-        <Node id="admin/authorAdmin.xhtml" x="900" y="150" zoom="true"/>
-        <Node id="admin/libTemplate.xhtml" x="150" y="600" zoom="true"/>
-        <Node id="admin/bookTitleAdmin.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="readerAdmin.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="authorAdmin.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="bookTitle.xhtml" x="650" y="150" zoom="true"/>
         <Node id="loginForm.html" x="650" y="300" zoom="true"/>
-        <Node id="admin/categoryAdmin.xhtml" x="150" y="150" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

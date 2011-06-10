@@ -17,40 +17,40 @@
             #{bookTitle.isbn}
           </h:column>
           <h:column>
-            <f:facet name="header">Nazev</f:facet>
+            <f:facet name="header">#{msgs.name}</f:facet>
             #{bookTitle.name}
           </h:column>
           <h:column>
-            <f:facet name="header">Nakladatelstvi</f:facet>
+            <f:facet name="header">#{msgs.publisher}</f:facet>
             #{bookTitle.publisher.name}
           </h:column>
           <h:column>
-            <f:facet name="header">Vydani</f:facet>
+            <f:facet name="header">#{msgs.edition}</f:facet>
             #{bookTitle.issue}
           </h:column>
           <h:column>
-            <f:facet name="header">Rok</f:facet>
+            <f:facet name="header">#{msgs.year}</f:facet>
             #{bookTitle.year}
           </h:column>
           <h:column>
-            <f:facet name="header">Pocet stran</f:facet>
+            <f:facet name="header">#{msgs.pageCount}</f:facet>
             #{bookTitle.pages}
           </h:column>
           <h:column>
-            <f:facet name="header">O knize</f:facet>
+            <f:facet name="header">#{msgs.aboutBook}</f:facet>
             #{bookTitle.about}
           </h:column>
          rendered="#{infoBean.reader}" <h:column>
-            <f:facet name="header">Prumerne hodnoceni</f:facet>
+            <f:facet name="header">#{msgs.ratingAvg}</f:facet>
             #{bookTitle.avgScore}
           </h:column>
           <h:column>
-            <f:facet name="header">Momentalne dostupne</f:facet>
+            <f:facet name="header">#{msgs.unitPresentCount}</f:facet>
             #{bookTitle.count}
           </h:column>
           <h:column rendered="#{!infoBean.admin}">
-            <f:facet name="header">Vybrat</f:facet>
-            <h:commandLink styleClass="reader_table_select" value="rezervovat" action="#{bookTitleBean.select}" />
+            <f:facet name="header">#{msgs.pick}</f:facet>
+            <h:commandLink styleClass="reader_table_select" value="#{msgs.block}" action="#{bookTitleBean.select}" />
           </h:column>
         </h:dataTable>
       </h:form>
@@ -63,25 +63,25 @@
           <h:message for="from" />
           Do: <h:inputText id="to" value="#{bookTitleBean.to}" converter="dateConverter" />
           <h:message for="to" />
-          <h:commandButton value="Zjistit dostupnost" action="#{bookTitleBean.checkAvailable}" />
-          <h:commandButton disabled="#{!bookTitleBean.available}" value="Reyervovat" action="#{bookTitleBean.addReservation}" />
+          <h:commandButton value="#{msgs.availCheck}" action="#{bookTitleBean.checkAvailable}" />
+          <h:commandButton disabled="#{!bookTitleBean.available}" value="#{msgs.block}" action="#{bookTitleBean.addReservation}" />
           <h:inputHidden id="idBookTitle" value="#{bookTitleBean.item.id}" />
         </h:panelGrid>
       </h:form>
       <h:form id="anonym_form_res_booktitle" rendered="#{bookTitleBean.selected and infoBean.anonym}">
         <h:panelGrid columns="3">
-          Od: <h:inputText id="from" value="#{bookTitleBean.from}" converter="dateConverter" />
+          #{msgs.from}: <h:inputText id="from" value="#{bookTitleBean.from}" converter="dateConverter" />
           <h:message for="from" />
-          Do: <h:inputText id="to" value="#{bookTitleBean.to}" converter="dateConverter" />
+          #{msgs.to}: <h:inputText id="to" value="#{bookTitleBean.to}" converter="dateConverter" />
           <h:message for="to" />
-          Jmeno: <h:inputText disabled="#{!bookTitleBean.available}" id="name" value="#{bookTitleBean.name}" validator="#{readerNameValidator.validate}" />
+          #{msgs.firstName} <h:inputText disabled="#{!bookTitleBean.available}" id="name" value="#{bookTitleBean.name}" validator="#{readerNameValidator.validate}" />
           <h:message for="name" />
-          Prijmeni: <h:inputText disabled="#{!bookTitleBean.available}" id="surname" value="#{bookTitleBean.surname}" validator="#{readerSurameValidator.validate}" />
+          #{msgs.lastName} <h:inputText disabled="#{!bookTitleBean.available}" id="surname" value="#{bookTitleBean.surname}" validator="#{readerSurameValidator.validate}" />
           <h:message for="surname" />
-          Email: <h:inputText disabled="#{!bookTitleBean.available}" id="email" value="#{bookTitleBean.email}" validator="#{readerEmailValidator.validate}" />
+          #{msgs.email} <h:inputText disabled="#{!bookTitleBean.available}" id="email" value="#{bookTitleBean.email}" validator="#{readerEmailValidator.validate}" />
           <h:message for="email" />
-          <h:commandButton rendered="#{!bookTitleBean.available}" value="Zjistit dostupnost" action="#{bookTitleBean.checkAvailable}" />
-          <h:commandButton disabled="#{!bookTitleBean.available}" value="Poslat" action="#{bookTitleBean.sendReservation}" />
+          <h:commandButton rendered="#{!bookTitleBean.available}" value="#{msgs.availCheck}" action="#{bookTitleBean.checkAvailable}" />
+          <h:commandButton disabled="#{!bookTitleBean.available}" value="#{msgs.send}" action="#{bookTitleBean.sendReservation}" />
           <h:inputHidden id="idBookTitle" value="#{bookTitleBean.item.id}" />
         </h:panelGrid>
       </h:form>

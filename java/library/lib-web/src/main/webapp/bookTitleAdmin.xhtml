@@ -12,21 +12,21 @@
       <div>
         <h:form rendered="#{bookTitleAdminBean.renderList}">
           <li>
-            <h:commandLink value="Jen prohlížet" action="#{bookTitleAdminBean.selectView}" />
+            <h:commandLink value="#{msgs.viewOnly}" action="#{bookTitleAdminBean.selectView}" />
           </li>
         </h:form>
       </div>
       <div>
         <h:form>
           <li>
-            <h:commandLink value="Přidat" action="#{bookTitleAdminBean.selectAdd}" />
+            <h:commandLink value="#{msgs.add}" action="#{bookTitleAdminBean.selectAdd}" />
           </li>
         </h:form>
       </div>
       <div>
         <h:form rendered="#{bookTitleAdminBean.renderList}">
           <li>
-            <h:commandLink value="Upravit" action="#{bookTitleAdminBean.selectUpdate}" />
+            <h:commandLink value="#{msgs.edit}" action="#{bookTitleAdminBean.selectUpdate}" />
           </li>
         </h:form>
       </div>
@@ -47,44 +47,44 @@
             #{bookTitle.isbn}
           </h:column>
           <h:column>
-            <f:facet name="header">Nazev</f:facet>
+            <f:facet name="header">#{msgs.name}</f:facet>
             #{bookTitle.name}
           </h:column>
           <h:column>
-            <f:facet name="header">Nakladatelstvi</f:facet>
+            <f:facet name="header">#{msgs.publisher}</f:facet>
             #{bookTitle.publisher.name}
           </h:column>
           <h:column>
-            <f:facet name="header">Vydani</f:facet>
+            <f:facet name="header">#{msgs.edition}</f:facet>
             #{bookTitle.issue}
           </h:column>
           <h:column>
-            <f:facet name="header">Rok</f:facet>
+            <f:facet name="header">#{msgs.year}</f:facet>
             #{bookTitle.year}
           </h:column>
           <h:column>
-            <f:facet name="header">Pocet stran</f:facet>
+            <f:facet name="header">#{msgs.pageCount}</f:facet>
             #{bookTitle.pages}
           </h:column>
           <h:column>
-            <f:facet name="header">O knize</f:facet>
+            <f:facet name="header">#{msgs.aboutBook}</f:facet>
             #{bookTitle.about}
           </h:column>
           <h:column>
-            <f:facet name="header">Prumerne hodnoceni</f:facet>
+            <f:facet name="header">#{msgs.ratingAvg}</f:facet>
             #{bookTitle.avgScore}
           </h:column>
           <h:column>
-            <f:facet name="header">Pocet jednotek</f:facet>
+            <f:facet name="header">#{msgs.unitCount}</f:facet>
             #{bookTitle.count}
           </h:column>
           <h:column>
-            <f:facet name="header">Smazat</f:facet>
+            <f:facet name="header">#{msgs.delete}</f:facet>
             <h:commandButton styleClass="admin_table_delete" value="X" action="#{bookTitleAdminBean.delete}" />
           </h:column>
           <h:column rendered="#{bookTitleAdminBean.renderUpdate}">
-            <f:facet name="header">Vybrat</f:facet>
-            <h:commandLink styleClass="admin_table_select" value="vybrat" action="#{bookTitleAdminBean.select}" />
+            <f:facet name="header">#{msgs.pick}</f:facet>
+            <h:commandLink styleClass="admin_table_select" value="#{msgs.pick}" action="#{bookTitleAdminBean.select}" />
           </h:column>
         </h:dataTable>
       </h:form>

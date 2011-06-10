@@ -11,21 +11,21 @@
       <div>
         <h:form rendered="#{authorAdminBean.renderList}">
           <li>
-            <h:commandLink value="Jen prohlížet" action="#{authorAdminBean.selectView}" />
+            <h:commandLink value="#{msgs.viewOnly}" action="#{authorAdminBean.selectView}" />
           </li>
         </h:form>
       </div>
       <div>
         <h:form>
           <li>
-            <h:commandLink value="Přidat" action="#{authorAdminBean.selectAdd}" />
+            <h:commandLink value="#{msgs.add}" action="#{authorAdminBean.selectAdd}" />
           </li>
         </h:form>
       </div>
       <div>
         <h:form rendered="#{authorAdminBean.renderList}">
           <li>
-            <h:commandLink value="Upravit" action="#{authorAdminBean.selectUpdate}" />
+            <h:commandLink value="#{msgs.edit}" action="#{authorAdminBean.selectUpdate}" />
           </li>
         </h:form>
       </div>
@@ -42,20 +42,20 @@
             #{author.idAuthor}
           </h:column>
           <h:column>
-            <f:facet name="header">Jmeno</f:facet>
+            <f:facet name="header">#{msgs.firstName}</f:facet>
             #{author.name}
           </h:column>
           <h:column>
-            <f:facet name="header">Prijmeni</f:facet>
+            <f:facet name="header">#{msgs.lastName}</f:facet>
             #{author.surname}
           </h:column>
           <h:column>
-            <f:facet name="header">Smazat</f:facet>
+            <f:facet name="header">#{msgs.delete}</f:facet>
             <h:commandButton styleClass="admin_table_delete" value="X" action="#{authorAdminBean.delete}" />
           </h:column>
           <h:column rendered="#{authorAdminBean.renderUpdate}">
-            <f:facet name="header">Vybrat</f:facet>
-            <h:commandLink styleClass="admin_table_select" value="vybrat" action="#{authorAdminBean.select}" />
+            <f:facet name="header">#{msgs.pick}</f:facet>
+            <h:commandLink styleClass="admin_table_select" value="#{msgs.pick}" action="#{authorAdminBean.select}" />
           </h:column>
         </h:dataTable>
       </h:form>
@@ -65,12 +65,12 @@
       <h:form rendered="#{authorAdminBean.renderAdd || authorAdminBean.renderUpdate || !authorAdminBean.renderList}">
         <h:panelGrid columns="3">
           <h:inputHidden id="idAuthor" value="#{authorAdminBean.item.idAuthor}" />
-          Jmeno: <h:inputText id="name" value="#{authorAdminBean.item.name}" validator="#{readerNameValidator.validate}" />
+          #{msgs.firstName} <h:inputText id="name" value="#{authorAdminBean.item.name}" validator="#{readerNameValidator.validate}" />
           <h:message for="name" />
-          Prijmeni: <h:inputText id="surname" value="#{authorAdminBean.item.surname}" validator="#{readerSurameValidator.validate}" />
+          #{msgs.lastName} <h:inputText id="surname" value="#{authorAdminBean.item.surname}" validator="#{readerSurameValidator.validate}" />
           <h:message for="surname" />
-          <h:commandButton rendered="#{authorAdminBean.renderAdd || !authorAdminBean.renderList}" value="Přidat" action="#{authorAdminBean.add}" />
-          <h:commandButton rendered="#{authorAdminBean.renderUpdate}" value="Upravit" action="#{authorAdminBean.add}" />
+          <h:commandButton rendered="#{authorAdminBean.renderAdd || !authorAdminBean.renderList}" value="#{msgs.add}" action="#{authorAdminBean.add}" />
+          <h:commandButton rendered="#{authorAdminBean.renderUpdate}" value="#{msgs.edit}" action="#{authorAdminBean.add}" />
         </h:panelGrid>
       </h:form>
     </div>

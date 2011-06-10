@@ -28,18 +28,18 @@
         <ui:insert name="left">
           <ul>
             <c:if test="#{infoBean.admin}">
-              <li><h:link outcome="/readerAdmin.xhtml">Administrace ctenaru</h:link></li>
-              <li><h:link outcome="/authorAdmin.xhtml">Administrace autoru</h:link></li>
-              <li><h:link outcome="/bookTitleAdmin.xhtml">Administrace kniznich titulu</h:link></li>
-              <li><h:link outcome="/categoryAdmin.xhtml">Administrace kategorii</h:link></li>
-              <li><h:link outcome="/publisherAdmin.xhtml">Administrace vydavatelstvi</h:link></li>
+              <li><h:link outcome="/readerAdmin.xhtml">#{msgs.readerAdm}</h:link></li>
+              <li><h:link outcome="/authorAdmin.xhtml">#{msgs.authorAdm}</h:link></li>
+              <li><h:link outcome="/bookTitleAdmin.xhtml">#{msgs.bookAdm}</h:link></li>
+              <li><h:link outcome="/categoryAdmin.xhtml">#{msgs.categoryAdm}</h:link></li>
+              <li><h:link outcome="/publisherAdmin.xhtml">#{msgs.publisherAdm}</h:link></li>
               <!--<li><h:link outcome="customerV.xhtml">View All Customers</h:link></li>
               <li><h:link outcome="accountV.xhtml">View All Accounts</h:link></li>
               <li><h:link outcome="accountA.xhtml">Add Account</h:link></li>
               <li><h:link outcome="transactionV.xhtml">View All Transactions</h:link></li>-->
             </c:if>
             <c:if test="#{infoBean.reader || infoBean.anonym}">
-              <li><h:link outcome="/bookTitle.xhtml">Administrace kniznich titulu</h:link></li>
+              <li><h:link outcome="/bookTitle.xhtml">#{msgs.bookView}</h:link></li>
               <!--<li><h:link outcome="transactionA.xhtml">Transfer Money</h:link></li>
               <li><h:link outcome="statement.xhtml">Send Statement</h:link></li>
               <li><h:link outcome="javafx/ib-web-calc.html">Convert Money</h:link></li>-->
