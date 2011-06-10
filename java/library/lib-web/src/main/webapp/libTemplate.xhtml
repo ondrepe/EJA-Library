@@ -18,7 +18,7 @@
       <ui:insert name="top">
         <h:form>
           <h:link rendered="#{infoBean.anonym}" outcome="/loginForm.html">login</h:link>
-          <h:outputText rendered="#{infoBean.reader}">#{infoBean.loggedReader.name} #{infoBean.loggedReader.surname}</h:outputText>
+          <c:if test="#{infoBean.reader}">#{msgs.loggedAs} #{infoBean.loggedReader.name} #{infoBean.loggedReader.surname} - </c:if>
           <h:commandLink rendered="#{infoBean.logged}" action="#{infoBean.logout}">logout</h:commandLink>
         </h:form>
       </ui:insert>
