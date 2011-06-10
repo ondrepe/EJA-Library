@@ -2,6 +2,7 @@ package cz.cvut.fel.x33eja.lib.web.bean;
 
 import cz.cvut.fel.x33eja.lib.iface.ejb.IReaderBean;
 import cz.cvut.fel.x33eja.lib.iface.to.Reader;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -30,7 +31,6 @@ public class InfoBean {
     anonym = false;
     reader = false;
     logged = false;
-    initPermision();
   }
 
   public boolean isAdmin() {
@@ -49,11 +49,11 @@ public class InfoBean {
     return logged;
   }
 
-  private void initPermision() {
+  @PostConstruct
+  public void initPermision() {
     try {
       admin = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("ADMIN");
       reader = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("READER");
-      anonym = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("ANONYM");
       if (!admin) {
         if (reader) {
           logged = true;

@@ -131,7 +131,7 @@ public class LibraryUnitBean implements ILibraryUnitBean {
   public boolean isAvailableBetweenDates(int idTitle, Date from, Date to) {
     LibraryUnitGetAvailableCommand command = new LibraryUnitGetAvailableCommand(em, ctx);
     LibraryUnitPO libraryUnitPO = command.execute(idTitle, from, to);
-    return libraryUnitPO == null;
+    return libraryUnitPO != null;
   }
   
 }

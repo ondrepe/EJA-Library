@@ -35,7 +35,6 @@ public abstract class CommonCommand {
     try {
       adminLogged = ctx.isCallerInRole("ADMIN");
       readerLogged = ctx.isCallerInRole("READER");
-      readerLogged = ctx.isCallerInRole("ANONYM");
       
       if (!adminLogged) {
         if (readerLogged) {

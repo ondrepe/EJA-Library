@@ -62,6 +62,7 @@ public class BookTitleBean extends CommonListBean<BookTitle> {
   public void select() {
     super.select();
     selected = true;
+    available = false;
   }
 
   public String getEmail() {

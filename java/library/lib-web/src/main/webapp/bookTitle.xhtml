@@ -59,9 +59,9 @@
     <div>
       <h:form id="reader_form_res_booktitle" rendered="#{bookTitleBean.selected and infoBean.reader}">
         <h:panelGrid columns="3">
-          Od: <h:inputText id="from" value="#{bookTitleBean.from}" validator="#{readerNameValidator.validate}" />
+          Od: <h:inputText id="from" value="#{bookTitleBean.from}" converter="dateConverter" />
           <h:message for="from" />
-          Do: <h:inputText id="to" value="#{bookTitleBean.to}" validator="#{readerSurameValidator.validate}" />
+          Do: <h:inputText id="to" value="#{bookTitleBean.to}" converter="dateConverter" />
           <h:message for="to" />
           <h:commandButton value="Zjistit dostupnost" action="#{bookTitleBean.checkAvailable}" />
           <h:commandButton disabled="#{!bookTitleBean.available}" value="Reyervovat" action="#{bookTitleBean.addReservation}" />
