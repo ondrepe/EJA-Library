@@ -32,7 +32,7 @@ public class CategoryListCommand extends ListCommand<CategoryPO, Category> {
   @Override
   protected List<Category> convert(List<CategoryPO> list) {
     CategoryTranslator categoryTranslator = new CategoryTranslator();
-    return categoryTranslator.fromPoListToDoList(list);
+    return categoryTranslator.translateList(list);
   }
 
   @Override

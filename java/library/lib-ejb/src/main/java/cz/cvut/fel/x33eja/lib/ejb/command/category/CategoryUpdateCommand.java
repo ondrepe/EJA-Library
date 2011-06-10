@@ -21,7 +21,8 @@ public class CategoryUpdateCommand extends CreateUpdateCommand<CategoryPO> {
 
   @Override
   public void execute(CategoryPO object) {
-    CategoryPO category = em.merge(object);
+    CategoryPO category = em.find(CategoryPO.class, object.getIdCategory());
+    category.setName(object.getName());
     em.persist(category);
   }
   

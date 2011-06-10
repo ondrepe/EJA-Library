@@ -32,7 +32,7 @@ public class PublisherListCommand extends ListCommand<PublisherPO, Publisher> {
   @Override
   protected List<Publisher> convert(List<PublisherPO> list) {
     PublisherTranslator translator = new PublisherTranslator();
-    return translator.fromPoListToDoList(list);
+    return translator.translateList(list);
   }
 
   @Override

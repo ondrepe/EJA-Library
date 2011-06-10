@@ -13,14 +13,14 @@ import cz.cvut.fel.x33eja.lib.iface.to.Reader;
 public class ReaderTranslator extends CommonTranslator<ReaderPO, Reader> {
 
   @Override
-  public Reader fromPoToDo(ReaderPO from) {
+  public Reader translate(ReaderPO from) {
     Reader to = new Reader();
     to.setIdReader(from.getIdReader());
     to.setName(from.getName());
     to.setSurname(from.getSurname());
     to.setEmail(from.getEmail());
 
-    for (ChargeOutPO coPO : from.getChargeOutPOList()) {
+    for (ChargeOutPO coPO : from.getChargeOuts()) {
       ChargeOutStatus status = ChargeOutStatus.valueOf(coPO.getStatus().getName());
       if (ChargeOutStatus.ACTIVE.equals(status)) {
         to.setActiveChargeOutsCount(to.getActiveChargeOutsCount() + 1);
@@ -30,16 +30,6 @@ public class ReaderTranslator extends CommonTranslator<ReaderPO, Reader> {
       to.setChargeOutsCount(to.getChargeOutsCount() + 1);
     }
 
-    return to;
-  }
-
-  @Override
-  public ReaderPO fromDoToPo(Reader from) {
-    ReaderPO to = new ReaderPO();
-    to.setIdReader(from.getIdReader());
-    to.setName(from.getName());
-    to.setSurname(from.getSurname());
-    to.setEmail(from.getEmail());
     return to;
   }
 }

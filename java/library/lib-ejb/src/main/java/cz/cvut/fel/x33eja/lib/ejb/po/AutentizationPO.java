@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.eclipse.persistence.annotations.Cache;
 
 /**
@@ -26,24 +23,23 @@ import org.eclipse.persistence.annotations.Cache;
   @NamedQuery(name = "AutentizationPO.findByLogin", query = "SELECT a FROM AutentizationPO a WHERE a.login = :login"),
   @NamedQuery(name = "AutentizationPO.findByPassword", query = "SELECT a FROM AutentizationPO a WHERE a.password = :password")})
 public class AutentizationPO extends CommonPO {
+  
   private static final long serialVersionUID = 1L;
+  
   @Id
-  @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 45)
   @Column(name = "login")
   private String login;
-  @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 100)
+  
   @Column(name = "password")
   private String password;
+  
   @JoinColumn(name = "groupName", referencedColumnName = "groupName")
   @ManyToOne(optional = false)
   private AutentizationGroupPO groupName;
+  
   @JoinColumn(name = "idReader", referencedColumnName = "idReader")
   @ManyToOne(cascade= CascadeType.ALL)
-  private ReaderPO idReader;
+  private ReaderPO reader;
 
   public AutentizationPO() {
   }
@@ -81,11 +77,11 @@ public class AutentizationPO extends CommonPO {
     this.groupName = groupName;
   }
 
-  public ReaderPO getIdReader() {
-    return idReader;
+  public ReaderPO getReader() {
+    return reader;
   }
 
-  public void setIdReader(ReaderPO idReader) {
-    this.idReader = idReader;
+  public void setReader(ReaderPO reader) {
+    this.reader = reader;
   }
 }

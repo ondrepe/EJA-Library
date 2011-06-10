@@ -1,7 +1,6 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import org.eclipse.persistence.annotations.Cache;
 
 /**
@@ -27,39 +25,37 @@ import org.eclipse.persistence.annotations.Cache;
 @Table(name = "chargeout")
 @NamedQueries({
   @NamedQuery(name = "ChargeOutPO.findAll", query = "SELECT c FROM ChargeOutPO c"),
-  @NamedQuery(name = "ChargeOutPO.findAll", query = "SELECT c FROM ChargeOutPO c"),
-  @NamedQuery(name = "ChargeOutPO.findReservedByIdReader", query = "SELECT c FROM ChargeOutPO c"),
-  @NamedQuery(name = "ChargeOutPO.findByIdChargeOut", query = "SELECT c FROM ChargeOutPO c WHERE c.idChargeOut = :idChargeOut"),
-  @NamedQuery(name = "ChargeOutPO.findByFromDate", query = "SELECT c FROM ChargeOutPO c WHERE c.fromDate = :fromDate"),
-  @NamedQuery(name = "ChargeOutPO.findByToDate", query = "SELECT c FROM ChargeOutPO c WHERE c.toDate = :toDate")})
+  @NamedQuery(name = "ChargeOutPO.getBetweenDates", query = "SELECT c FROM ChargeOutPO c WHERE c.libraryUnit.bookTitle.idBookTitle = :idBookTitle AND c.fromDate >= :fromDate AND c.toDate <= c.toDate"),
+  @NamedQuery(name = "ChargeOutPO.findAllActiveByReaderAndStatus", query = "SELECT c FROM ChargeOutPO c WHERE c.status.name = :status AND c.reader.idReader = :idReader")})
 public class ChargeOutPO extends CommonPO {
+  
   private static final long serialVersionUID = 1L;
+  
   @Id
-  @Basic(optional = false)
-  @NotNull
   @GeneratedValue(generator = "chargeoutTableGen", strategy=GenerationType.TABLE)
   @TableGenerator(name = "chargeoutTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "chargeout", initialValue = 10000, allocationSize = 200)
   @Column(name = "idChargeOut")
   private Integer idChargeOut;
-  @Basic(optional = false)
-  @NotNull
+  
   @Column(name = "fromDate")
   @Temporal(TemporalType.TIMESTAMP)
   private Date fromDate;
-  @Basic(optional = false)
-  @NotNull
+  
   @Column(name = "toDate")
   @Temporal(TemporalType.TIMESTAMP)
   private Date toDate;
+  
   @JoinColumn(name = "status", referencedColumnName = "name")
   @ManyToOne(optional = false)
   private ChargeOutStatusPO status;
+  
   @JoinColumn(name = "idReader", referencedColumnName = "idReader")
   @ManyToOne(optional = false)
-  private ReaderPO idReader;
+  private ReaderPO reader;
+  
   @JoinColumn(name = "idLibraryUnit", referencedColumnName = "idLibraryUnit")
   @ManyToOne(optional = false)
-  private LibraryUnitPO idLibraryUnit;
+  private LibraryUnitPO libraryUnit;
 
   public ChargeOutPO() {
   }
@@ -106,19 +102,19 @@ public class ChargeOutPO extends CommonPO {
     this.status = status;
   }
 
-  public ReaderPO getIdReader() {
-    return idReader;
+  public ReaderPO getReader() {
+    return reader;
   }
 
-  public void setIdReader(ReaderPO idReader) {
-    this.idReader = idReader;
+  public void setReader(ReaderPO reader) {
+    this.reader = reader;
   }
 
-  public LibraryUnitPO getIdLibraryUnit() {
-    return idLibraryUnit;
+  public LibraryUnitPO getLibraryUnit() {
+    return libraryUnit;
   }
 
-  public void setIdLibraryUnit(LibraryUnitPO idLibraryUnit) {
-    this.idLibraryUnit = idLibraryUnit;
+  public void setLibraryUnit(LibraryUnitPO libraryUnit) {
+    this.libraryUnit = libraryUnit;
   }
 }

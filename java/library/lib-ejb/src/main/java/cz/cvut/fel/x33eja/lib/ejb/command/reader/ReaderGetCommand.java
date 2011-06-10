@@ -33,7 +33,7 @@ public class ReaderGetCommand extends GetCommand<ReaderPO, Reader> {
   @Override
   protected Reader convert(ReaderPO object) {
     ReaderTranslator translator = new ReaderTranslator();
-    return translator.fromPoToDo(object);
+    return translator.translate(object);
   }
 
   @Override

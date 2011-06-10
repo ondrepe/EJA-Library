@@ -2,7 +2,6 @@ package cz.cvut.fel.x33eja.lib.ejb.po;
 
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,8 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.eclipse.persistence.annotations.Cache;
 
 /**
@@ -33,56 +30,59 @@ import org.eclipse.persistence.annotations.Cache;
 @Table(name = "booktitle")
 @NamedQueries({
   @NamedQuery(name = "BookTitlePO.findAll", query = "SELECT b FROM BookTitlePO b"),
-  @NamedQuery(name = "BookTitlePO.findByIdBookTitle", query = "SELECT b FROM BookTitlePO b WHERE b.idBookTitle = :idBookTitle"),
   @NamedQuery(name = "BookTitlePO.findByIsbn", query = "SELECT b FROM BookTitlePO b WHERE b.isbn = :isbn"),
   @NamedQuery(name = "BookTitlePO.findByName", query = "SELECT b FROM BookTitlePO b WHERE b.name = :name"),
   @NamedQuery(name = "BookTitlePO.findByYear", query = "SELECT b FROM BookTitlePO b WHERE b.year = :year"),
   @NamedQuery(name = "BookTitlePO.findByPagesCount", query = "SELECT b FROM BookTitlePO b WHERE b.pagesCount = :pagesCount"),
   @NamedQuery(name = "BookTitlePO.findByIssueNumber", query = "SELECT b FROM BookTitlePO b WHERE b.issueNumber = :issueNumber")})
 public class BookTitlePO extends CommonPO {
+  
   private static final long serialVersionUID = 1L;
+  
   @Id
-  @Basic(optional = false)
-  @NotNull
   @GeneratedValue(generator = "bookTableGen", strategy=GenerationType.TABLE)
   @TableGenerator(name = "bookTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "booktitle", initialValue = 10000, allocationSize = 200)
   @Column(name = "idBookTitle")
   private Integer idBookTitle;
-  @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 100)
+  
   @Column(name = "isbn")
   private String isbn;
-  @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 2000)
+  
   @Column(name = "name")
   private String name;
+  
   @Column(name = "year")
   @Temporal(TemporalType.DATE)
   private Date year;
+  
   @Column(name = "pagesCount")
   private Integer pagesCount;
-  @Size(max = 50)
+  
   @Column(name = "issueNumber")
   private String issueNumber;
+  
   @Lob
-  @Size(max = 65535)
   @Column(name = "about")
   private String about;
-  @ManyToMany(mappedBy = "bookTitlePOList")
-  private List<CategoryPO> categoryPOList;
-  @ManyToMany(mappedBy = "bookTitlePOList")
-  private List<AuthorPO> authorPOList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBookTitle")
-  private List<ScorePO> scorePOList;
+  
+  @ManyToMany(mappedBy = "bookTitles")
+  private List<CategoryPO> categories;
+  
+  @ManyToMany(mappedBy = "bookTitles")
+  private List<AuthorPO> authors;
+  
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitle")
+  private List<ScorePO> scoreList;
+  
   @JoinColumn(name = "idPublisher", referencedColumnName = "idPublisher")
   @ManyToOne(optional = false)
-  private PublisherPO idPublisher;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBookTitle")
-  private List<LibraryUnitPO> libraryUnitPOList;
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBookTitle")
-  private List<CommentaryPO> commentaryPOList;
+  private PublisherPO publisher;
+  
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitle")
+  private List<LibraryUnitPO> libraryUnits;
+  
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookTitle")
+  private List<CommentaryPO> commentaries;
 
   public BookTitlePO() {
   }
@@ -153,51 +153,51 @@ public class BookTitlePO extends CommonPO {
     this.about = about;
   }
 
-  public List<CategoryPO> getCategoryPOList() {
-    return categoryPOList;
+  public List<CategoryPO> getCategories() {
+    return categories;
   }
 
-  public void setCategoryPOList(List<CategoryPO> categoryPOList) {
-    this.categoryPOList = categoryPOList;
+  public void setCategories(List<CategoryPO> categories) {
+    this.categories = categories;
   }
 
-  public List<AuthorPO> getAuthorPOList() {
-    return authorPOList;
+  public List<AuthorPO> getAuthors() {
+    return authors;
   }
 
-  public void setAuthorPOList(List<AuthorPO> authorPOList) {
-    this.authorPOList = authorPOList;
+  public void setAuthors(List<AuthorPO> authors) {
+    this.authors = authors;
   }
 
-  public List<ScorePO> getScorePOList() {
-    return scorePOList;
+  public List<ScorePO> getScoreList() {
+    return scoreList;
   }
 
-  public void setScorePOList(List<ScorePO> scorePOList) {
-    this.scorePOList = scorePOList;
+  public void setScoreList(List<ScorePO> scoreList) {
+    this.scoreList = scoreList;
   }
 
-  public PublisherPO getIdPublisher() {
-    return idPublisher;
+  public PublisherPO getPublisher() {
+    return publisher;
   }
 
-  public void setIdPublisher(PublisherPO idPublisher) {
-    this.idPublisher = idPublisher;
+  public void setPublisher(PublisherPO publisher) {
+    this.publisher = publisher;
   }
 
-  public List<LibraryUnitPO> getLibraryUnitPOList() {
-    return libraryUnitPOList;
+  public List<LibraryUnitPO> getLibraryUnits() {
+    return libraryUnits;
   }
 
-  public void setLibraryUnitPOList(List<LibraryUnitPO> libraryUnitPOList) {
-    this.libraryUnitPOList = libraryUnitPOList;
+  public void setLibraryUnits(List<LibraryUnitPO> libraryUnits) {
+    this.libraryUnits = libraryUnits;
   }
 
-  public List<CommentaryPO> getCommentaryPOList() {
-    return commentaryPOList;
+  public List<CommentaryPO> getCommentaries() {
+    return commentaries;
   }
 
-  public void setCommentaryPOList(List<CommentaryPO> commentaryPOList) {
-    this.commentaryPOList = commentaryPOList;
+  public void setCommentaries(List<CommentaryPO> commentaries) {
+    this.commentaries = commentaries;
   }
 }

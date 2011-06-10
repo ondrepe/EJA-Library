@@ -30,7 +30,7 @@ public class BookTitleGetCommand extends GetCommand<BookTitlePO, BookTitle> {
   @Override
   protected BookTitle convert(BookTitlePO object) {
     BookTitleTranslator translator = new BookTitleTranslator();
-    return translator.fromPoToDo(object);
+    return translator.translate(object);
   }
 
   @Override

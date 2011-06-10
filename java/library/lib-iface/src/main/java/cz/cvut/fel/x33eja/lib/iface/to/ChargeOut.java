@@ -10,6 +10,7 @@ public class ChargeOut extends CommonTO {
     
   private Integer id;
   private BookTitle book;
+  private Reader reader;
   private Date from;
   private Date to;
   private ChargeOutStatus status;
@@ -56,5 +57,13 @@ public class ChargeOut extends CommonTO {
 
   public void setTo(Date to) {
     this.to = to;
+  }
+
+  public Reader getReader() {
+    return reader;
+  }
+
+  public void setReader(Reader reader) {
+    this.reader = reader;
   }
 }

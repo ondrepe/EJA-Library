@@ -32,7 +32,7 @@ public class BookTitleListCommand extends ListCommand<BookTitlePO, BookTitle> {
   @Override
   protected List<BookTitle> convert(List<BookTitlePO> list) {
     BookTitleTranslator translator = new BookTitleTranslator();
-    return translator.fromPoListToDoList(list);
+    return translator.translateList(list);
   }
 
   @Override

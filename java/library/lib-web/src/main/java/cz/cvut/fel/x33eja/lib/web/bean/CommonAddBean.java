@@ -6,7 +6,7 @@ import cz.cvut.fel.x33eja.lib.iface.to.CommonTO;
  *
  * @author ondrepe
  */
-public abstract class CommonAddBean<T extends CommonTO> {
+public abstract class CommonAddBean<T extends CommonTO> extends CommonBean {
 
   private T item;
 

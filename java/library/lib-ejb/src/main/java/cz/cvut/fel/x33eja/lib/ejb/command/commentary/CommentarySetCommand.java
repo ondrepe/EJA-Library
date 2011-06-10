@@ -2,6 +2,7 @@ package cz.cvut.fel.x33eja.lib.ejb.command.commentary;
 
 import cz.cvut.fel.x33eja.lib.ejb.command.CreateUpdateCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.SetCommand;
+import cz.cvut.fel.x33eja.lib.ejb.po.BookTitlePO;
 import cz.cvut.fel.x33eja.lib.ejb.po.CommentaryPO;
 import cz.cvut.fel.x33eja.lib.ejb.translator.impl.CommentaryTranslator;
 import cz.cvut.fel.x33eja.lib.iface.to.Commentary;
@@ -35,8 +36,14 @@ public class CommentarySetCommand extends SetCommand<CommentaryPO, Commentary> {
 
   @Override
   protected CommentaryPO convert(Commentary object) {
-    CommentaryTranslator translator = new CommentaryTranslator();
-    return translator.fromDoToPo(object);
+    CommentaryPO commentary = new CommentaryPO();
+    commentary.setIdCommentary(object.getIdCommentary());
+    commentary.setAuthorName(object.getAuthorName());
+    commentary.setText(object.getText());
+    
+    BookTitlePO bookTitle = em.find(BookTitlePO.class, object.getBookTitle().getId());
+    commentary.setBookTitle(bookTitle);
+    return commentary;
   }
 
   @Override

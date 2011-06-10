@@ -1,7 +1,6 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.eclipse.persistence.annotations.Cache;
 
 /**
@@ -29,37 +26,32 @@ import org.eclipse.persistence.annotations.Cache;
 @Table(name = "commentary")
 @NamedQueries({
   @NamedQuery(name = "CommentaryPO.findAll", query = "SELECT c FROM CommentaryPO c"),
-  @NamedQuery(name = "CommentaryPO.findByIdCommentary", query = "SELECT c FROM CommentaryPO c WHERE c.idCommentary = :idCommentary"),
   @NamedQuery(name = "CommentaryPO.findByAuthorName", query = "SELECT c FROM CommentaryPO c WHERE c.authorName = :authorName"),
   @NamedQuery(name = "CommentaryPO.findByTime", query = "SELECT c FROM CommentaryPO c WHERE c.time = :time")})
 public class CommentaryPO extends CommonPO {
+  
   private static final long serialVersionUID = 1L;
+  
   @Id
-  @Basic(optional = false)
-  @NotNull
   @GeneratedValue(generator = "commTableGen", strategy=GenerationType.TABLE)
   @TableGenerator(name = "commTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "commentary", initialValue = 10000, allocationSize = 200)
   @Column(name = "idCommentary")
   private Integer idCommentary;
-  @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 50)
+  
   @Column(name = "authorName")
   private String authorName;
-  @Basic(optional = false)
-  @NotNull
+  
   @Column(name = "time")
   @Temporal(TemporalType.TIMESTAMP)
   private Date time;
-  @Basic(optional = false)
-  @NotNull
+  
   @Lob
-  @Size(min = 1, max = 65535)
   @Column(name = "text")
   private String text;
+  
   @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")
   @ManyToOne(optional = false)
-  private BookTitlePO idBookTitle;
+  private BookTitlePO bookTitle;
 
   public CommentaryPO() {
   }
@@ -107,11 +99,11 @@ public class CommentaryPO extends CommonPO {
     this.text = text;
   }
 
-  public BookTitlePO getIdBookTitle() {
-    return idBookTitle;
+  public BookTitlePO getBookTitle() {
+    return bookTitle;
   }
 
-  public void setIdBookTitle(BookTitlePO idBookTitle) {
-    this.idBookTitle = idBookTitle;
+  public void setBookTitle(BookTitlePO bookTitle) {
+    this.bookTitle = bookTitle;
   }
 }

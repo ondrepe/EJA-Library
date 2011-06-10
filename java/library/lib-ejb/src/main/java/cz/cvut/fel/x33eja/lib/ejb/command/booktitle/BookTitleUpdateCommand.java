@@ -21,7 +21,18 @@ public class BookTitleUpdateCommand extends CreateUpdateCommand<BookTitlePO> {
   
   @Override
   public void execute(BookTitlePO object) {
-    BookTitlePO bookTitle = em.merge(object);
+    BookTitlePO bookTitle = em.find(BookTitlePO.class, object.getIdBookTitle());
+    
+    bookTitle.setName(object.getName());
+    bookTitle.setAbout(object.getAbout());
+    bookTitle.setPublisher(object.getPublisher());
+    bookTitle.setAuthors(object.getAuthors());
+    bookTitle.setCategories(object.getCategories());
+    bookTitle.setIsbn(object.getIsbn());
+    bookTitle.setIssueNumber(object.getIssueNumber());
+    bookTitle.setPagesCount(object.getPagesCount());
+    bookTitle.setYear(object.getYear());
+    
     em.persist(bookTitle);
   }
   

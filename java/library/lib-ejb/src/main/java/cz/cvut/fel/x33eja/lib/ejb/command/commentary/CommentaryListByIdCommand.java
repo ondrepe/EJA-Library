@@ -27,13 +27,13 @@ public class CommentaryListByIdCommand extends ListByIdCommand<CommentaryPO, Com
   @Override
   protected List<CommentaryPO> list(int id) {
     BookTitlePO bookTitle = em.find(BookTitlePO.class, id);
-    return bookTitle.getCommentaryPOList();
+    return bookTitle.getCommentaries();
   }
 
   @Override
   protected List<Commentary> convert(List<CommentaryPO> list) {
     CommentaryTranslator translator = new CommentaryTranslator();
-    return translator.fromPoListToDoList(list);
+    return translator.translateList(list);
   }
 
   @Override

@@ -21,7 +21,8 @@ public class PublisherUpdateCommand extends CreateUpdateCommand<PublisherPO> {
 
   @Override
   public void execute(PublisherPO object) {
-    PublisherPO objectPO = em.merge(object);
+    PublisherPO objectPO = em.find(PublisherPO.class, object.getIdPublisher());
+    objectPO.setName(object.getName());
     em.persist(objectPO);
   }
 }

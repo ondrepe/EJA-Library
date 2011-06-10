@@ -35,8 +35,14 @@ public class ReaderSetCommand extends SetCommand<ReaderPO, Reader> {
 
   @Override
   protected ReaderPO convert(Reader object) {
-    ReaderTranslator translator = new ReaderTranslator();
-    return translator.fromDoToPo(object);
+    ReaderPO readerPO = new ReaderPO();
+    
+    readerPO.setIdReader(object.getIdReader());
+    readerPO.setName(object.getName());
+    readerPO.setSurname(object.getSurname());
+    readerPO.setEmail(object.getEmail());
+    
+    return readerPO;
   }
 
   @Override

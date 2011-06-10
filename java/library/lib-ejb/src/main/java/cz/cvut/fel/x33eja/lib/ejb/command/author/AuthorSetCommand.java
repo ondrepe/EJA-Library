@@ -35,8 +35,11 @@ public class AuthorSetCommand extends SetCommand<AuthorPO, Author> {
 
   @Override
   protected AuthorPO convert(Author object) {
-    AuthorTranslator translator = new AuthorTranslator();
-    return translator.fromDoToPo(object);
+    AuthorPO objectPO = new AuthorPO();
+    objectPO.setIdAuthor(object.getIdAuthor());
+    objectPO.setName(object.getName());
+    objectPO.setSurname(object.getSurname());
+    return objectPO;
   }
 
   @Override

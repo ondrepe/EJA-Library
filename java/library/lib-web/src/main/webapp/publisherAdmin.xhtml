@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./libTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  <ui:define name="right">
+    <ul>
+      <div>
+        <h:form rendered="#{publisherAdminBean.renderList}">
+          <li>
+            <h:commandLink value="Jen prohlížet" action="#{publisherAdminBean.selectView}" />
+          </li>
+        </h:form>
+      </div>
+      <div>
+        <h:form>
+          <li>
+            <h:commandLink value="Přidat" action="#{publisherAdminBean.selectAdd}" />
+          </li>
+        </h:form>
+      </div>
+      <div>
+        <h:form rendered="#{publisherAdminBean.renderList}">
+          <li>
+            <h:commandLink value="Upravit" action="#{publisherAdminBean.selectUpdate}" />
+          </li>
+        </h:form>
+      </div>
+    </ul>
+  </ui:define>
+
+  <ui:define name="content">
+
+    <div>
+      <h:form rendered="#{publisherAdminBean.renderList}">
+        <h:dataTable var="publisher" value="#{publisherAdminBean.list}" binding="#{publisherAdminBean.htmlDataTable}">
+          <h:column>
+            <f:facet name="header">Id</f:facet>
+            #{publisher.idPublisher}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Jmeno</f:facet>
+            #{publisher.name}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Smazat</f:facet>
+            <h:commandButton styleClass="admin_table_delete" value="X" action="#{publisherAdminBean.delete}" />
+          </h:column>
+          <h:column rendered="#{publisherAdminBean.renderUpdate}">
+            <f:facet name="header">Vybrat</f:facet>
+            <h:commandLink styleClass="admin_table_select" value="vybrat" action="#{publisherAdminBean.select}" />
+          </h:column>
+        </h:dataTable>
+      </h:form>
+    </div>
+
+    <div>
+      <h:form rendered="#{publisherAdminBean.renderAdd || publisherAdminBean.renderUpdate || !publisherAdminBean.renderList}">
+        <h:panelGrid columns="3">
+          <h:inputHidden id="idCategory" value="#{publisherAdminBean.item.idPublisher}" />
+          Jméno: <h:inputText id="name" value="#{publisherAdminBean.item.name}" validator="#{readerNameValidator.validate}" />
+          <h:message for="name" />
+          <h:commandButton rendered="#{publisherAdminBean.renderAdd || !publisherAdminBean.renderList}" value="Přidat" action="#{publisherAdminBean.add}" />
+          <h:commandButton rendered="#{publisherAdminBean.renderUpdate}" value="Upravit" action="#{publisherAdminBean.add}" />
+        </h:panelGrid>
+      </h:form>
+    </div>
+
+  </ui:define>
+
+</ui:composition>

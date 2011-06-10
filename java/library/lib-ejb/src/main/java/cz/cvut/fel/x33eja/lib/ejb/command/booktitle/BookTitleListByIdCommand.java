@@ -34,13 +34,13 @@ public class BookTitleListByIdCommand extends ListByIdCommand<BookTitlePO, BookT
     List<BookTitlePO> list = null;
     if (BookTitleListByIdCommandEnum.AUTHOR.equals(idType)) {
       AuthorPO authorPO = em.find(AuthorPO.class, id);
-      list = authorPO.getBookTitlePOList();
+      list = authorPO.getBookTitles();
     } else if (BookTitleListByIdCommandEnum.CATEGORY.equals(idType)) {
       CategoryPO category = em.find(CategoryPO.class, id);
-      list = category.getBookTitlePOList();
+      list = category.getBookTitles();
     } else if (BookTitleListByIdCommandEnum.PUBLISHER.equals(idType)) {
       PublisherPO publisher = em.find(PublisherPO.class, id);
-      list = publisher.getBookTitlePOList();
+      list = publisher.getBookTitles();
     }
     return list;
   }
@@ -48,7 +48,7 @@ public class BookTitleListByIdCommand extends ListByIdCommand<BookTitlePO, BookT
   @Override
   protected List<BookTitle> convert(List<BookTitlePO> list) {
     BookTitleTranslator translator = new BookTitleTranslator();
-    return translator.fromPoListToDoList(list);
+    return translator.translateList(list);
   }
 
   @Override

@@ -11,7 +11,7 @@ import cz.cvut.fel.x33eja.lib.iface.to.Publisher;
 public class PublisherTranslator extends CommonTranslator<PublisherPO, Publisher> {
 
   @Override
-  public Publisher fromPoToDo(PublisherPO from) {
+  public Publisher translate(PublisherPO from) {
     Publisher publisher = new Publisher();
     
     publisher.setIdPublisher(from.getIdPublisher());
@@ -19,15 +19,4 @@ public class PublisherTranslator extends CommonTranslator<PublisherPO, Publisher
     
     return publisher;
   }
-
-  @Override
-  public PublisherPO fromDoToPo(Publisher from) {
-    PublisherPO publisher = new PublisherPO();
-    
-    publisher.setIdPublisher(from.getIdPublisher());
-    publisher.setName(from.getName());
-    
-    return publisher;
-  }
-  
 }

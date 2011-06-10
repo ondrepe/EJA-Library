@@ -32,7 +32,7 @@ public class AuthorListCommand extends ListCommand<AuthorPO, Author> {
   @Override
   protected List<Author> convert(List<AuthorPO> list) {
     AuthorTranslator translator = new AuthorTranslator();
-    return translator.fromPoListToDoList(list);
+    return translator.translateList(list);
   }
 
   @Override

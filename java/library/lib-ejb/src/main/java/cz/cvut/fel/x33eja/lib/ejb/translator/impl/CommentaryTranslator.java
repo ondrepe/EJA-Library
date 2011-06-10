@@ -11,7 +11,7 @@ import cz.cvut.fel.x33eja.lib.iface.to.Commentary;
 public class CommentaryTranslator extends CommonTranslator<CommentaryPO, Commentary> {
 
   @Override
-  public Commentary fromPoToDo(CommentaryPO from) {
+  public Commentary translate(CommentaryPO from) {
     Commentary commentary = new Commentary();
     
     commentary.setAuthorName(from.getAuthorName());
@@ -20,22 +20,7 @@ public class CommentaryTranslator extends CommonTranslator<CommentaryPO, Comment
     commentary.setTime(from.getTime());
     
     BookTitleTranslator bookTitleTranslator = new BookTitleTranslator();
-    commentary.setBookTitle(bookTitleTranslator.fromPoToDo(from.getIdBookTitle()));
-    
-    return commentary;
-  }
-
-  @Override
-  public CommentaryPO fromDoToPo(Commentary from) {
-    CommentaryPO commentary = new CommentaryPO();
-    
-    commentary.setIdCommentary(from.getIdCommentary());
-    commentary.setAuthorName(from.getAuthorName());
-    commentary.setText(from.getText());
-    commentary.setTime(from.getTime());
-    
-    BookTitleTranslator bookTitleTranslator = new BookTitleTranslator();
-    commentary.setIdBookTitle(bookTitleTranslator.fromDoToPo(from.getBookTitle()));
+    commentary.setBookTitle(bookTitleTranslator.translate(from.getBookTitle()));
     
     return commentary;
   }

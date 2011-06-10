@@ -48,7 +48,7 @@ public class ReaderDetailCommand extends DetailCommand<ReaderDetail> {
     } else {
       rPo = em.find(ReaderPO.class, id);
     }
-    List<ChargeOutPO> listPo = rPo.getChargeOutPOList();
+    List<ChargeOutPO> listPo = rPo.getChargeOuts();
     List<ChargeOutPO> resultList = new ArrayList<ChargeOutPO>();
 
     if (status != null) {
@@ -80,9 +80,9 @@ public class ReaderDetailCommand extends DetailCommand<ReaderDetail> {
       co.setTo(cPo.getToDate());
       co.setStatus(cPo.getStatus().getName());
 
-      BookTitlePO bPo = cPo.getIdLibraryUnit().getIdBookTitle();
+      BookTitlePO bPo = cPo.getLibraryUnit().getBookTitle();
       BookTitleTranslator bookTitleTranslator = new BookTitleTranslator();
-      BookTitle bt = bookTitleTranslator.fromPoToDo(bPo);
+      BookTitle bt = bookTitleTranslator.translate(bPo);
 
       co.setBook(bt);
       list.add(co);

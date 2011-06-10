@@ -41,7 +41,7 @@ public abstract class CommonCommand {
         if (readerLogged) {
           String login = ctx.getCallerPrincipal().getName();
           AutentizationPO autentization = em.find(AutentizationPO.class, login);
-          reader = autentization.getIdReader();
+          reader = autentization.getReader();
         } else {
           anonym = true;
         }

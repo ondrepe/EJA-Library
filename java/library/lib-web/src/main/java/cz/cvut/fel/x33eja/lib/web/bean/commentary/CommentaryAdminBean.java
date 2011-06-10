@@ -6,14 +6,14 @@ import cz.cvut.fel.x33eja.lib.web.bean.CommonAdminBean;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author ondrepe
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class CommentaryAdminBean extends CommonAdminBean<Commentary> {
 
   @EJB
@@ -32,6 +32,11 @@ public class CommentaryAdminBean extends CommonAdminBean<Commentary> {
   @Override
   protected List<Commentary> load() {
     return commentaryBean.getAllCommentaries();
+  }
+
+  @Override
+  protected void deleteItem(Commentary item) {
+    commentaryBean.remove(item.getIdCommentary());
   }
   
 }

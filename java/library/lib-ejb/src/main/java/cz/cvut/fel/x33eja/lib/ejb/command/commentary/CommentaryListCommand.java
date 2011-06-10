@@ -32,7 +32,7 @@ public class CommentaryListCommand extends ListCommand<CommentaryPO, Commentary>
   @Override
   protected List<Commentary> convert(List<CommentaryPO> list) {
     CommentaryTranslator translator = new CommentaryTranslator();
-    return translator.fromPoListToDoList(list);
+    return translator.translateList(list);
   }
 
   @Override

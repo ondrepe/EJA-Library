@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./libTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+  <ui:define name="right">
+    <ul>
+      <div>
+        <h:form rendered="#{bookTitleAdminBean.renderList}">
+          <li>
+            <h:commandLink value="Jen prohlížet" action="#{bookTitleAdminBean.selectView}" />
+          </li>
+        </h:form>
+      </div>
+      <div>
+        <h:form>
+          <li>
+            <h:commandLink value="Přidat" action="#{bookTitleAdminBean.selectAdd}" />
+          </li>
+        </h:form>
+      </div>
+      <div>
+        <h:form rendered="#{bookTitleAdminBean.renderList}">
+          <li>
+            <h:commandLink value="Upravit" action="#{bookTitleAdminBean.selectUpdate}" />
+          </li>
+        </h:form>
+      </div>
+    </ul>
+  </ui:define>
+
+  <ui:define name="content">
+
+    <div>
+      <h:form rendered="#{bookTitleAdminBean.renderList}">
+        <h:dataTable var="bookTitle" value="#{bookTitleAdminBean.list}" binding="#{bookTitleAdminBean.htmlDataTable}">
+          <h:column>
+            <f:facet name="header">Id</f:facet>
+            #{bookTitle.id}
+          </h:column>
+          <h:column>
+            <f:facet name="header">ISBN</f:facet>
+            #{bookTitle.isbn}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nazev</f:facet>
+            #{bookTitle.name}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nakladatelstvi</f:facet>
+            #{bookTitle.publisher.name}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Vydani</f:facet>
+            #{bookTitle.issue}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Rok</f:facet>
+            #{bookTitle.year}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Pocet stran</f:facet>
+            #{bookTitle.pages}
+          </h:column>
+          <h:column>
+            <f:facet name="header">O knize</f:facet>
+            #{bookTitle.about}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Prumerne hodnoceni</f:facet>
+            #{bookTitle.avgScore}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Pocet jednotek</f:facet>
+            #{bookTitle.count}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Smazat</f:facet>
+            <h:commandButton styleClass="admin_table_delete" value="X" action="#{bookTitleAdminBean.delete}" />
+          </h:column>
+          <h:column rendered="#{bookTitleAdminBean.renderUpdate}">
+            <f:facet name="header">Vybrat</f:facet>
+            <h:commandLink styleClass="admin_table_select" value="vybrat" action="#{bookTitleAdminBean.select}" />
+          </h:column>
+        </h:dataTable>
+      </h:form>
+    </div>
+
+    <div>
+      <h:form rendered="#{bookTitleAdminBean.renderAdd || bookTitleAdminBean.renderUpdate || !bookTitleAdminBean.renderList}">
+        <h:panelGrid columns="3">
+          ISBN: <h:inputText id="isbn" value="#{bookTitleAdminBean.item.isbn}" validator="#{readerNameValidator.validate}" />
+          <h:message for="isbn" />
+          Nazev: <h:inputText id="name" value="#{bookTitleAdminBean.item.name}" validator="#{readerSurameValidator.validate}" />
+          <h:message for="name" />
+          Kategorie: <h:selectManyListbox id="code" value="#{bookTitleAdminBean.item.categories}">
+            <f:selectItems itemLabel="#{category.name}" itemValue="#{category}" var="category" value="#{bookTitleAdminBean.categories}" />
+          </h:selectManyListbox>
+          Vydani: <h:inputText id="issue" value="#{bookTitleAdminBean.item.issue}" />
+          <h:message for="issue" />
+          Rok: <h:inputText id="year" value="#{bookTitleAdminBean.item.year}" />
+          <h:message for="year" />
+          Pocet stran: <h:inputText id="pages" value="#{bookTitleAdminBean.item.pages}" />
+          <h:message for="pages" />
+          O knize: <h:inputText id="about" value="#{bookTitleAdminBean.item.about}" />
+          <h:message for="about" />
+          Pocet jednotek: <h:inputText id="count" value="#{bookTitleAdminBean.item.count}" />
+          <h:message for="count" />
+          <h:commandButton rendered="#{bookTitleAdminBean.renderAdd || !bookTitleAdminBean.renderList}" value="Přidat" action="#{bookTitleAdminBean.add}" />
+          <h:commandButton rendered="#{bookTitleAdminBean.renderUpdate}" value="Upravit" action="#{bookTitleAdminBean.add}" />
+          <h:inputHidden id="idBookTitle" value="#{bookTitleAdminBean.item.id}" />
+        </h:panelGrid>
+      </h:form>
+    </div>
+
+  </ui:define>
+
+</ui:composition>

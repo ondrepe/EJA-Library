@@ -27,12 +27,14 @@ public interface ILibraryUnitBean {
   public ChargeOut getChargeOut(int id);
 
   public List<ChargeOut> getAllChargeOuts();
+  
+  public List<ChargeOut> getAllActiveChargeOuts();
 
-  public ChargeOut getActiveChargeOutByUnit(int idUnit); //active chargeout of unit can be one at a time at maximum
+  public List<ChargeOut> getActiveChargeOutsByBookTitle(int idTitle); //active chargeout of unit can be one at a time at maximum
 
-  public List<ChargeOut> getChargeOutsByUnit(int idUnit);
+  public List<ChargeOut> getChargeOutsByBookTitle(int idTitle);
 
   public void saveChargeOut(ChargeOut chargeOut);
 
-  public boolean isAvailable(int idUnit);
+  public boolean isAvailable(int idTitle);
 }

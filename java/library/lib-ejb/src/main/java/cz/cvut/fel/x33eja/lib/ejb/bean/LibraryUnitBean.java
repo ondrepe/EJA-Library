@@ -1,5 +1,13 @@
 package cz.cvut.fel.x33eja.lib.ejb.bean;
 
+import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutActiveListCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutGetCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutListCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitDeleteCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitGetCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitListByIdCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitListCommand;
+import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitSetCommand;
 import cz.cvut.fel.x33eja.lib.iface.ejb.ILibraryUnitBean;
 import cz.cvut.fel.x33eja.lib.iface.to.ChargeOut;
 import cz.cvut.fel.x33eja.lib.iface.to.LibraryUnit;
@@ -33,62 +41,75 @@ public class LibraryUnitBean implements ILibraryUnitBean {
   @Override
   @RolesAllowed({"ADMIN"})
   public LibraryUnit getLibraryUnit(int i) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    LibraryUnitGetCommand command = new LibraryUnitGetCommand(em, ctx);
+    return command.execute(i);
   }
 
   @Override
   @RolesAllowed({"ADMIN"})
   public List<LibraryUnit> getAllLibraryUnits() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    LibraryUnitListCommand command = new LibraryUnitListCommand(em, ctx);
+    return command.execute();
   }
 
   @Override
   @RolesAllowed({"ADMIN"})
   public List<LibraryUnit> getLibraryUnitsByBook(int i) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    LibraryUnitListByIdCommand command = new LibraryUnitListByIdCommand(em, ctx);
+    return command.execute(i);
   }
 
   @Override
   @RolesAllowed({"ADMIN"})
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void saveUnit(LibraryUnit lu) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    LibraryUnitSetCommand command = new LibraryUnitSetCommand(em, ctx);
+    command.execute(lu);
   }
 
   @Override
   @RolesAllowed({"ADMIN"})
   @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void removeUnit(int i) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    LibraryUnitDeleteCommand command = new LibraryUnitDeleteCommand(em, ctx);
+    command.execute(i);
   }
 
   @Override
-  @RolesAllowed({"ADMIN", "READER"})
+  @RolesAllowed({"ADMIN"})
   public ChargeOut getChargeOut(int i) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    ChargeOutGetCommand command = new ChargeOutGetCommand(em, ctx);
+    return command.execute(i);
   }
 
   @Override
   @RolesAllowed({"ADMIN", "READER"})
   public List<ChargeOut> getAllChargeOuts() {
+    ChargeOutListCommand command = new ChargeOutListCommand(em, ctx);
+    return command.execute();
+  }
+
+  @Override
+  @RolesAllowed({"ADMIN", "READER"})
+  public List<ChargeOut> getAllActiveChargeOuts() {
+    ChargeOutActiveListCommand command = new ChargeOutActiveListCommand(em, ctx);
+    return command.execute();
+  }
+
+  @Override
+  @RolesAllowed({"ADMIN", "READER"})
+  public List<ChargeOut> getActiveChargeOutsByBookTitle(int i) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   @RolesAllowed({"ADMIN", "READER"})
-  public ChargeOut getActiveChargeOutByUnit(int i) {
+  public List<ChargeOut> getChargeOutsByBookTitle(int i) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   @Override
   @RolesAllowed({"ADMIN", "READER"})
-  public List<ChargeOut> getChargeOutsByUnit(int i) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  @RolesAllowed({"ADMIN", "READER"})
-  @TransactionAttribute(TransactionAttributeType.REQUIRED)
   public void saveChargeOut(ChargeOut co) {
     throw new UnsupportedOperationException("Not supported yet.");
   }

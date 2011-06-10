@@ -25,7 +25,7 @@ public class BookTitleScoreCommand extends CommonCommand {
   protected void score(int id, int score) {
     BookTitlePO bookTitle = em.find(BookTitlePO.class, id);
     ScorePO scorePo = new ScorePO();
-    scorePo.setIdBookTitle(bookTitle);
+    scorePo.setBookTitle(bookTitle);
     scorePo.setValue(score);
     em.persist(scorePo);
   }

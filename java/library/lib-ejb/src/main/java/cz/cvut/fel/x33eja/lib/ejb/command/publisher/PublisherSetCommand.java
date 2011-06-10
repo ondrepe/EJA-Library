@@ -3,7 +3,6 @@ package cz.cvut.fel.x33eja.lib.ejb.command.publisher;
 import cz.cvut.fel.x33eja.lib.ejb.command.CreateUpdateCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.SetCommand;
 import cz.cvut.fel.x33eja.lib.ejb.po.PublisherPO;
-import cz.cvut.fel.x33eja.lib.ejb.translator.impl.PublisherTranslator;
 import cz.cvut.fel.x33eja.lib.iface.to.Publisher;
 import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
@@ -35,8 +34,10 @@ public class PublisherSetCommand extends SetCommand<PublisherPO, Publisher> {
 
   @Override
   protected PublisherPO convert(Publisher object) {
-    PublisherTranslator translator = new PublisherTranslator();
-    return translator.fromDoToPo(object);
+    PublisherPO publisherPO = new PublisherPO();
+    publisherPO.setIdPublisher(object.getIdPublisher());
+    publisherPO.setName(object.getName());
+    return publisherPO;
   }
 
   @Override

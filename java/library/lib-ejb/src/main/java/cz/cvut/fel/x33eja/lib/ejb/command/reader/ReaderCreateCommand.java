@@ -4,6 +4,7 @@ import cz.cvut.fel.x33eja.lib.ejb.command.CreateUpdateCommand;
 import cz.cvut.fel.x33eja.lib.ejb.po.AutentizationGroupPO;
 import cz.cvut.fel.x33eja.lib.ejb.po.AutentizationPO;
 import cz.cvut.fel.x33eja.lib.ejb.po.ReaderPO;
+import cz.cvut.fel.x33eja.lib.iface.to.Reader;
 import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
 
@@ -23,13 +24,17 @@ public class ReaderCreateCommand extends CreateUpdateCommand<ReaderPO> {
 
   @Override
   public void execute(ReaderPO reader) {
-    reader.setIdReader(null);
+    ReaderPO readerPo = new ReaderPO();
+    readerPo.setName(reader.getName());
+    readerPo.setSurname(reader.getSurname());
+    readerPo.setEmail(reader.getEmail());
+    
     AutentizationGroupPO autentizationGroup = em.find(AutentizationGroupPO.class, "READER");
     AutentizationPO autentization = new AutentizationPO();
     autentization.setLogin(createLogin(reader.getName(), reader.getSurname()));
     autentization.setPassword("955db0b81ef1989b4a4dfeae8061a9a6"); // MD5 pro heslo
     autentization.setGroupName(autentizationGroup);
-    autentization.setIdReader(reader);
+    autentization.setReader(readerPo);
     
     em.persist(autentization);
   }

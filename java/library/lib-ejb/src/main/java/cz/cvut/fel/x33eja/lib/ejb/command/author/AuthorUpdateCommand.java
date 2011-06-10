@@ -21,7 +21,9 @@ public class AuthorUpdateCommand extends CreateUpdateCommand<AuthorPO> {
   
   @Override
   public void execute(AuthorPO object) {
-    AuthorPO objectPO = em.merge(object);
+    AuthorPO objectPO = em.find(AuthorPO.class, object.getIdAuthor());
+    objectPO.setName(object.getName());
+    objectPO.setSurname(object.getSurname());
     em.persist(objectPO);
   }
   

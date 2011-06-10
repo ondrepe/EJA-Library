@@ -35,8 +35,10 @@ public class CategorySetCommand extends SetCommand<CategoryPO, Category> {
 
   @Override
   protected CategoryPO convert(Category object) {
-    CategoryTranslator translator = new CategoryTranslator();
-    return translator.fromDoToPo(object);
+    CategoryPO category = new CategoryPO();
+    category.setIdCategory(object.getIdCategory());
+    category.setName(object.getName());
+    return category;
   }
 
   @Override

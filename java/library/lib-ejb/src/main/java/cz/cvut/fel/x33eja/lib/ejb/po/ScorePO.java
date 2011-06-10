@@ -1,6 +1,5 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +11,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.eclipse.persistence.annotations.Cache;
 
 /**
@@ -25,28 +22,27 @@ import org.eclipse.persistence.annotations.Cache;
 @Table(name = "score")
 @NamedQueries({
   @NamedQuery(name = "ScorePO.findAll", query = "SELECT s FROM ScorePO s"),
-  @NamedQuery(name = "ScorePO.findByIdScore", query = "SELECT s FROM ScorePO s WHERE s.idScore = :idScore"),
   @NamedQuery(name = "ScorePO.findByValue", query = "SELECT s FROM ScorePO s WHERE s.value = :value"),
   @NamedQuery(name = "ScorePO.findByData", query = "SELECT s FROM ScorePO s WHERE s.data = :data")})
 public class ScorePO extends CommonPO {
+  
   private static final long serialVersionUID = 1L;
+  
   @Id
-  @Basic(optional = false)
-  @NotNull
   @GeneratedValue(generator = "scoreTableGen", strategy=GenerationType.TABLE)
   @TableGenerator(name = "scoreTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "score", initialValue = 10000, allocationSize = 200)
   @Column(name = "idScore")
   private Integer idScore;
-  @Basic(optional = false)
-  @NotNull
+  
   @Column(name = "value")
   private int value;
-  @Size(max = 100)
+  
   @Column(name = "data")
   private String data;
+  
   @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")
   @ManyToOne(optional = false)
-  private BookTitlePO idBookTitle;
+  private BookTitlePO bookTitle;
 
   public ScorePO() {
   }
@@ -84,12 +80,12 @@ public class ScorePO extends CommonPO {
     this.data = data;
   }
 
-  public BookTitlePO getIdBookTitle() {
-    return idBookTitle;
+  public BookTitlePO getBookTitle() {
+    return bookTitle;
   }
 
-  public void setIdBookTitle(BookTitlePO idBookTitle) {
-    this.idBookTitle = idBookTitle;
+  public void setBookTitle(BookTitlePO bookTitle) {
+    this.bookTitle = bookTitle;
   }
   
 }

@@ -32,7 +32,7 @@ public class ReaderListCommand extends ListCommand<ReaderPO, Reader> {
   @Override
   protected List<Reader> convert(List<ReaderPO> list) {
     ReaderTranslator translator = new ReaderTranslator();
-    return translator.fromPoListToDoList(list);
+    return translator.translateList(list);
   }
 
   @Override

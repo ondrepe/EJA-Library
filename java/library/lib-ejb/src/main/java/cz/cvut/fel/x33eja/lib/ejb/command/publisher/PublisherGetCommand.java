@@ -29,7 +29,7 @@ public class PublisherGetCommand extends GetCommand<PublisherPO, Publisher> {
   @Override
   protected Publisher convert(PublisherPO object) {
     PublisherTranslator translator = new PublisherTranslator();
-    return translator.fromPoToDo(object);
+    return translator.translate(object);
   }
 
   @Override

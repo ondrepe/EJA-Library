@@ -30,7 +30,7 @@ public class CommentaryGetCommand extends GetCommand<CommentaryPO, Commentary> {
   @Override
   protected Commentary convert(CommentaryPO object) {
     CommentaryTranslator translator = new CommentaryTranslator();
-    return translator.fromPoToDo(object);
+    return translator.translate(object);
   }
 
   @Override

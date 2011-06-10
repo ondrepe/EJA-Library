@@ -9,7 +9,5 @@ import cz.cvut.fel.x33eja.lib.iface.to.CommonTO;
  */
 public interface ITranslator<PO extends CommonPO, TO extends CommonTO> {
 
-  public TO fromPoToDo(PO from);
-
-  public PO fromDoToPo(TO from);
+  public TO translate(PO from);
 }

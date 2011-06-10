@@ -11,7 +11,7 @@ import cz.cvut.fel.x33eja.lib.iface.to.Author;
 public class AuthorTranslator extends CommonTranslator<AuthorPO, Author> {
 
   @Override
-  public Author fromPoToDo(AuthorPO from) {
+  public Author translate(AuthorPO from) {
     Author author = new Author();
     
     author.setIdAuthor(from.getIdAuthor());
@@ -20,16 +20,4 @@ public class AuthorTranslator extends CommonTranslator<AuthorPO, Author> {
     
     return author;
   }
-
-  @Override
-  public AuthorPO fromDoToPo(Author from) {
-    AuthorPO author = new AuthorPO();
-    
-    author.setIdAuthor(from.getIdAuthor());
-    author.setName(from.getName());
-    author.setSurname(from.getSurname());
-    
-    return author;
-  }
-  
 }

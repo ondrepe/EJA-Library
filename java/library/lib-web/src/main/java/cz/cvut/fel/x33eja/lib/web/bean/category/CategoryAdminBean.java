@@ -6,14 +6,14 @@ import cz.cvut.fel.x33eja.lib.web.bean.CommonAdminBean;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author ondrepe
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class CategoryAdminBean extends CommonAdminBean<Category> {
 
   @EJB
@@ -32,6 +32,11 @@ public class CategoryAdminBean extends CommonAdminBean<Category> {
   @Override
   protected List<Category> load() {
     return categoryBean.getAllCategories();
+  }
+
+  @Override
+  protected void deleteItem(Category item) {
+    categoryBean.remove(item.getIdCategory());
   }
   
 }

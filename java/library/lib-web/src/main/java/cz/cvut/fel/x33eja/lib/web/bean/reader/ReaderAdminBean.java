@@ -6,14 +6,14 @@ import cz.cvut.fel.x33eja.lib.web.bean.CommonAdminBean;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author ondrepe
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ReaderAdminBean extends CommonAdminBean<Reader> {
 
   @EJB
@@ -32,5 +32,10 @@ public class ReaderAdminBean extends CommonAdminBean<Reader> {
   @Override
   protected List<Reader> load() {
    return readerBean.getAllReaders();
+  }
+
+  @Override
+  protected void deleteItem(Reader item) {
+    readerBean.remove(item.getIdReader());
   }
 }

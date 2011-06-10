@@ -1,7 +1,6 @@
 package cz.cvut.fel.x33eja.lib.ejb.po;
 
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +13,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.eclipse.persistence.annotations.Cache;
 
 /**
@@ -27,33 +24,29 @@ import org.eclipse.persistence.annotations.Cache;
 @Table(name = "author")
 @NamedQueries({
   @NamedQuery(name = "AuthorPO.findAll", query = "SELECT a FROM AuthorPO a"),
-  @NamedQuery(name = "AuthorPO.findByIdAuthor", query = "SELECT a FROM AuthorPO a WHERE a.idAuthor = :idAuthor"),
   @NamedQuery(name = "AuthorPO.findByName", query = "SELECT a FROM AuthorPO a WHERE a.name = :name"),
   @NamedQuery(name = "AuthorPO.findBySurname", query = "SELECT a FROM AuthorPO a WHERE a.surname = :surname")})
 public class AuthorPO extends CommonPO {
+  
   private static final long serialVersionUID = 1L;
+  
   @Id
-  @Basic(optional = false)
-  @NotNull
   @GeneratedValue(generator = "authorTableGen", strategy=GenerationType.TABLE)
   @TableGenerator(name = "authorTableGen", table = "idtable", pkColumnName = "name", valueColumnName = "val", pkColumnValue = "author", initialValue = 10000, allocationSize = 200)
   @Column(name = "idAuthor")
   private Integer idAuthor;
-  @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 50)
+  
   @Column(name = "name")
   private String name;
-  @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 250)
+  
   @Column(name = "surname")
   private String surname;
+  
   @JoinTable(name = "authorbook", joinColumns = {
     @JoinColumn(name = "idAuthor", referencedColumnName = "idAuthor")}, inverseJoinColumns = {
     @JoinColumn(name = "idBookTitle", referencedColumnName = "idBookTitle")})
   @ManyToMany
-  private List<BookTitlePO> bookTitlePOList;
+  private List<BookTitlePO> bookTitles;
 
   public AuthorPO() {
   }
@@ -92,11 +85,11 @@ public class AuthorPO extends CommonPO {
     this.surname = surname;
   }
 
-  public List<BookTitlePO> getBookTitlePOList() {
-    return bookTitlePOList;
+  public List<BookTitlePO> getBookTitles() {
+    return bookTitles;
   }
 
-  public void setBookTitlePOList(List<BookTitlePO> bookTitlePOList) {
-    this.bookTitlePOList = bookTitlePOList;
+  public void setBookTitles(List<BookTitlePO> bookTitles) {
+    this.bookTitles = bookTitles;
   }
 }

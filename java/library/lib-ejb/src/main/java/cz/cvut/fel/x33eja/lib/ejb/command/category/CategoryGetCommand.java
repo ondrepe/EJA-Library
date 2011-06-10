@@ -30,7 +30,7 @@ public class CategoryGetCommand extends GetCommand<CategoryPO, Category> {
   @Override
   protected Category convert(CategoryPO object) {
     CategoryTranslator categoryTranslator = new CategoryTranslator();
-    return categoryTranslator.fromPoToDo(object);
+    return categoryTranslator.translate(object);
   }
 
   @Override

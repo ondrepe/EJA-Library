@@ -26,7 +26,7 @@
         <web-resource-collection>
             <web-resource-name>admin</web-resource-name>
             <description/>
-            <url-pattern>/library/admin/*</url-pattern>
+            <url-pattern>/library/*Admin.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>

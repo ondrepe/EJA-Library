@@ -30,7 +30,7 @@ public class AuthorGetCommand extends GetCommand<AuthorPO, Author> {
   @Override
   protected Author convert(AuthorPO object) {
     AuthorTranslator translator = new AuthorTranslator();
-    return translator.fromPoToDo(object);
+    return translator.translate(object);
   }
 
   @Override
