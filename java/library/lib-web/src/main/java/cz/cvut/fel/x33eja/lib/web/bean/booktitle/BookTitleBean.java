@@ -122,6 +122,6 @@ public class BookTitleBean extends CommonListBean<BookTitle> {
     chargeOut.setFrom(from);
     chargeOut.setTo(to);
     chargeOut.setStatus(ChargeOutStatus.RESERVED);
-    libraryUnitBean.saveChargeOut(null);
+    libraryUnitBean.saveChargeOut(chargeOut);
   }
 }
