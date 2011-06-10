@@ -5,6 +5,7 @@ import cz.cvut.fel.x33eja.lib.iface.ejb.ILibraryUnitBean;
 import cz.cvut.fel.x33eja.lib.iface.to.BookTitle;
 import cz.cvut.fel.x33eja.lib.iface.to.ChargeOut;
 import cz.cvut.fel.x33eja.lib.iface.to.ChargeOutStatus;
+import cz.cvut.fel.x33eja.lib.iface.to.Reader;
 import cz.cvut.fel.x33eja.lib.web.bean.CommonListBean;
 import java.util.Date;
 import java.util.List;
@@ -113,7 +114,16 @@ public class BookTitleBean extends CommonListBean<BookTitle> {
    * posila mail s rezervaci
    */
   public void sendReservation() {
-  
+    ChargeOut chargeOut = new ChargeOut();
+    chargeOut.setBook(getItem());
+    chargeOut.setFrom(from);
+    chargeOut.setTo(to);
+    chargeOut.setStatus(ChargeOutStatus.RESERVED);
+    Reader reader = new Reader();
+    reader.setName(name);
+    reader.setSurname(surname);
+    reader.setEmail(email);
+    libraryUnitBean.sendReservation(chargeOut, reader);
   }
   
   public void addReservation() {

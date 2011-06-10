@@ -1,5 +1,6 @@
 package cz.cvut.fel.x33eja.lib.ejb.bean;
 
+import cz.cvut.fel.x33eja.lib.ejb.bean.mail.SendMailObjectCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutActiveListCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutGetCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.chargeout.ChargeOutListCommand;
@@ -14,6 +15,7 @@ import cz.cvut.fel.x33eja.lib.ejb.po.LibraryUnitPO;
 import cz.cvut.fel.x33eja.lib.iface.ejb.ILibraryUnitBean;
 import cz.cvut.fel.x33eja.lib.iface.to.ChargeOut;
 import cz.cvut.fel.x33eja.lib.iface.to.LibraryUnit;
+import cz.cvut.fel.x33eja.lib.iface.to.Reader;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -26,6 +28,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
+import javax.jms.ConnectionFactory;
+import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -42,6 +46,11 @@ public class LibraryUnitBean implements ILibraryUnitBean {
   private EntityManager em;
   @Resource
   private SessionContext ctx;
+  
+  @Resource(name = "jms/lib/bookingQueue")
+  private Queue bookingQueue;
+  @Resource(name = "jms/lib/bookingQueueFactory")
+  private ConnectionFactory bookingQueueFactory;
   
   @Override
   @RolesAllowed({"ADMIN"})
@@ -132,6 +141,13 @@ public class LibraryUnitBean implements ILibraryUnitBean {
     LibraryUnitGetAvailableCommand command = new LibraryUnitGetAvailableCommand(em, ctx);
     LibraryUnitPO libraryUnitPO = command.execute(idTitle, from, to);
     return libraryUnitPO != null;
+  }
+  
+  @Override
+  @PermitAll
+  public void sendReservation(ChargeOut chargeOut, Reader reader) {
+    SendMailObjectCommand command = new SendMailObjectCommand(em, ctx, bookingQueueFactory, bookingQueue);
+    command.sendBookingToQueue(chargeOut, reader);
   }
   
 }
