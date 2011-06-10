@@ -1,5 +1,6 @@
 package cz.cvut.fel.x33eja.lib.ejb.command.chargeout;
 
+import cz.cvut.fel.x33eja.lib.ejb.command.CreateUpdateCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.SetCommand;
 import cz.cvut.fel.x33eja.lib.ejb.command.libraryunit.LibraryUnitGetAvailableCommand;
 import cz.cvut.fel.x33eja.lib.ejb.po.ChargeOutPO;
@@ -26,7 +27,13 @@ public class ChargeOutSetCommand extends SetCommand<ChargeOutPO, ChargeOut> {
 
   @Override
   protected void set(ChargeOutPO object) {
+    CreateUpdateCommand command = null;
+    if(object.getIdChargeOut() == null) {
+      command = new ChargeOutCreateCommand(em, ctx);
+    } else {
     
+    }
+    command.execute(object);
   }
 
   @Override
