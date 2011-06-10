@@ -40,7 +40,7 @@
             <f:facet name="header">#{msgs.aboutBook}</f:facet>
             #{bookTitle.about}
           </h:column>
-         rendered="#{infoBean.reader}" <h:column>
+          rendered="#{infoBean.reader}" <h:column>
             <f:facet name="header">#{msgs.ratingAvg}</f:facet>
             #{bookTitle.avgScore}
           </h:column>
@@ -59,9 +59,9 @@
     <div>
       <h:form id="reader_form_res_booktitle" rendered="#{bookTitleBean.selected and infoBean.reader}">
         <h:panelGrid columns="3">
-          Od: <h:inputText id="from" value="#{bookTitleBean.from}" converter="dateConverter" />
+          #{msgs.from}: <h:inputText id="from" value="#{bookTitleBean.from}" converter="dateConverter" validator="dateValidator" />
           <h:message for="from" />
-          Do: <h:inputText id="to" value="#{bookTitleBean.to}" converter="dateConverter" />
+          #{msgs.to}: <h:inputText id="to" value="#{bookTitleBean.to}" converter="dateConverter" validator="dateValidator" />
           <h:message for="to" />
           <h:commandButton value="#{msgs.availCheck}" action="#{bookTitleBean.checkAvailable}" />
           <h:commandButton disabled="#{!bookTitleBean.available}" value="#{msgs.block}" action="#{bookTitleBean.addReservation}" />
@@ -70,9 +70,9 @@
       </h:form>
       <h:form id="anonym_form_res_booktitle" rendered="#{bookTitleBean.selected and infoBean.anonym}">
         <h:panelGrid columns="3">
-          #{msgs.from}: <h:inputText id="from" value="#{bookTitleBean.from}" converter="dateConverter" />
+          #{msgs.from}: <h:inputText id="from" value="#{bookTitleBean.from}" converter="dateConverter" validator="dateValidator" />
           <h:message for="from" />
-          #{msgs.to}: <h:inputText id="to" value="#{bookTitleBean.to}" converter="dateConverter" />
+          #{msgs.to}: <h:inputText id="to" value="#{bookTitleBean.to}" converter="dateConverter" validator="dateValidator" />
           <h:message for="to" />
           #{msgs.firstName} <h:inputText disabled="#{!bookTitleBean.available}" id="name" value="#{bookTitleBean.name}" validator="#{readerNameValidator.validate}" />
           <h:message for="name" />
